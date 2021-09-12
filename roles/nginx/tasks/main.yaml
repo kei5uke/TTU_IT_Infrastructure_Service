@@ -1,0 +1,10 @@
+- name: Install nginx
+  apt:
+    update_cache: yes
+    deb: http://security.ubuntu.com/ubuntu/pool/main/n/nginx/nginx_1.18.0-0ubuntu1.2_all.deb
+
+- name: copy index html
+  ansible.builtin.copy:
+    src: ~/ica0002/ica0002/index.html
+    dest: /var/www/html/index.html
+    mode: u+rw,g=rw,o=r
