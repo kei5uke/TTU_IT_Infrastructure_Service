@@ -9,9 +9,24 @@
     owner: agama
     mode: u+wr,g=rw,o=r
 
-- name: Install python3-flask
+- name: Update and upgrade
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install flask
+  apt:
+    name: python3-flask
+
+- name: Install flask-sqlalchemy
   apt:
     name: python3-flask-sqlalchemy
+
+- name: Install sqlite3
+  apt:
+    name: sqlite3
 
 - name: Install amaga.py
   get_url:

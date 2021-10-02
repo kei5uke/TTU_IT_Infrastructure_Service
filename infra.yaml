@@ -10,5 +10,6 @@
     roles:
       - users
       - agama
+      - uwsgi
       - nginx
       

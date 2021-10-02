@@ -8,3 +8,14 @@
     src: ~/ica0002/ica0002/index.html
     dest: /var/www/html/index.html
     mode: u+rw,g=rw,o=r
+
+- name: copy default to nginx 
+  ansible.builtin.copy:
+    src: ~/ica0002/ica0002/roles/nginx/files/default
+    dest: /etc/nginx/sites-enabled/default
+  notify: Restart nginx
+
+- name: start nginx unconditionally
+  ansible.builtin.service:
+    name: nginx
+    enabled: yes
