@@ -13,8 +13,8 @@
     name: uwsgi-plugin-python3
     
 - name: Add uWSGI config
-  ansible.builtin.copy:
-    src: ../files/agama.ini
+  ansible.builtin.template:
+    src: ../templates/agama.ini
     dest: /etc/uwsgi/apps-enabled/agama.ini
     owner: agama
     mode: u=rwx,g=rwx,o=r

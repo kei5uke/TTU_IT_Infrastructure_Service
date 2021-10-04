@@ -17,6 +17,10 @@
   apt:
     name: python3-flask-sqlalchemy
 
+- name: Install pymysql
+  apt:
+    name: python3-pymysql 
+
 - name: Install sqlite3
   apt:
     name: sqlite3
