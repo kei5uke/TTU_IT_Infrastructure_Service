@@ -14,7 +14,7 @@
     
 - name: Add uWSGI config
   ansible.builtin.copy:
-    src: ~/ica0002/ica0002/roles/uwsgi/files/agama.ini
+    src: ../files/agama.ini
     dest: /etc/uwsgi/apps-enabled/agama.ini
     owner: agama
     mode: u=rwx,g=rwx,o=r
@@ -22,5 +22,6 @@
       
 - name: start uWSGI unconditionally
   ansible.builtin.service:
-    name: uwsgi 
+    name: uwsgi
+    state: started
     enabled: yes

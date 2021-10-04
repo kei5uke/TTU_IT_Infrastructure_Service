@@ -1,0 +1,17 @@
+- name: Install mysql-server
+  apt:
+    name: mysql-server
+
+- name: Start and enabled mysql
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Add mysql override.cnf
+  ansible.builtin.copy:
+    src: ../files/override.cnf
+    dest: /etc/mysql/mysql.conf.d/override.cnf
+  notify: Restart mysql
+
+    
