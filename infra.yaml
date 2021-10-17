@@ -15,6 +15,7 @@
     become: yes
     roles:
       - mysql
+      - bind
 
   - name: Web server
     hosts: web_servers
