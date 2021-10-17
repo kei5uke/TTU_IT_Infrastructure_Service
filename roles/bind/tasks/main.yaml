@@ -1,0 +1,36 @@
+- name: Install Bind9
+  ansible.builtin.apt:
+    name: bind9 
+
+- name: Enable Bind9
+  ansible.builtin.service:
+    name: bind9 
+    enabled: yes
+    state: started
+    
+- name: Configure access rule for DNS
+  ansible.builtin.template:
+    src: ../templates/named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+  notify: 
+    - Restart Bind9
+    - Reload Bind9 config
+
+- name: Configure DNS master zone
+  ansible.builtin.template:
+    src: ../templates/db.noobmaster69.j2
+    dest: /var/lib/bind/db.noobmaster69
+  notify: 
+    - Restart Bind9
+    - Reload Bind9 config
+
+- name: Configure DNS resolve.conf
+  ansible.builtin.template:
+    src: ../templates/named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+
+- name: Stop systemd-resolved
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    enabled: no 
+    state: stopped

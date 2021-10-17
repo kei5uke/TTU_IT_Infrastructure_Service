@@ -1,0 +1,20 @@
+acl lan {
+	 {% for n in acl_ips %}
+	 {{ n }};
+	 {% endfor %} 
+};
+options {
+	directory "/var/lib/bind";
+
+	forwarders {
+		{% for n in dns_forwarders %}
+		{{ n }};
+		{% endfor %}
+	};
+
+    allow-query {
+		lan; 
+	};
+
+	dnssec-validation no;
+};

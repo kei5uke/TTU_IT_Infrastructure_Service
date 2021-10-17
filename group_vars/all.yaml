@@ -1,4 +1,4 @@
-mysql_host: 192.168.42.110
+mysql_host: keisuke-jpn-2.noobmaster69.kk
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
