@@ -1,0 +1,11 @@
+
+- name: Install prometheus
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.darwin-amd64.tar.gz
+    dest: /etc/prometheus.tar.gz
+
+- name: Unzip prometheus
+  ansible.builtin.unarchive:
+    src: /etc/node_exporter.tar.gz
+    dest: /etc/node_exporter
+    remote_src: yes

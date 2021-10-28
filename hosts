@@ -1,5 +1,5 @@
-keisuke-jpn-1  ansible_host=193.40.156.86 ansible_port=3522 ansible_ssh_user=ubuntu
-keisuke-jpn-2  ansible_host=193.40.156.86 ansible_port=5122 ansible_ssh_user=ubuntu
+keisuke-jpn-1  ansible_host=193.40.156.86 ansible_port=3922 ansible_ssh_user=ubuntu
+keisuke-jpn-2  ansible_host=193.40.156.86 ansible_port=12222 ansible_ssh_user=ubuntu
 
 [web_servers]
 keisuke-jpn-1
