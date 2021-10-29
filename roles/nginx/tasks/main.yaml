@@ -8,9 +8,9 @@
     dest: /var/www/html/index.html
     mode: u+rw,g=rw,o=r
 
-- name: copy default to nginx 
-  ansible.builtin.copy:
-    src: ../files/default
+- name: copy default to nginx
+  ansible.builtin.template:
+    src: ../files/default.j2
     dest: /etc/nginx/sites-enabled/default
   notify: Restart nginx
 
