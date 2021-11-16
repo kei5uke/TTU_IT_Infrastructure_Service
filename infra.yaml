@@ -15,12 +15,14 @@
     become: yes
     roles:
       - mysql
+      - mysql_exporter
 
   - name: DNS server
     hosts: dns_servers
     become: yes
     roles:
       - bind
+      - bind_exporter
 
   - name: DNS setting
     hosts: all
@@ -34,17 +36,18 @@
     roles:
         - agama
         - uwsgi
-        - nginx
+        - prometheus
 
-  - name: Node Exporter
+  - name: Nginx
     hosts: all
     become: yes
     roles:
-      - node_exporter
       - nginx
+      - nginx_exporter
+      - node_exporter
 
-  - name: prometheus
-    hosts: prometheus
+  - name: grafana
+    hosts: grafana
     become: yes
     roles:
-      - prometheus
+      - grafana

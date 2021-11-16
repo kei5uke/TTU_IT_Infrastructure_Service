@@ -1,7 +1,7 @@
 acl lan {
 	 {% for n in acl_ips %}
 	 {{ n }};
-	 {% endfor %} 
+	 {% endfor %}
 };
 options {
 	directory "/var/lib/bind";
@@ -13,8 +13,12 @@ options {
 	};
 
     allow-query {
-		lan; 
+		lan;
 	};
 
 	dnssec-validation no;
+};
+
+statiscs-channels {
+	inet 127.0.0.1 port 8053 allow { 127.0.0.1; }
 };
