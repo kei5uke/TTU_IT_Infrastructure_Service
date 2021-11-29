@@ -7,3 +7,16 @@
     name: prometheus-bind-exporter
     state: started
     enabled: yes
+
+- name: Add statistics channel
+  ansible.builtin.blockinfile:
+    dest: /etc/bind/named.conf.options
+    content: |
+      statistics-channels {
+        inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+      };
+  
+- name: Restart bind9
+  ansible.builtin.service:
+    name: bind9
+    state: restarted

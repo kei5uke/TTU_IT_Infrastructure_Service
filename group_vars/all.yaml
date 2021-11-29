@@ -17,7 +17,7 @@ acl_ips:
   - 192.168.42.0/24
   - 127.0.0.0/8
 
-domain_name: myshitsmellsgood.kk
+domain_name: noobmaster69.kk
 
 mysql_exporter_user: exporter
 mysql_exporter_password: !vault |

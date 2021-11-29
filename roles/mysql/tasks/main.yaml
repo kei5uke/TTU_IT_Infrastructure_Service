@@ -33,7 +33,7 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
   notify: Restart mysql
 
-- name: Add mysql mysql user
+- name: Add mysql exporter user
   community.mysql.mysql_user:
     name: "{{ mysql_exporter_user }}"
     password: "{{ mysql_exporter_password }}"

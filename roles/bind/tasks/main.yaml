@@ -28,6 +28,9 @@
   ansible.builtin.template:
     src: ../templates/named.conf.local.j2
     dest: /etc/bind/named.conf.local
+  notify: 
+    - Restart Bind9
+    - Reload Bind9 config
 
 - name: Stop systemd-resolved
   ansible.builtin.systemd:

@@ -4,15 +4,25 @@
     roles:
       - test_connection
 
+  - name: Collect info about all VMs
+    hosts: all
+    become: yes
+    gather_facts: yes
+    tasks:
+      - setup:
+
   - name: Init
     hosts: all
     become: yes
+    gather_facts: no
     roles:
       - init
+      - node_exporter
 
   - name: Database server
     hosts: db_servers
     become: yes
+    gather_facts: no
     roles:
       - mysql
       - mysql_exporter
@@ -20,19 +30,22 @@
   - name: DNS server
     hosts: dns_servers
     become: yes
+    gather_facts: no
     roles:
-      - bind
       - bind_exporter
+      - bind
 
   - name: DNS setting
     hosts: all
     become: yes
+    gather_facts: no
     roles:
       - dns
 
   - name: Web server
     hosts: web_servers
     become: yes
+    gather_facts: no
     roles:
         - agama
         - uwsgi
@@ -41,13 +54,14 @@
   - name: Nginx
     hosts: all
     become: yes
+    gather_facts: no
     roles:
       - nginx
       - nginx_exporter
-      - node_exporter
 
   - name: grafana
     hosts: grafana
     become: yes
+    gather_facts: no
     roles:
       - grafana
