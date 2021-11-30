@@ -32,7 +32,6 @@
     become: yes
     gather_facts: no
     roles:
-      - bind_exporter
       - bind
 
   - name: DNS setting
@@ -41,6 +40,13 @@
     gather_facts: no
     roles:
       - dns
+
+  - name: Bind exporter 
+    hosts: dns_servers 
+    become: yes 
+    gather_facts: no 
+    roles:
+     - bind_exporter
 
   - name: Web server
     hosts: web_servers

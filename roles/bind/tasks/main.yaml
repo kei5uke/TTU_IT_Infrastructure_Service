@@ -1,12 +1,6 @@
 - name: Install Bind9
   ansible.builtin.apt:
     name: bind9 
-
-- name: Enable Bind9
-  ansible.builtin.service:
-    name: bind9 
-    enabled: yes
-    state: started
     
 - name: Configure access rule for DNS
   ansible.builtin.template:
@@ -31,6 +25,12 @@
   notify: 
     - Restart Bind9
     - Reload Bind9 config
+
+- name: Enable Bind9
+  ansible.builtin.service:
+    name: bind9 
+    enabled: yes
+    state: started
 
 - name: Stop systemd-resolved
   ansible.builtin.systemd:
