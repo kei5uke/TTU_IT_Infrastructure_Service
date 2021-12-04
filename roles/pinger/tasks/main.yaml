@@ -1,0 +1,36 @@
+---
+  - name: Install fping
+    ansible.builtin.apt: 
+      name: fping 
+      state: latest 
+  
+  - name: Install curl 
+    ansible.builtint.apt:
+      name: curl  
+      state: latest 
+    
+  - name: Copy pinger.sh
+    ansible.builtin.template:
+      src: ../templates/pinger.sh 
+      dest: /usr/local/bin/pinger
+      mode: '0555'
+    notify: Restart pinger 
+  
+  - name: Create Dir for pinger.conf
+    ansible.builtin.file:
+      path: /etc/pinger 
+      state: directory
+
+  - name: Copy pinger.conf to the dir 
+    ansible.builtin.template: 
+      src: ../templates/pinger.conf
+      dest: /etc/pinger/pinger.conf
+    notify: Restart pinger 
+
+  - name: Create pinger service 
+    ansible.builtin.template:
+      src: ../templates/pinger.service
+      dest: /etc/systemd/system/pinger.service
+    notify:
+      - Daemon_relaod
+      - Restart pinger
