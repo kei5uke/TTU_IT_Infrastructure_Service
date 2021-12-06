@@ -14,13 +14,13 @@
         - telegraf 
   
   - name: Copy influxdb.conf
-    ansible.builtin.templates: 
+    ansible.builtin.template: 
       src: ../templates/influxdb.conf 
       dest: /etc/influxdb/influxdb.conf
     notify: Restart influxdb 
   
   - name: Copy influxdb.conf
-    ansible.builtin.templates: 
+    ansible.builtin.template: 
       src: ../templates/telegraf.conf 
       dest: /etc/influxdb/telegraf.conf
     notify: Restart telegraf

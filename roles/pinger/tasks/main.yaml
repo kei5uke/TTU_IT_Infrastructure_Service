@@ -5,7 +5,7 @@
       state: latest 
   
   - name: Install curl 
-    ansible.builtint.apt:
+    ansible.builtin.apt:
       name: curl  
       state: latest 
     

@@ -18,11 +18,6 @@
     dest: /etc/default/prometheus-mysqld-exporter
   notify: Restart mysql exporter
 
-- name: Restart mysql exporter
-  ansible.builtin.service:
-    name: prometheus-mysqld-exporter
-    state: restarted
-
 - name: 15 seconds
   pause:
     seconds: 15
