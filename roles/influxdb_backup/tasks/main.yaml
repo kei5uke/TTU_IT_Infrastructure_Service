@@ -1,0 +1,13 @@
+---
+  - name: Create directory 
+    ansible.builtin.file: 
+      path: /home/backup/influxdb
+      state: directory
+      mode: "0700"
+      owner: backup 
+      group: backup 
+
+  - name: Create influxdb-backup file 
+    ansible.builtin.template: 
+      src: ../templates/influxdb-backup 
+      dest: /etc/cron.d/influxdb-backup

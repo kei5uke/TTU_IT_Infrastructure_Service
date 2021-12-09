@@ -8,3 +8,20 @@
       ssh_key_bits: 2048 
       ssh_key_file: .ssh/id_rsa
     
+  - name: Create restore directory 
+    ansible.builtin.file: 
+      path: /home/backup/restore
+      state: directory 
+      mode: 0744 
+      owner: backup 
+      group: backup 
+    
+  - name: Install Duplicity
+    ansible.builtin.apt: 
+      name: duplicity 
+
+  - name: Copy known_hosts
+    ansible.builtin.template: 
+      src: ../templates/known_hosts.j2
+      dest: /home/backup/.ssh/known_hosts 
+      mode: 0644

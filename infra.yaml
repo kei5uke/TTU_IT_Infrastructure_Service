@@ -27,6 +27,7 @@
     roles:
       - mysql
       - mysql_exporter
+      - mysql_backup
 
   - name: DNS server
     hosts: dns_servers
@@ -74,6 +75,7 @@
       - influxdb 
       - pinger 
       - influxdb_exporter
+      - influxdb_backup
 
   - name: grafana
     hosts: grafana

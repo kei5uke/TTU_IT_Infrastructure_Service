@@ -15,7 +15,7 @@ The backup will be updated to the point where the database is no more than one d
 Local backup is made once a day at 2:00 AM, includeing Influnxdb, MySQL   
 Old back up will be deleted after the new one is made.  
 
-Full back is made every Sunday at 2:30 AM, including Influxdb, MySQL.  
+Full backup is made every Sunday at 2:30 AM, including Influxdb, MySQL.  
 The backup will be kept for one month.  
 
 Incremental backup is made 2:30 AM on weekdays(Mon - Fri), including Influxdb, MySQL. 
