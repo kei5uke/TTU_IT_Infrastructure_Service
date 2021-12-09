@@ -17,6 +17,7 @@
     gather_facts: no
     roles:
       - init
+      - backup
       - node_exporter
 
   - name: Database server
