@@ -16,7 +16,7 @@ To restore **InfluxDB** database you will have to run commands as root on the fi
 
 Firstly, In order to restore the backup from the server, run this command as backup user:  
 ```sudo su - backup```   
-```duplicity --no-encryption restore rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn /home/backup/restore/influxdb```
+```duplicity --no-encryption restore rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn /home/backup/influxdb```
 
 To restore the backup you will need to delete existing telegraf database first. It also makes sense to stop the Telegraf service so that it doesn't recreate the database before you could restore it, run these commands from root user:  
 ```service telegraf stop```  
