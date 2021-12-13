@@ -31,7 +31,6 @@
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-  notify: Restart mysql
 
 - name: Add mysql exporter user
   community.mysql.mysql_user:
@@ -40,4 +39,22 @@
     priv:
       '*.*': 'PROCESS,REPLICATION CLIENT,SELECT'
     login_unix_socket: /var/run/mysqld/mysqld.sock
-  notify: Restart mysql
+
+- name: Add mysel replication user
+  community.mysql.mysql_user:
+    name: "{{ mysql_replication_user }}"
+    password: "{{ mysql_replication_password }}"
+    host: "%"
+    priv:
+      "*.*:REPLICATION SLAVE"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Make replit read-only
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+  - Reset MySQL source
+  - Reset MySQL replica
