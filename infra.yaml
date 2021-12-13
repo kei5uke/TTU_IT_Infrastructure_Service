@@ -19,6 +19,7 @@
       - init
       - backup
       - node_exporter
+      - rsyslog
 
   - name: Database server
     hosts: db_servers
