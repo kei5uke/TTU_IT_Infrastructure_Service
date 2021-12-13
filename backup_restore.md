@@ -10,7 +10,7 @@ Firstly, In order to restore the backup from the server, run this command as bac
 ```duplicity --no-encryption restore rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn /home/backup/mysql```
 
 Secondly, In order to upload the restore backup onto the machine, run this command from root user:  
-```mysql agama < /home/backup/mysql/agama.sql```
+```mysqldump agama < /home/backup/mysql/agama.sql```
 
 To restore **InfluxDB** database you will have to run commands as root on the first virtual machine where our InfluxDB configuration is made.
 
