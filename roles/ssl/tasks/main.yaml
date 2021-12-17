@@ -1,0 +1,15 @@
+---
+  - name: Install iptables 
+    ansible.builtin.apt:
+      name: iptables-persistent
+
+  - name: Install rule
+    ansible.builtin.template:
+      src: ../templates/iptables.mangle
+      dest: /etc/iptables/rules.v4
+
+  - name: Store iptables
+    community.general.iptables_state:
+      path: /etc/iptables/rules.v4
+      state: restored
+      table: mangle

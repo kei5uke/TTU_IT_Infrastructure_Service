@@ -56,8 +56,10 @@
     become: yes
     gather_facts: no
     roles:
+        - ssl
+        - docker
         - agama
-        - uwsgi
+        #- uwsgi
         - prometheus
 
   - name: Nginx
@@ -83,4 +85,5 @@
     become: yes
     gather_facts: no
     roles:
+      - docker
       - grafana
