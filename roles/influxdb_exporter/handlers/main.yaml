@@ -1,8 +1,9 @@
-- name: Daemon reload
-  ansible.builtin.systemd:
-    daemon_reload: yes
+---
+  - name: Daemon reload
+    ansible.builtin.systemd:
+      daemon_reload: yes
 
-- name: Restart influxdb exporter
-  service:
-    name: prometheus-influxdb-stats-exporter
-    state: restarted
+  - name: Restart influxdb exporter
+    service:
+      name: prometheus-influxdb-stats-exporter
+      state: restarted

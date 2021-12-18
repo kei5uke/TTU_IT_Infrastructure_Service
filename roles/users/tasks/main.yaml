@@ -1,21 +1,22 @@
-- name: Add user 'juri'
-  ansible.builtin.user:
-    name: juri
-    shell: /bin/bash
+---
+  - name: Add user 'juri'
+    ansible.builtin.user:
+      name: juri
+      shell: /bin/bash
 
-- name: Add user 'roman'
-  ansible.builtin.user:
-    name: roman
-    shell: /bin/bash
-    
-- name: Get SSH key from 'juri' github
-  ansible.posix.authorized_key:
-    user: juri
-    state: present
-    key: https://github.com/hudolejev.keys
-    
-- name: Get SSH key from 'roman' github
-  ansible.posix.authorized_key:
-    user: roman
-    state: present
-    key: https://github.com/romankuchin.keys
+  - name: Add user 'roman'
+    ansible.builtin.user:
+      name: roman
+      shell: /bin/bash
+      
+  - name: Get SSH key from 'juri' github
+    ansible.posix.authorized_key:
+      user: juri
+      state: present
+      key: https://github.com/hudolejev.keys
+      
+  - name: Get SSH key from 'roman' github
+    ansible.posix.authorized_key:
+      user: roman
+      state: present
+      key: https://github.com/romankuchin.keys

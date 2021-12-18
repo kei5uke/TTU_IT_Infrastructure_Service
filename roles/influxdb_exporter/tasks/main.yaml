@@ -1,21 +1,21 @@
 ---
-- name: Install Prometheus influxdb exporter
-  ansible.builtin.get_url:
-    url: https://github.com/carlpett/influxdb_stats_exporter/releases/download/v0.1.1/influx_stats_exporter_linux_amd64
-    dest: /usr/local/bin/influxdb
-    mode: 0555
+  - name: Install Prometheus influxdb exporter
+    ansible.builtin.get_url:
+      url: https://github.com/carlpett/influxdb_stats_exporter/releases/download/v0.1.1/influx_stats_exporter_linux_amd64
+      dest: /usr/local/bin/influxdb
+      mode: 0555
 
-- name: Copy service template
-  ansible.builtin.template:
-    src: ../templates/prometheus-influxdb-stats-exporter.service
-    dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
-  notify:
-    - Daemon reload
-    - Restart influxdb exporter
+  - name: Copy service template
+    ansible.builtin.template:
+      src: ../templates/prometheus-influxdb-stats-exporter.service
+      dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
+    notify:
+      - Daemon reload
+      - Restart influxdb exporter
 
-- name: Start and enable influxdb exporter
-  ansible.builtin.service:
-    name: prometheus-influxdb-stats-exporter
-    state: started
-    enabled: yes
+  - name: Start and enable influxdb exporter
+    ansible.builtin.service:
+      name: prometheus-influxdb-stats-exporter
+      state: started
+      enabled: yes
   

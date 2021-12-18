@@ -1,5 +1,5 @@
 ---
-  - name: Copy 10-telegraf.conf
+  - name: Install 10-telegraf.conf
     ansible.builtin.template:   
       src: ../templates/10-telegraf.conf
       dest: /etc/rsyslog.d/10-telegraf.conf 

@@ -19,10 +19,10 @@
       dest: /etc/influxdb/influxdb.conf
     notify: Restart influxdb 
   
-  - name: Copy influxdb.conf
+  - name: Copy telegraf.conf
     ansible.builtin.template: 
       src: ../templates/telegraf.conf 
-      dest: /etc/influxdb/telegraf.conf
+      dest: /etc/telegraf/telegraf.conf
     notify: Restart telegraf
 
   - name: Start and enable influxdb  

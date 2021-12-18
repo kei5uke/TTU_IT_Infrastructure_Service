@@ -1,26 +1,27 @@
-- name: Install nginx
-  apt:
-    deb: http://security.ubuntu.com/ubuntu/pool/main/n/nginx/nginx_1.18.0-0ubuntu1.2_all.deb
+--- 
+  - name: Install nginx
+    apt:
+      deb: http://security.ubuntu.com/ubuntu/pool/main/n/nginx/nginx_1.18.0-0ubuntu1.2_all.deb
 
-- name: copy index html
-  ansible.builtin.copy:
-    src: ../files/index.html
-    dest: /var/www/html/index.html
-    mode: u+rw,g=rw,o=r
+  - name: copy index html
+    ansible.builtin.copy:
+      src: ../files/index.html
+      dest: /var/www/html/index.html
+      mode: u+rw,g=rw,o=r
 
-- name: copy default to nginx
-  ansible.builtin.template:
-    src: ../templates/default.j2
-    dest: /etc/nginx/sites-enabled/default
-  notify: Restart nginx
+  - name: copy default to nginx
+    ansible.builtin.template:
+      src: ../templates/default.j2
+      dest: /etc/nginx/sites-enabled/default
+    notify: Restart nginx
 
-- name: start nginx unconditionally
-  ansible.builtin.service:
-    name: nginx
-    enabled: yes
+  - name: start nginx unconditionally
+    ansible.builtin.service:
+      name: nginx
+      enabled: yes
 
-- name: put exporter
-  ansible.builtin.template:
-    src: ../templates/exporter.j2
-    dest: /etc/nginx/sites-enabled/exporter
-  notify: Restart nginx
+  - name: put exporter
+    ansible.builtin.template:
+      src: ../templates/exporter.j2
+      dest: /etc/nginx/sites-enabled/exporter
+    notify: Restart nginx

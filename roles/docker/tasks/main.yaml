@@ -11,7 +11,7 @@
       state: started 
       enabled: yes 
     
-  - name: Login to the docer 
+  - name: Login to the docker hub
     community.docker.docker_login:
       username: keisukejpn
       password: "{{docker_password}}"

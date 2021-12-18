@@ -1,27 +1,28 @@
-- name: Install uwsgi
-  apt:
-    name: uwsgi
-    install-recommends: yes
+---
+  - name: Install uwsgi
+    apt:
+      name: uwsgi
+      install-recommends: yes
 
-- name: Install uwsgi-core
-  apt:
-    name: uwsgi-core
-    install-recommends: yes
+  - name: Install uwsgi-core
+    apt:
+      name: uwsgi-core
+      install-recommends: yes
 
-- name: Install uWSGI python plugin
-  apt:
-    name: uwsgi-plugin-python3
-    
-- name: Add uWSGI config
-  ansible.builtin.template:
-    src: ../templates/agama.ini
-    dest: /etc/uwsgi/apps-enabled/agama.ini
-    owner: agama
-    mode: u=rwx,g=rwx,o=r
-  notify: Restart uwsgi
+  - name: Install uWSGI python plugin
+    apt:
+      name: uwsgi-plugin-python3
       
-- name: start uWSGI unconditionally
-  ansible.builtin.service:
-    name: uwsgi
-    state: started
-    enabled: yes
+  - name: Add uWSGI config
+    ansible.builtin.template:
+      src: ../templates/agama.ini
+      dest: /etc/uwsgi/apps-enabled/agama.ini
+      owner: agama
+      mode: u=rwx,g=rwx,o=r
+    notify: Restart uwsgi
+        
+  - name: start uWSGI unconditionally
+    ansible.builtin.service:
+      name: uwsgi
+      state: started
+      enabled: yes

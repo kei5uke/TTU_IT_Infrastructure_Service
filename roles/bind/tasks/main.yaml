@@ -24,7 +24,7 @@
       - Restart Bind9
       - rndc reload
 
-  - name: copy template db.domain.reverse
+  - name: Reverse DNS config
     when: inventory_hostname in groups ['dns_master']
     ansible.builtin.template:
       src: db.domain.reverse

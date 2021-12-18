@@ -68,10 +68,10 @@ docker_password: !vault |
           3534613665303837300a636263313364303962323737623531613436313966363465366132356562
           3234
 
-grafana_port: 3001
 agama_port_1: 8001
 agama_port_2: 8002
 haproxy_port: 88
+grafana_port: 3001
 
 localhost: 127.0.0.0/8
 docker_network: 172.17.0.0/16

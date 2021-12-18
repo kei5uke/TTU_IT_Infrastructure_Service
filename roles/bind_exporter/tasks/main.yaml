@@ -1,19 +1,10 @@
-- name: Install Bind9 exporter
-  ansible.builtin.apt:
-    name: prometheus-bind-exporter
+---
+  - name: Install Bind9 exporter
+    ansible.builtin.apt:
+      name: prometheus-bind-exporter
 
-- name: start and enable bind9 exporter
-  service:
-    name: prometheus-bind-exporter
-    state: started
-    enabled: yes
-
-- name: Add statistics channel
-  ansible.builtin.blockinfile:
-    dest: /etc/bind/named.conf.options
-    content: |
-      statistics-channels {
-        inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
-      };
-     
-  notify: Restart bind9
+  - name: start and enable bind9 exporter
+    service:
+      name: prometheus-bind-exporter
+      state: started
+      enabled: yes
