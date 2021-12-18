@@ -5,7 +5,7 @@ server {
 {% if inventory_hostname in groups['web_servers'] %}
 	location / {
 		uwsgi_pass localhost:8001;
-		include uwsgi_params;
+		proxy_set_header Host $http_host;
 	}
 {% endif %}
 
@@ -46,6 +46,18 @@ server {
 {% if inventory_hostname in groups['influxdb'] %}
 	location /influxdb-metrics {
        proxy_pass http://localhost:9424/metrics;
+	}
+{% endif %}
+
+{% if inventory_hostname in groups['haproxy'] %}
+	location /haproxy-metrics {
+       proxy_pass http://localhost:9101/metrics;
+	}
+{% endif %}
+
+{% if inventory_hostname in groups['haproxy'] %}
+	location /keepalived-metrics {
+       proxy_pass http://localhost:9165/metrics;
 	}
 {% endif %}
 

@@ -25,6 +25,13 @@
       env:
         AGAMA_DATABASE_URI: mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{mysql_host}}/{{mysql_database}}
       restart_policy: always
-  
-
-
+    
+  - name: Run docker container part 2
+    community.docker.docker_container:
+      container_default_behavior: no_defaults
+      name: agama2 
+      image: agama 
+      published_ports: "{{ agama_port_2 }}:8000"
+      env:
+        AGAMA_DATABASE_URI: mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{mysql_host}}/{{mysql_database}}
+      restart_policy: always

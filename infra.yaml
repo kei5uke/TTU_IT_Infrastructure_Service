@@ -54,13 +54,21 @@
   - name: Web server
     hosts: web_servers
     become: yes
-    gather_facts: no
+    gather_facts: yes
     roles:
         - ssl
         - docker
         - agama
         #- uwsgi
         - prometheus
+      
+  - name: HAproxy 
+    hosts: haproxy 
+    become: yes 
+    gather_facts: yes
+    roles:
+      - haproxy
+      - keepalived
 
   - name: Nginx
     hosts: all

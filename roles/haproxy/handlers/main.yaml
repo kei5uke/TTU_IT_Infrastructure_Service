@@ -1,0 +1,10 @@
+---
+  - name: Restart HAproxy
+    ansible.builtin.service:
+      name: haproxy
+      state: restarted
+
+  - name: Restart HAproxy exporter
+    ansible.builtin.service:
+      name: prometheus-haproxy-exporter
+      state: restarted
