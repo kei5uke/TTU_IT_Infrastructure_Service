@@ -1,39 +1,43 @@
-- name: Install Bind9
-  ansible.builtin.apt:
-    name: bind9 
-    
-- name: Configure access rule for DNS
-  ansible.builtin.template:
-    src: ../templates/named.conf.options.j2
-    dest: /etc/bind/named.conf.options
-  notify: 
-    - Restart Bind9
-    - Reload Bind9 config
+---
+  - name: Install bind9 and dnspython
+    ansible.builtin.apt:
+      name: 
+        - bind9
+        - python3-dnspython 
 
-- name: Configure DNS master zone
-  ansible.builtin.template:
-    src: ../templates/db.noobmaster69.j2
-    dest: /var/lib/bind/db.noobmaster69
-  notify: 
-    - Restart Bind9
-    - Reload Bind9 config
+  - name: Option config 
+    ansible.builtin.template:
+      src: named.conf.options.j2
+      dest: /etc/bind/named.conf.options
+    no_log: true
+    notify:
+      - Restart Bind9
+      - rndc reload
 
-- name: Configure DNS resolve.conf
-  ansible.builtin.template:
-    src: ../templates/named.conf.local.j2
-    dest: /etc/bind/named.conf.local
-  notify: 
-    - Restart Bind9
-    - Reload Bind9 config
+  - name: DNS zone config 
+    when: inventory_hostname in groups ['dns_master']
+    ansible.builtin.template: 
+      src: ../templates/db.noobmaster69.j2
+      dest: /var/cache/bind/db.noobmaster69
+      force: no
+    notify:
+      - Restart Bind9
+      - rndc reload
 
-- name: Enable Bind9
-  ansible.builtin.service:
-    name: bind9 
-    enabled: yes
-    state: started
+  - name: copy template db.domain.reverse
+    when: inventory_hostname in groups ['dns_master']
+    ansible.builtin.template:
+      src: db.domain.reverse
+      dest: /var/cache/bind/db.reverse
+      force: no
+    notify:
+      - Restart Bind9
+      - rndc reload
 
-- name: Stop systemd-resolved
-  ansible.builtin.systemd:
-    name: systemd-resolved
-    enabled: no 
-    state: stopped
+  - name: local DNS config
+    ansible.builtin.template:
+      src: named.conf.local.j2
+      dest: /etc/bind/named.conf.local
+    notify:
+      - Restart Bind9
+      - rndc reload

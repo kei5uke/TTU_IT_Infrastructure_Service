@@ -1,3 +1,9 @@
+- name: Stop systemd-resolved
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    enabled: no 
+    state: stopped
+
 - name: Update DNS setting
   ansible.builtin.template:
     src: ../templates/resolv.conf.j2

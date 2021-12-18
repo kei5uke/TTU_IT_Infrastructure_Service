@@ -1,21 +1,22 @@
-acl lan {
-	 {% for n in acl_ips %}
-	 {{ n }};
-	 {% endfor %}
-};
+acl lan { {{ localnetwork }}; {{ localhost }}; }; 
+
 options {
-	directory "/var/lib/bind";
+        directory "/var/cache/bind";
+        forwarders {
+           {% for n in dns_forwarders %}
+           {{ n -}};
+           {% endfor %}
+        };
+        allow-query { 127.0.0.1; {{ localnetwork }}; {{ docker_network }}; };
+        dnssec-validation no;
+};
 
-	forwarders {
-		{% for n in dns_forwarders %}
-		{{ n }};
-		{% endfor %}
-	};
+key "transfer.key" {
+	algorithm hmac-sha256;
+	secret "{{ dns_transfer_key }}";
+};
 
-    allow-query {
-		lan;
-		{{ docker_network }};
-	};
-
-	dnssec-validation no;
+key "update.key" {
+	algorithm hmac-sha256;
+	secret "{{ dns_update_key }}";
 };

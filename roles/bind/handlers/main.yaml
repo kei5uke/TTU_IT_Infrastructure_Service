@@ -3,8 +3,9 @@
     name: bind9
     state: restarted
 
-- name: Reload Bind9 config
-  ansible.builtin.shell: rndc reload
+- name: rndc reload
+  ansible.builtin.command:
+    cmd: rndc reload
 
 
   

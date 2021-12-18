@@ -1,5 +1,5 @@
-keisuke-jpn-1  ansible_host=193.40.156.86 ansible_port=10822 ansible_ssh_user=ubuntu
-keisuke-jpn-2  ansible_host=193.40.156.86 ansible_port=18422 ansible_ssh_user=ubuntu
+keisuke-jpn-1  ansible_host=193.40.156.86 ansible_port=6722 ansible_ssh_user=ubuntu
+keisuke-jpn-2  ansible_host=193.40.156.86 ansible_port=16522 ansible_ssh_user=ubuntu
 
 [web_servers]
 keisuke-jpn-1
@@ -9,8 +9,15 @@ keisuke-jpn-2
 keisuke-jpn-1
 keisuke-jpn-2
 
-[dns_servers]
+[dns_master]
+keisuke-jpn-1
+
+[dns_slaves]
 keisuke-jpn-2
+
+[dns_servers:children]
+dns_master
+dns_slaves
 
 [prometheus]
 keisuke-jpn-1

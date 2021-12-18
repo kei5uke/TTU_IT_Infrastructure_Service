@@ -21,26 +21,24 @@
       - node_exporter
       - rsyslog
 
-  - name: Database server
-    hosts: db_servers
-    become: yes
-    gather_facts: no
-    roles:
-      - mysql
-      - mysql_exporter
-      - mysql_backup
-
   - name: DNS server
     hosts: dns_servers
     become: yes
-    gather_facts: no
+    gather_facts: yes
     roles:
       - bind
+
+  - name: DNS records 
+    hosts: dns_master 
+    become: yes 
+    gather_facts: yes 
+    roles: 
+      - dns_records
 
   - name: DNS setting
     hosts: all
     become: yes
-    gather_facts: no
+    gather_facts: yes
     roles:
       - dns
 
@@ -50,6 +48,15 @@
     gather_facts: no 
     roles:
      - bind_exporter
+
+  - name: Database server
+    hosts: db_servers
+    become: yes
+    gather_facts: no
+    roles:
+      - mysql
+      - mysql_exporter
+      - mysql_backup
 
   - name: Web server
     hosts: web_servers
