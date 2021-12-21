@@ -9,6 +9,7 @@
     ansible.builtin.template:
       src: named.conf.options.j2
       dest: /etc/bind/named.conf.options
+      force: no
     no_log: true
     notify:
       - Restart Bind9
@@ -38,6 +39,7 @@
     ansible.builtin.template:
       src: named.conf.local.j2
       dest: /etc/bind/named.conf.local
+      force: no
     notify:
       - Restart Bind9
       - rndc reload
