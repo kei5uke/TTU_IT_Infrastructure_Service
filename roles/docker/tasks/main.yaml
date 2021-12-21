@@ -15,3 +15,4 @@
     community.docker.docker_login:
       username: keisukejpn
       password: "{{docker_password}}"
+    no_log: True

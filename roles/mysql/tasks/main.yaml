@@ -32,6 +32,7 @@
       host: "%"
       priv: "{{ mysql_database }}.*:ALL"
       login_unix_socket: /var/run/mysqld/mysqld.sock
+    no_log: True
 
   - name: Add mysql exporter user
     community.mysql.mysql_user:
@@ -40,6 +41,7 @@
       priv:
         '*.*': 'PROCESS,REPLICATION CLIENT,SELECT'
       login_unix_socket: /var/run/mysqld/mysqld.sock
+    no_log: True
 
   - name: Add mysel replication user
     community.mysql.mysql_user:
@@ -49,6 +51,7 @@
       priv:
         "*.*:REPLICATION SLAVE"
       login_unix_socket: /var/run/mysqld/mysqld.sock
+    no_log: True
 
   - name: Make replit read-only
     community.mysql.mysql_variables:

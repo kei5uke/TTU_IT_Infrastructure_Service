@@ -96,7 +96,7 @@ dns_update_key: !vault |
           6639666433646661323134646265336439623437643437353362
     
 dns_a_records:
-  backup: 192.168.42.156
+  backup: 192.168.42.43
 
 dns_cname_records:
   grafana: "{{ groups['grafana'][0] }}"
