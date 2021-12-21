@@ -69,6 +69,13 @@
         #- uwsgi
         - prometheus
       
+  - name: Prometheus 
+    hosts: prometheus
+    become: yes 
+    gather_facts: no 
+    roles:
+      - prometheus
+
   - name: HAproxy 
     hosts: haproxy 
     become: yes 

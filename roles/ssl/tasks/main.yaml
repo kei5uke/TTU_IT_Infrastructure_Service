@@ -8,7 +8,7 @@
       src: ../templates/iptables.mangle
       dest: /etc/iptables/rules.v4
 
-  - name: Store iptables
+  - name: Load iptables
     community.general.iptables_state:
       path: /etc/iptables/rules.v4
       state: restored
