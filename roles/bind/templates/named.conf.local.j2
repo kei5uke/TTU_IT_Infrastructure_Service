@@ -7,10 +7,10 @@ zone "{{domain_name}}" {
     type slave;
     masters { {{ hostvars[groups['dns_master'][0]]['ansible_default_ipv4']['address'] }}; }; 
 {% endif %}
-    file "db.noobmaster69";
+    file "db.domain";
 };
 
-{% if inventory_hostname in groups ['dns_slaves'] %}
+{% if inventory_hostname not in groups ['dns_master'] %}
 server {{ hostvars[groups['dns_master'][0]]['ansible_default_ipv4']['address'] }} {
     keys { transfer.key;};
 };
