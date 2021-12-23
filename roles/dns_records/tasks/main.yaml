@@ -10,6 +10,7 @@
       type: "A"
       value: "{{ item.value }}"
     loop: "{{ dns_a_records | dict2items }}"
+    run_once: True
 
   - name: Create CNAME records
     community.general.nsupdate:

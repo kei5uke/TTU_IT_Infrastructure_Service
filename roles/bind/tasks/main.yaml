@@ -5,6 +5,14 @@
         - bind9
         - python3-dnspython 
 
+  - name: local DNS config
+    ansible.builtin.template:
+      src: named.conf.local.j2
+      dest: /etc/bind/named.conf.local
+    notify:
+      - Restart Bind9
+      - rndc reload
+
   - name: Option config 
     ansible.builtin.template:
       src: named.conf.options.j2
@@ -17,9 +25,8 @@
   - name: DNS zone config 
     when: inventory_hostname in groups ['dns_master']
     ansible.builtin.template: 
-      src: ../templates/db.noobmaster69.j2
-      dest: /var/cache/bind/db.noobmaster69
-      force: no
+      src: db.domain.j2
+      dest: /var/cache/bind/db.domain
     notify:
       - Restart Bind9
       - rndc reload
@@ -27,17 +34,8 @@
   - name: Reverse DNS config
     when: inventory_hostname in groups ['dns_master']
     ansible.builtin.template:
-      src: db.domain.reverse
+      src: db.domain.reverse.j2
       dest: /var/cache/bind/db.reverse
-      force: no
-    notify:
-      - Restart Bind9
-      - rndc reload
-
-  - name: local DNS config
-    ansible.builtin.template:
-      src: named.conf.local.j2
-      dest: /etc/bind/named.conf.local
     notify:
       - Restart Bind9
       - rndc reload
