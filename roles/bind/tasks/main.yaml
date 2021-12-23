@@ -17,6 +17,7 @@
     ansible.builtin.template:
       src: named.conf.options.j2
       dest: /etc/bind/named.conf.options
+      force: no
     no_log: true
     notify:
       - Restart Bind9
