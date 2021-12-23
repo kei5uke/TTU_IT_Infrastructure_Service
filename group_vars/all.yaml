@@ -49,7 +49,7 @@ grafana_password: !vault |
           3538333734623139640a666639393363366266623835386434323166653630353739643032343837
           6362
 
-backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
+backup_server_ssh_key: ssh-ed25519 ngxLWuTXPrk7UBzeLN2D6DEwA+evAzpU7pDJ4Jd4fGE
 
 backup_user: backup 
 backup_password: !vault |
@@ -94,9 +94,11 @@ dns_update_key: !vault |
           6531396164393131390a623832626364313933343434336565616233393131386134363435313661
           31633163646264653664346463626264653139626264616335363464663666343338373739633635
           6639666433646661323134646265336439623437643437353362
-    
+
+backup_server_ip: 192.168.42.132
+
 dns_a_records:
-  backup: 192.168.42.43
+  backup: 192.168.42.132
 
 dns_cname_records:
   grafana: "{{ groups['grafana'][0] }}"
@@ -106,6 +108,8 @@ dns_cname_records:
   mysql1: "{{ groups['db_servers'][0] }}"
   mysql2: "{{ groups['db_servers'][1] }}"
   ns1: "{{ groups['dns_servers'][0] }}"
+  ns2: "{{ groups['dns_servers'][1] }}"
+  ns3: "{{ groups['dns_servers'][2] }}"
   prometheus: "{{ groups['prometheus'][0] }}"
   web1: "{{ groups['web_servers'][0] }}"
   web2: "{{ groups['web_servers'][1] }}"
