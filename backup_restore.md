@@ -5,20 +5,20 @@ Run Ansible playbook to install all the necessary configurations, run this comma
 
 To restore **MySQL** database you will have to run commands on the second virtual machine where our MySQL configuration is made. 
 
-Firstly, In order to restore the backup from the server, run this command as backup user:  
+Firstly, In order to restore the backup from the server, run this command as **backup** user:  
 ```sudo su - backup```   
 ```duplicity --no-encryption restore rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn /home/backup/mysql/restore```
 
-Secondly, In order to upload the restore backup onto the machine, run this command from root user:  
-```mysqldump agama < /home/backup/mysql/restore/agama.sql```
+Secondly, In order to upload the restore backup onto the machine, run this command from **root** user:  
+```mysql agama < /home/backup/mysql/restore/agama.sql```
 
 To restore **InfluxDB** database you will have to run commands as root on the first virtual machine where our InfluxDB configuration is made.
 
-Firstly, In order to restore the backup from the server, run this command as backup user:  
+Firstly, In order to restore the backup from the server, run this command as **backup** user:  
 ```sudo su - backup```   
 ```duplicity --no-encryption restore rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn /home/backup/influxdb/restore```
 
-To restore the backup you will need to delete existing telegraf database first. It also makes sense to stop the Telegraf service so that it doesn't recreate the database before you could restore it, run these commands from root user:  
+To restore the backup you will need to delete existing telegraf database first. It also makes sense to stop the Telegraf service so that it doesn't recreate the database before you could restore it, run these commands from **root** user:  
 ```service telegraf stop```  
 ```influx -execute 'DROP DATABASE telegraf'```  
 ```influxd restore -portable -database telegraf /home/backup/influxdb/restore```
