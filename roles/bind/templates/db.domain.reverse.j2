@@ -1,12 +1,13 @@
 $TTL    604800
-42.168.192.in-addr.arpa.    IN    SOA    keisuke-jpn-3.{{domain_name}}. keisuke.{{domain_name}}. (
+{{% for vm in groups['dns_master'] %}
+42.168.192.in-addr.arpa.    IN    SOA    {{ vm }}.{{domain_name}}. keisuke.{{domain_name}}. (
                   2        ; Serial
              604800        ; Refresh
               86400        ; Retry
             2419200        ; Expire
              604800 )    ; Negative Cache TTL
 ;
-
+{% endfor %}
 {% for vm in groups['dns_servers'] %}
 42.168.192.in-addr.arpa.    IN    NS    {{ vm }}.{{ domain_name }}.
 {% endfor %}
