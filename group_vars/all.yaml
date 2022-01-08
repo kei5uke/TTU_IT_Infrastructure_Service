@@ -49,7 +49,7 @@ grafana_password: !vault |
           3538333734623139640a666639393363366266623835386434323166653630353739643032343837
           6362
 
-backup_server_ssh_key: ssh-ed25519 ngxLWuTXPrk7UBzeLN2D6DEwA+evAzpU7pDJ4Jd4fGE
+backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
 backup_user: backup 
 backup_password: !vault |
