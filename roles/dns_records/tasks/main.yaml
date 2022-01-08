@@ -1,7 +1,7 @@
 ---
   - name: Create A records
     community.general.nsupdate:
-      key_name: "update.key"
+      key_name: "update_key"
       key_algorithm: "hmac-sha256"
       key_secret: "{{ dns_update_key }}"
       server: "localhost"
@@ -14,7 +14,7 @@
 
   - name: Create CNAME records
     community.general.nsupdate:
-      key_name: "update.key"
+      key_name: "update_key"
       key_algorithm: "hmac-sha256"
       key_secret: "{{ dns_update_key }}"
       server: "localhost"
