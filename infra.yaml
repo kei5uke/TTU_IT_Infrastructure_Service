@@ -28,19 +28,19 @@
     roles:
       - bind
 
+  - name: DNS resolve
+    hosts: all
+    become: yes
+    gather_facts: yes
+    roles:
+      - dns
+
   - name: DNS records 
     hosts: dns_master 
     become: yes 
     gather_facts: yes 
     roles: 
       - dns_records
-
-  - name: DNS setting
-    hosts: all
-    become: yes
-    gather_facts: yes
-    roles:
-      - dns
 
   - name: Bind exporter 
     hosts: dns_servers 
