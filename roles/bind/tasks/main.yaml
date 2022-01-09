@@ -41,3 +41,6 @@
     notify:
       - Restart Bind9
       - rndc reload
+
+  - name: execute handlers
+    meta: flush_handlers
