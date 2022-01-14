@@ -3,6 +3,21 @@
     ansible.builtin.apt: 
       name: keepalived
 
+  - name: Create user "keepalived_script"
+    ansible.builtin.user:
+      name: keepalived_script
+      create_home: yes
+      home: /home/keepalived_script
+
+  - name: vrrp script
+    ansible.builtin.template:
+      src: vrrp_script.j2
+      dest: /usr/local/bin/vrrp_script
+      mode: '0755'
+      owner: keepalived_script 
+      group: keepalived_script 
+    notify: Restart keepalived
+
   - name: Copy Keepalived config
     ansible.builtin.template:
       src: keepalived.conf.j2
