@@ -67,7 +67,6 @@
         - docker
         - agama
         #- uwsgi
-        - prometheus
       
   - name: Prometheus 
     hosts: prometheus
