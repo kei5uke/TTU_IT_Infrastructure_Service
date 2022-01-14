@@ -17,7 +17,7 @@
   - name: default grafana datasource
     ansible.builtin.template:
       src: datasource.yaml
-      dest: /opt/grafana/provisioning/datasources/dafault.yaml
+      dest: /opt/grafana/provisioning/datasources/default.yaml
 
   - name: default grafana dashboard
     ansible.builtin.template:
