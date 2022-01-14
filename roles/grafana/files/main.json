@@ -576,12 +576,12 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 50
+                "color": "green",
+                "value": 80
               }
             ]
           },
@@ -591,7 +591,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 11,
+        "w": 8,
         "x": 5,
         "y": 13
       },
@@ -626,6 +626,14 @@
           "interval": "",
           "legendFormat": "",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "hide": false,
+          "refId": "B"
         }
       ],
       "title": "HAproxy",
@@ -634,21 +642,37 @@
     {
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "color": "blue",
+                  "index": 1,
+                  "text": "BACKUP"
+                },
+                "2": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "MASTER"
+                },
+                "null": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "DOWN"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "orange",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 85
               }
             ]
           }
@@ -657,12 +681,15 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 7,
-        "x": 16,
+        "w": 11,
+        "x": 13,
         "y": 13
       },
       "id": 24,
       "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -671,8 +698,7 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "textMode": "auto"
       },
       "pluginVersion": "8.3.3",
       "targets": [
@@ -684,12 +710,12 @@
           "exemplar": true,
           "expr": "keepalived_vrrp_state",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "keepalived_vrrp_state",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "fieldConfig": {
@@ -812,8 +838,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 18,
+        "h": 10,
+        "w": 19,
         "x": 5,
         "y": 19
       },
@@ -842,7 +868,7 @@
           "exemplar": true,
           "expr": "haproxy_server_up",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}; {{server}}",
           "refId": "A"
         }
       ],
@@ -904,7 +930,7 @@
         "h": 9,
         "w": 11,
         "x": 0,
-        "y": 25
+        "y": 29
       },
       "id": 2,
       "options": {
@@ -984,7 +1010,7 @@
         "h": 9,
         "w": 13,
         "x": 11,
-        "y": 25
+        "y": 29
       },
       "id": 8,
       "options": {
