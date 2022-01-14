@@ -1,1 +1,1 @@
-ARGS="--web.external-url=http://keisuke-jpn-1.{{ domain_name }}/prometheus"
+ARGS="--web.external-url=http://prometheus:{{ ansible_port - 22 + 80}}/prometheus/"
