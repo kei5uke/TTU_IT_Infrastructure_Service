@@ -4,36 +4,37 @@ server {
 
 {% if inventory_hostname in groups['web_servers'] %}
 	location / {
-		uwsgi_pass localhost:8001;
+		#uwsgi_pass localhost:{{ agama_port + 1}};
+		proxy_pass http://localhost:{{ agama_port + 1}};
 		proxy_set_header Host $http_host;
 	}
 {% endif %}
 
 	location /node-metrics {
-		proxy_pass http://localhost:9100/metrics;
+		proxy_pass http://localhost:{{ prometheus_exporters['mysql']['port'] }}/metrics;
 	}
 
 {% if inventory_hostname in groups['prometheus'] %}
 	location /prometheus {
-		proxy_pass http://localhost:9090;
+		proxy_pass http://localhost:{{ prometheus_port }};
 	}
 {% endif %}
 
 {% if inventory_hostname in groups['dns_servers'] %}
 	location /bind-metrics {
-       proxy_pass http://localhost:9119/metrics;
+       proxy_pass http://localhost:{{ prometheus_exporters['bind']['port'] }}/metrics;
 	}
 {% endif %}
 
 {% if inventory_hostname in groups['db_servers'] %}
 	location /mysql-metrics {
-       proxy_pass http://localhost:9104/metrics;
+       proxy_pass http://localhost:{{ prometheus_exporters['mysql']['port'] }}/metrics;
 	}
 {% endif %}
 
 {% if inventory_hostname in groups['all'] %}
 	location /nginx-metrics {
-       proxy_pass http://localhost:9113/metrics;
+       proxy_pass http://localhost:{{ prometheus_exporters['nginx']['port'] }}/metrics;
 	}
 {% endif %}
 
@@ -45,19 +46,23 @@ server {
 
 {% if inventory_hostname in groups['influxdb'] %}
 	location /influxdb-metrics {
-       proxy_pass http://localhost:9424/metrics;
+       proxy_pass http://localhost:{{ prometheus_exporters['influxdb']['port'] }}/metrics;
 	}
 {% endif %}
 
 {% if inventory_hostname in groups['haproxy'] %}
 	location /haproxy-metrics {
-       proxy_pass http://localhost:9101/metrics;
+       proxy_pass http://localhost:{{ prometheus_exporters['haproxy']['port'] }}/metrics;
 	}
 {% endif %}
 
 {% if inventory_hostname in groups['haproxy'] %}
 	location /keepalived-metrics {
-       proxy_pass http://localhost:9165/metrics;
+       proxy_pass http://localhost:{{ keepalived_exporter_port }}/metrics;
+	}
+
+	location /haproxy {
+			proxy_pass http://localhost:{{ haproxy_port }}/haproxy?stats;
 	}
 {% endif %}
 

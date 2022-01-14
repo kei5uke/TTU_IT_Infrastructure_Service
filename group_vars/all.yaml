@@ -68,9 +68,26 @@ docker_password: !vault |
           3235373439396632640a646537356632643766383632323430343939373334336163333861303334
           6265
 
+prometheus_exporters:
+  node:
+    port: 9100
+  nginx:
+    port: 9113
+  mysql:
+    port: 9104
+  bind:
+    port: 9119
+  influxdb: 
+    port: 9424
+  haproxy:
+    port: 9101
+
 agama_port: 8000
 haproxy_port: 88
 grafana_port: 3001
+keepalived_exporter_port: 9165
+prometheus_port: 9090
+pinger_port: 8086
 
 localhost: 127.0.0.0/8
 docker_network: 172.17.0.0/16
