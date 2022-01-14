@@ -19,8 +19,8 @@ Full backup is made every Sunday at 1:30 AM(EET), including Influxdb, MySQL.
 
 Incremental backup is made at 1:30 AM(EET) on weekdays(Mon - Fri), including Influxdb, MySQL. 
 
-All the backup will be retained for 4 weeks/28 days.
-Only 2 versions can be stored at the same time.
+All the backup will be retained for 4 weeks/28 days.  
+Only 2 versions can be stored at the same time.  
 The oldest backup will be deleted at 2:00 AM(EET) on 28th day of every month.  
 
 ## Usability checks  
