@@ -68,8 +68,7 @@ docker_password: !vault |
           3235373439396632640a646537356632643766383632323430343939373334336163333861303334
           6265
 
-agama_port_1: 8001
-agama_port_2: 8002
+agama_port: 8000
 haproxy_port: 88
 grafana_port: 3001
 
@@ -113,3 +112,5 @@ dns_cname_records:
   prometheus: "{{ groups['prometheus'][0] }}"
   web1: "{{ groups['web_servers'][0] }}"
   web2: "{{ groups['web_servers'][1] }}"
+
+agama_container_num: 2

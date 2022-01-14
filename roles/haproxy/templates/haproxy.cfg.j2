@@ -28,7 +28,9 @@ listen agama
     bind *:{{haproxy_port}}
 	stats enable
     stats uri /stats
+	{% set port = agama_port %}
+	{%- for item in range(1, agama_container_num+1) -%}
 	{% for vm in groups ['haproxy'] %}
-	server {{ vm }}-first {{ vm }}:{{agama_port_1}} check
-	server {{ vm }}-second {{ vm }}:{{agama_port_2}} check
+	server {{ vm }}-{{ item }} {{ vm }}:{{ port+item }} check
 	{% endfor %}
+	{%- endfor -%}
