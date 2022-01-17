@@ -28,4 +28,4 @@
     loop:
       - 1
       - 2
-    #no_log: true
+    no_log: True
