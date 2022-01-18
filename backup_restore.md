@@ -7,6 +7,7 @@ To restore **MySQL** database you will have to run commands on the second virtua
 
 Firstly, In order to restore the backup from the server, run this command as **backup** user:  
 ```sudo su - backup```   
+``` rm -r /home/backup/mysql/restore/* ```
 ```duplicity --no-encryption restore rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/mysql/ /home/backup/mysql/restore```
 
 Secondly, In order to upload the restore backup onto the machine, run this command from **root** user:  
@@ -16,6 +17,7 @@ To restore **InfluxDB** database you will have to run commands as root on the fi
 
 Firstly, In order to restore the backup from the server, run this command as **backup** user:  
 ```sudo su - backup```   
+``` rm -r /home/backup/influxdb/restore/* ```
 ```duplicity --no-encryption restore rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/influxdb/ /home/backup/influxdb/restore```
 
 To restore the backup you will need to delete existing telegraf database first. It also makes sense to stop the Telegraf service so that it doesn't recreate the database before you could restore it, run these commands from **root** user:  
