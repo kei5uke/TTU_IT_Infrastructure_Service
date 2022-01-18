@@ -17,7 +17,7 @@ datasources:
     type: influxdb
     access: proxy
     orgId: 1
-    url: http://influxdb:{{pinger_port}}
+    url: http://influxdb:{{influxdb_port}}
     database: latency
     version: 1
     editable: false
@@ -26,7 +26,7 @@ datasources:
     type: influxdb
     access: proxy
     orgId: 1
-    url: http://influxdb:{{pinger_port}}
+    url: http://influxdb:{{influxdb_port}}
     database: telegraf
     version: 1
     editable: false
