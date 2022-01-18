@@ -133,3 +133,5 @@ dns_cname_records:
   web3: "{{ groups['nginx'][2] }}"
 
 agama_container_num: 2
+
+public_url: http://{{ ansible_host }}:{{ ansible_port//100}}80 
