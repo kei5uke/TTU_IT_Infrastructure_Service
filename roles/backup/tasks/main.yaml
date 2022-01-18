@@ -1,7 +1,7 @@
 ---
   - name: Create user "backup"
     ansible.builtin.user: 
-      name: backup 
+      name: "{{ backup_user }}"
       home: /home/backup
       shell: /bin/bash
       generate_ssh_key: yes 
@@ -10,7 +10,7 @@
     
   - name: Add group "backup"
     group:
-      name: backup
+      name: "{{ backup_user }}"
       state: present
   
   - name: Create restore/.ssh directory 
@@ -18,8 +18,8 @@
       path: /home/backup/{{ item }}
       state: directory 
       mode: 0755 
-      owner: backup 
-      group: backup 
+      owner: "{{ backup_user }}" 
+      group: "{{ backup_user }}" 
     loop:
       - restore
       - .ssh

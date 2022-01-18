@@ -3,11 +3,14 @@
     ansible.builtin.file: 
       path: /home/backup/influxdb
       state: directory
-      mode: "0755"
-      owner: backup 
-      group: backup 
+      mode: 0755
+      owner: "{{ backup_user }}"
+      group: "{{ backup_user }}"
 
   - name: Create influxdb-backup file 
     ansible.builtin.template: 
       src: ../templates/influxdb-backup 
       dest: /etc/cron.d/influxdb-backup
+      owner: root
+      group: root
+      mode: 0755

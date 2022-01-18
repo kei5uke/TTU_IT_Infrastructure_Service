@@ -3,28 +3,32 @@
     ansible.builtin.file:
       path: /home/backup/mysql 
       state: directory 
-      mode: "0755" 
-      owner: backup 
-      group: backup 
+      mode: 0775 
+      owner: "{{ backup_user }}"
+      group: "{{ backup_user }}" 
 
   - name: Create SQL user "backup" on SQL
     community.mysql.mysql_user: 
       name: "{{ backup_user }}"
       password: "{{ backup_password }}"
-      priv: 
-        '*.*': 'LOCK TABLES,SELECT'
+      priv: "{{ mysql_database }}.*:SELECT,LOCK TABLES"
       login_unix_socket: /var/run/mysqld/mysqld.sock 
-    no_log: True
+      host: "localhost"
+    #no_log: True
     
   - name: Copy .my.cnf file 
     ansible.builtin.template: 
       src: ../templates/.my.cnf
       dest: /home/backup/.my.cnf 
-      owner: backup 
-      group: backup 
-    no_log: True
+      owner: "{{ backup_user }}"
+      group:  "{{ backup_user }}"
+      mode: 0775
+    #no_log: True
 
   - name: Create mysql-backup file 
     ansible.builtin.template: 
       src: ../templates/mysql-backup.j2
-      dest: /etc/cron.d/mysql-backup.j2 
+      dest: /etc/cron.d/mysql-backup
+      owner: root 
+      group: root 
+      mode: 0775
