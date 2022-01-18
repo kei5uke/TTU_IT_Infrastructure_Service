@@ -8,13 +8,21 @@
       ssh_key_bits: 2048 
       ssh_key_file: .ssh/id_rsa
     
-  - name: Create restore directory 
+  - name: Add group "backup"
+    group:
+      name: backup
+      state: present
+  
+  - name: Create restore/.ssh directory 
     ansible.builtin.file: 
-      path: /home/backup/restore
+      path: /home/backup/{{ item }}
       state: directory 
       mode: 0755 
       owner: backup 
       group: backup 
+    loop:
+      - restore
+      - .ssh
     
   - name: Install Duplicity
     ansible.builtin.apt: 
@@ -24,4 +32,12 @@
     ansible.builtin.template: 
       src: ../templates/known_hosts.j2
       dest: /home/backup/.ssh/known_hosts 
-      mode: 0644
+      mode: 0755
+      owner: root
+      group: root 
+
+  - name: Enable cron
+    service:
+      name: cron
+      state: started
+      enabled: yes
