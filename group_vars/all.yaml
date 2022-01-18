@@ -88,6 +88,7 @@ grafana_port: 3001
 keepalived_exporter_port: 9165
 prometheus_port: 9090
 pinger_port: 8086
+nginx_port: 8080
 
 localhost: 127.0.0.0/8
 docker_network: 172.17.0.0/16
@@ -127,7 +128,8 @@ dns_cname_records:
   ns2: "{{ groups['dns_servers'][1] }}"
   ns3: "{{ groups['dns_servers'][2] }}"
   prometheus: "{{ groups['prometheus'][0] }}"
-  web1: "{{ groups['web_servers'][0] }}"
-  web2: "{{ groups['web_servers'][1] }}"
+  web1: "{{ groups['nginx'][0] }}"
+  web2: "{{ groups['nginx'][1] }}"
+  web3: "{{ groups['nginx'][2] }}"
 
 agama_container_num: 2
