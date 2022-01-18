@@ -24,21 +24,21 @@
   - name: DNS server
     hosts: dns_servers
     become: yes
-    gather_facts: yes
+    gather_facts: no
     roles:
       - bind
 
   - name: DNS resolve
     hosts: all
     become: yes
-    gather_facts: yes
+    gather_facts: no
     roles:
       - dns
 
   - name: DNS records 
     hosts: dns_master 
     become: yes 
-    gather_facts: yes 
+    gather_facts: no 
     roles: 
       - dns_records
 
@@ -61,7 +61,7 @@
   - name: Web server
     hosts: web_servers
     become: yes
-    gather_facts: yes
+    gather_facts: no
     roles:
         - ssl
         - docker
@@ -78,13 +78,13 @@
   - name: HAproxy 
     hosts: haproxy 
     become: yes 
-    gather_facts: yes
+    gather_facts: no
     roles:
       - haproxy
       - keepalived
 
   - name: Nginx
-    hosts: all
+    hosts: nginx
     become: yes
     gather_facts: no
     roles:
