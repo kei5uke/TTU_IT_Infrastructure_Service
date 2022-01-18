@@ -33,6 +33,7 @@
       - main.json
       - mysql.json
       - syslog.json
+      - pinger.json
 
   - name: Docker Container
     community.docker.docker_container:
