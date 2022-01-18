@@ -19,9 +19,3 @@
     ansible.builtin.service:
       name: nginx
       enabled: yes
-
-  - name: put exporter
-    ansible.builtin.template:
-      src: ../templates/exporter.j2
-      dest: /etc/nginx/sites-enabled/exporter
-    notify: Restart nginx
