@@ -21,9 +21,3 @@
       name: netfilter-persistent
       state: started
       enabled: yes
-
-  - name: Enable iptable
-    ansible.builtin.service:
-      name: iptables
-      state: started
-      enabled: yes
