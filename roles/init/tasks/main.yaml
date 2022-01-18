@@ -6,7 +6,7 @@
   - name: sudo name resolve
     ansible.builtin.lineinfile:
       path: /etc/hosts
-      line: '127.0.0.1 {{ inventory_hostname }}'
+      line: 'localhost {{ inventory_hostname }}'
       owner: root
       group: root 
       mode: '0644'
