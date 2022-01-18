@@ -14,7 +14,7 @@
       priv: "{{ mysql_database }}.*:SELECT,LOCK TABLES"
       login_unix_socket: /var/run/mysqld/mysqld.sock 
       host: "localhost"
-    #no_log: True
+    no_log: True
     
   - name: Copy .my.cnf file 
     ansible.builtin.template: 
@@ -23,7 +23,7 @@
       owner: "{{ backup_user }}"
       group:  "{{ backup_user }}"
       mode: 0775
-    #no_log: True
+    no_log: True
 
   - name: Create mysql-backup file 
     ansible.builtin.template: 
