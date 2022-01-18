@@ -3,10 +3,7 @@
     ansible.builtin.apt:
       cache_valid_time: 86400
 
-  - name: sudo name resolve
-    ansible.builtin.lineinfile:
-      path: /etc/hosts
-      line: 'localhost {{ inventory_hostname }}'
-      owner: root
-      group: root 
-      mode: '0644'
+  - name: Inventory hostname
+    ansible.builtin.hostname:
+      name: "{{ inventory_hostname }}"
+      use: debian
