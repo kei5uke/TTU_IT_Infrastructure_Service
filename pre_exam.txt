@@ -1,26 +1,26 @@
-Mon 10 Jan 2022 12:47:53 EET
+Tue Jan 18 15:19:49 EET 2022
 + hostname
-Keisukes-Macintosh.local
+keisuke-mint
 + ansible-playbook infra.yaml --diff
 
 PLAY [Ansible connection test] *************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [test_connection : Ansible ping module] ***********************************
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 PLAY [Collect info about all VMs] **********************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-3]
 
 TASK [setup] *******************************************************************
 ok: [keisuke-jpn-2]
@@ -30,9 +30,9 @@ ok: [keisuke-jpn-1]
 PLAY [Init] ********************************************************************
 
 TASK [init : Update APT cache] *************************************************
-ok: [keisuke-jpn-3]
 changed: [keisuke-jpn-2]
 changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-3]
 
 TASK [init : sudo name resolve] ************************************************
 --- before: /etc/hosts (content)
@@ -50,67 +50,102 @@ changed: [keisuke-jpn-2]
  ff02::1 ip6-allnodes
  ff02::2 ip6-allrouters
  ff02::3 ip6-allhosts
-+127.0.0.1 keisuke-jpn-3
++127.0.0.1 keisuke-jpn-1
 
-changed: [keisuke-jpn-3]
+changed: [keisuke-jpn-1]
 --- before: /etc/hosts (content)
 +++ after: /etc/hosts (content)
 @@ -7,3 +7,4 @@
  ff02::1 ip6-allnodes
  ff02::2 ip6-allrouters
  ff02::3 ip6-allhosts
-+127.0.0.1 keisuke-jpn-1
++127.0.0.1 keisuke-jpn-3
 
-changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-3]
 
 TASK [backup : Create user "backup"] *******************************************
 changed: [keisuke-jpn-2]
-changed: [keisuke-jpn-3]
 changed: [keisuke-jpn-1]
-
-TASK [backup : Create restore directory] ***************************************
---- before
-+++ after
-@@ -1,6 +1,6 @@
- {
--    "group": 0,
--    "owner": 0,
-+    "group": 34,
-+    "owner": 34,
-     "path": "/home/backup/restore",
--    "state": "absent"
-+    "state": "directory"
- }
-
-changed: [keisuke-jpn-1]
---- before
-+++ after
-@@ -1,6 +1,6 @@
- {
--    "group": 0,
--    "owner": 0,
-+    "group": 34,
-+    "owner": 34,
-     "path": "/home/backup/restore",
--    "state": "absent"
-+    "state": "directory"
- }
-
-changed: [keisuke-jpn-2]
---- before
-+++ after
-@@ -1,6 +1,6 @@
- {
--    "group": 0,
--    "owner": 0,
-+    "group": 34,
-+    "owner": 34,
-     "path": "/home/backup/restore",
--    "state": "absent"
-+    "state": "directory"
- }
-
 changed: [keisuke-jpn-3]
+
+TASK [backup : Add group "backup"] *********************************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
+
+TASK [backup : Create restore/.ssh directory] **********************************
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "group": 0,
+-    "owner": 0,
++    "group": 34,
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [keisuke-jpn-2] => (item=restore)
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "group": 0,
+-    "owner": 0,
++    "group": 34,
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [keisuke-jpn-1] => (item=restore)
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "group": 0,
+-    "owner": 0,
++    "group": 34,
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [keisuke-jpn-3] => (item=restore)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0700",
++    "mode": "0755",
+     "path": "/home/backup/.ssh"
+ }
+
+changed: [keisuke-jpn-1] => (item=.ssh)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0700",
++    "mode": "0755",
+     "path": "/home/backup/.ssh"
+ }
+
+changed: [keisuke-jpn-3] => (item=.ssh)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0700",
++    "mode": "0755",
+     "path": "/home/backup/.ssh"
+ }
+
+changed: [keisuke-jpn-2] => (item=.ssh)
 
 TASK [backup : Install Duplicity] **********************************************
 The following additional packages will be installed:
@@ -149,15 +184,15 @@ changed: [keisuke-jpn-3]
 
 TASK [backup : Copy known_hosts] ***********************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpce4uck30/known_hosts.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpgfq0nppv/known_hosts.j2
 @@ -0,0 +1,2 @@
 +backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup.noobmaster69.kk ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 \ No newline at end of file
 
-changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp2ofai3da/known_hosts.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp2wvyspsj/known_hosts.j2
 @@ -0,0 +1,2 @@
 +backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup.noobmaster69.kk ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
@@ -165,13 +200,18 @@ changed: [keisuke-jpn-1]
 
 changed: [keisuke-jpn-3]
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpo_djh033/known_hosts.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpp7jpgu9z/known_hosts.j2
 @@ -0,0 +1,2 @@
 +backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 +backup.noobmaster69.kk ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 \ No newline at end of file
 
-changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
+
+TASK [backup : Enable cron] ****************************************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [node_exporter : Install Node Exporter] ***********************************
 The following additional packages will be installed:
@@ -184,17 +224,6 @@ The following NEW packages will be installed:
   moreutils prometheus-node-exporter prometheus-node-exporter-collectors
   smartmontools
 0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
-changed: [keisuke-jpn-3]
-The following additional packages will be installed:
-  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
-  moreutils prometheus-node-exporter-collectors smartmontools
-Suggested packages:
-  gsmartcontrol smart-notifier mailx | mailutils
-The following NEW packages will be installed:
-  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
-  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
-  smartmontools
-0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
 changed: [keisuke-jpn-2]
 The following additional packages will be installed:
   libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
@@ -207,55 +236,61 @@ The following NEW packages will be installed:
   smartmontools
 0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
 changed: [keisuke-jpn-1]
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
+changed: [keisuke-jpn-3]
 
 TASK [node_exporter : Start and enable Node exporter] **************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [rsyslog : Install 10-telegraf.conf] **************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp4cculnyn/10-telegraf.conf
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpsb3fok5_/10-telegraf.conf
 @@ -0,0 +1,5 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
 +$ActionResumeRetryCount -1 # infinite retries on insert failure
 +$ActionQueueSaveOnShutdown on 
-+*.* @keisuke-jpn-3:6514;RSYSLOG_SyslogProtocol23Format
++*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
+
+changed: [keisuke-jpn-2]
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpsklu7gvh/10-telegraf.conf
+@@ -0,0 +1,5 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on 
++*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
 
 changed: [keisuke-jpn-1]
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp_httqqg_/10-telegraf.conf
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmppjna8tbq/10-telegraf.conf
 @@ -0,0 +1,5 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
 +$ActionResumeRetryCount -1 # infinite retries on insert failure
 +$ActionQueueSaveOnShutdown on 
-+*.* @keisuke-jpn-3:6514;RSYSLOG_SyslogProtocol23Format
++*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
 
 changed: [keisuke-jpn-3]
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpka4k3vj2/10-telegraf.conf
-@@ -0,0 +1,5 @@
-+$ActionQueueType LinkedList # use asynchronous processing
-+$ActionQueueFileName srvrfwd # set file name, also enables disk mode
-+$ActionResumeRetryCount -1 # infinite retries on insert failure
-+$ActionQueueSaveOnShutdown on 
-+*.* @keisuke-jpn-3:6514;RSYSLOG_SyslogProtocol23Format
-
-changed: [keisuke-jpn-2]
 
 RUNNING HANDLER [rsyslog : Restart rsyslog] ************************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-3]
 
 PLAY [DNS server] **************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
 
 TASK [bind : Install bind9 and dnspython] **************************************
 The following additional packages will be installed:
@@ -267,7 +302,7 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 5 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
 The following additional packages will be installed:
   bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
 Suggested packages:
@@ -287,63 +322,63 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 5 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [bind : local DNS config] *************************************************
 --- before: /etc/bind/named.conf.local
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpsflw08di/named.conf.local.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpf_5y5mxb/named.conf.local.j2
 @@ -1,8 +1,15 @@
 -//
 -// Do any local configuration here
 -//
 +zone "noobmaster69.kk" {
 +    type slave;
-+    masters { 192.168.42.162; }; 
++    masters { 192.168.42.142; }; 
 +    file "db.domain";
 +};
  
 -// Consider adding the 1918 zones here, if they are not used in your
 -// organization
 -//include "/etc/bind/zones.rfc1918";
-+server 192.168.42.162 {
++server 192.168.42.142 {
 +    keys { transfer_key;};
 +};
  
 +zone "42.168.192.in-addr.arpa" {
 +    type slave;
-+    masters { 192.168.42.162; }; 
++    masters { 192.168.42.142; }; 
++    file "db.reverse";
++};
+
+changed: [keisuke-jpn-2]
+--- before: /etc/bind/named.conf.local
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpy8_xhhvb/named.conf.local.j2
+@@ -1,8 +1,15 @@
+-//
+-// Do any local configuration here
+-//
++zone "noobmaster69.kk" {
++    type slave;
++    masters { 192.168.42.142; }; 
++    file "db.domain";
++};
+ 
+-// Consider adding the 1918 zones here, if they are not used in your
+-// organization
+-//include "/etc/bind/zones.rfc1918";
++server 192.168.42.142 {
++    keys { transfer_key;};
++};
+ 
++zone "42.168.192.in-addr.arpa" {
++    type slave;
++    masters { 192.168.42.142; }; 
 +    file "db.reverse";
 +};
 
 changed: [keisuke-jpn-1]
 --- before: /etc/bind/named.conf.local
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp23mx_kgx/named.conf.local.j2
-@@ -1,8 +1,15 @@
--//
--// Do any local configuration here
--//
-+zone "noobmaster69.kk" {
-+    type slave;
-+    masters { 192.168.42.162; }; 
-+    file "db.domain";
-+};
- 
--// Consider adding the 1918 zones here, if they are not used in your
--// organization
--//include "/etc/bind/zones.rfc1918";
-+server 192.168.42.162 {
-+    keys { transfer_key;};
-+};
- 
-+zone "42.168.192.in-addr.arpa" {
-+    type slave;
-+    masters { 192.168.42.162; }; 
-+    file "db.reverse";
-+};
-
-changed: [keisuke-jpn-2]
---- before: /etc/bind/named.conf.local
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmptyy_zc3a/named.conf.local.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpycpr39u4/named.conf.local.j2
 @@ -1,8 +1,14 @@
 -//
 -// Do any local configuration here
@@ -369,15 +404,15 @@ changed: [keisuke-jpn-2]
 changed: [keisuke-jpn-3]
 
 TASK [bind : Option config] ****************************************************
-changed: [keisuke-jpn-3]
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-3]
 
 TASK [bind : DNS zone config] **************************************************
 skipping: [keisuke-jpn-1]
 skipping: [keisuke-jpn-2]
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmplldtuf37/db.domain.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpt7x120nq/db.domain.j2
 @@ -0,0 +1,19 @@
 +$TTL	604800
 +noobmaster69.kk.	IN	SOA	keisuke-jpn-3.noobmaster69.kk. keisuke.noobmaster69.kk. (
@@ -393,11 +428,11 @@ skipping: [keisuke-jpn-2]
 +noobmaster69.kk. IN  NS  keisuke-jpn-2
 +
 +	
-+keisuke-jpn-1 IN A 192.168.42.55
++keisuke-jpn-1 IN A 192.168.42.85
 +	
-+keisuke-jpn-2 IN A 192.168.42.109
++keisuke-jpn-2 IN A 192.168.42.141
 +	
-+keisuke-jpn-3 IN A 192.168.42.162
++keisuke-jpn-3 IN A 192.168.42.142
 
 changed: [keisuke-jpn-3]
 
@@ -405,7 +440,7 @@ TASK [bind : Reverse DNS config] ***********************************************
 skipping: [keisuke-jpn-1]
 skipping: [keisuke-jpn-2]
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpfxvalf3c/db.domain.reverse.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpg4x5snv1/db.domain.reverse.j2
 @@ -0,0 +1,16 @@
 +$TTL    604800
 +42.168.192.in-addr.arpa.    IN    SOA    keisuke-jpn-3.noobmaster69.kk. keisuke.noobmaster69.kk. (
@@ -420,39 +455,34 @@ skipping: [keisuke-jpn-2]
 +42.168.192.in-addr.arpa.    IN    NS    keisuke-jpn-1.noobmaster69.kk.
 +42.168.192.in-addr.arpa.    IN    NS    keisuke-jpn-2.noobmaster69.kk.
 +
-+55    IN    PTR    keisuke-jpn-1.noobmaster69.kk.
-+109    IN    PTR    keisuke-jpn-2.noobmaster69.kk.
-+162    IN    PTR    keisuke-jpn-3.noobmaster69.kk.
++85    IN    PTR    keisuke-jpn-1.noobmaster69.kk.
++141    IN    PTR    keisuke-jpn-2.noobmaster69.kk.
++142    IN    PTR    keisuke-jpn-3.noobmaster69.kk.
 
 changed: [keisuke-jpn-3]
 
 TASK [bind : execute handlers] *************************************************
 
 RUNNING HANDLER [bind : Restart Bind9] *****************************************
-changed: [keisuke-jpn-3]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-3]
 changed: [keisuke-jpn-1]
 
 RUNNING HANDLER [bind : rndc reload] *******************************************
 changed: [keisuke-jpn-2]
-changed: [keisuke-jpn-3]
 changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-3]
 
 PLAY [DNS resolve] *************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
-
 TASK [dns : Stop systemd-resolved] *********************************************
+changed: [keisuke-jpn-2]
 changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-3]
-changed: [keisuke-jpn-2]
 
 TASK [dns : Update DNS setting] ************************************************
 --- before: /etc/resolv.conf
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpcjlz_woa/resolv.conf.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmprb7z16i2/resolv.conf.j2
 @@ -1,19 +1,3 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -473,13 +503,40 @@ TASK [dns : Update DNS setting] ************************************************
 -nameserver 127.0.0.53
 -options edns0 trust-ad
 -search openstacklocal
-+nameserver 192.168.42.55
-+nameserver 192.168.42.109
++nameserver 192.168.42.85
++nameserver 192.168.42.141
++search noobmaster69.kk
+
+changed: [keisuke-jpn-2]
+--- before: /etc/resolv.conf
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpnjet0w2m/resolv.conf.j2
+@@ -1,19 +1,3 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
+-
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++nameserver 192.168.42.85
++nameserver 192.168.42.141
 +search noobmaster69.kk
 
 changed: [keisuke-jpn-1]
 --- before: /etc/resolv.conf
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp3besbvop/resolv.conf.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpxofyp0ar/resolv.conf.j2
 @@ -1,19 +1,3 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -500,43 +557,13 @@ changed: [keisuke-jpn-1]
 -nameserver 127.0.0.53
 -options edns0 trust-ad
 -search openstacklocal
-+nameserver 192.168.42.55
-+nameserver 192.168.42.109
++nameserver 192.168.42.85
++nameserver 192.168.42.141
 +search noobmaster69.kk
 
 changed: [keisuke-jpn-3]
---- before: /etc/resolv.conf
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpo2dfvnfw/resolv.conf.j2
-@@ -1,19 +1,3 @@
--# This file is managed by man:systemd-resolved(8). Do not edit.
--#
--# This is a dynamic resolv.conf file for connecting local clients to the
--# internal DNS stub resolver of systemd-resolved. This file lists all
--# configured search domains.
--#
--# Run "resolvectl status" to see details about the uplink DNS servers
--# currently in use.
--#
--# Third party programs must not access this file directly, but only through the
--# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
--# replace this symlink by a static file or a different symlink.
--#
--# See man:systemd-resolved.service(8) for details about the supported modes of
--# operation for /etc/resolv.conf.
--
--nameserver 127.0.0.53
--options edns0 trust-ad
--search openstacklocal
-+nameserver 192.168.42.55
-+nameserver 192.168.42.109
-+search noobmaster69.kk
-
-changed: [keisuke-jpn-2]
 
 PLAY [DNS records] *************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-3]
 
 TASK [dns_records : Create A records] ******************************************
 changed: [keisuke-jpn-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
@@ -554,6 +581,7 @@ changed: [keisuke-jpn-3] => (item={'key': 'ns3', 'value': 'keisuke-jpn-2'})
 changed: [keisuke-jpn-3] => (item={'key': 'prometheus', 'value': 'keisuke-jpn-3'})
 changed: [keisuke-jpn-3] => (item={'key': 'web1', 'value': 'keisuke-jpn-1'})
 changed: [keisuke-jpn-3] => (item={'key': 'web2', 'value': 'keisuke-jpn-2'})
+changed: [keisuke-jpn-3] => (item={'key': 'web3', 'value': 'keisuke-jpn-3'})
 
 PLAY [Bind exporter] ***********************************************************
 
@@ -572,9 +600,9 @@ The following NEW packages will be installed:
 changed: [keisuke-jpn-2]
 
 TASK [bind_exporter : start and enable bind9 exporter] *************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
 
 PLAY [Database server] *********************************************************
 
@@ -617,12 +645,12 @@ The following NEW packages will be installed:
 changed: [keisuke-jpn-1]
 
 TASK [mysql : Start and enabled mysql] *****************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [mysql : Add mysql override.cnf] ******************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpkl1clu2m/override.cnf
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpmhg9f4ne/override.cnf
 @@ -0,0 +1,7 @@
 +[mysqld]
 +bind-address = 0.0.0.0
@@ -630,23 +658,23 @@ TASK [mysql : Add mysql override.cnf] ******************************************
 +log-bin = /var/log/mysql/mysql-bin.log
 +relay-log = /var/log/mysql/mysql-relay.log
 +replicate-do-db = agama
-+server-id = 55
-\ No newline at end of file
-
-changed: [keisuke-jpn-1]
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpmmcaznj8/override.cnf
-@@ -0,0 +1,7 @@
-+[mysqld]
-+bind-address = 0.0.0.0
-+
-+log-bin = /var/log/mysql/mysql-bin.log
-+relay-log = /var/log/mysql/mysql-relay.log
-+replicate-do-db = agama
-+server-id = 109
++server-id = 141
 \ No newline at end of file
 
 changed: [keisuke-jpn-2]
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpfzhmt409/override.cnf
+@@ -0,0 +1,7 @@
++[mysqld]
++bind-address = 0.0.0.0
++
++log-bin = /var/log/mysql/mysql-bin.log
++relay-log = /var/log/mysql/mysql-relay.log
++replicate-do-db = agama
++server-id = 85
+\ No newline at end of file
+
+changed: [keisuke-jpn-1]
 
 TASK [mysql : Install PyMySQL] *************************************************
 Suggested packages:
@@ -663,24 +691,24 @@ The following NEW packages will be installed:
 changed: [keisuke-jpn-1]
 
 TASK [mysql : MySQL database] **************************************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [mysql : MySQL user] ******************************************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [mysql : Add mysql exporter user] *****************************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [mysql : Add mysel replication user] **************************************
 changed: [keisuke-jpn-2]
 changed: [keisuke-jpn-1]
 
 TASK [mysql : Make replit read-only] *******************************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [mysql_exporter : Install config] *****************************************
 changed: [keisuke-jpn-2]
@@ -688,13 +716,13 @@ changed: [keisuke-jpn-1]
 
 TASK [mysql_exporter : mysqld-arg tempalte] ************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpmm77vvd9/prometheus-mysqld-exporter
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp_o6y5kw0/prometheus-mysqld-exporter
 @@ -0,0 +1 @@
 +ARGS="--collect.slave_status"
 
 changed: [keisuke-jpn-2]
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpxjkf7s5d/prometheus-mysqld-exporter
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp9fhma3wx/prometheus-mysqld-exporter
 @@ -0,0 +1 @@
 +ARGS="--collect.slave_status"
 
@@ -706,13 +734,13 @@ The following additional packages will be installed:
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
 The following additional packages will be installed:
   daemon
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [mysql_exporter : 15 seconds] *********************************************
 Pausing for 15 seconds
@@ -726,11 +754,13 @@ ok: [keisuke-jpn-1]
 TASK [mysql_backup : Create directory] *****************************************
 --- before
 +++ after
-@@ -1,6 +1,6 @@
+@@ -1,7 +1,7 @@
  {
 -    "group": 0,
+-    "mode": "0755",
 -    "owner": 0,
 +    "group": 34,
++    "mode": "0775",
 +    "owner": 34,
      "path": "/home/backup/mysql",
 -    "state": "absent"
@@ -740,11 +770,13 @@ TASK [mysql_backup : Create directory] *****************************************
 changed: [keisuke-jpn-2]
 --- before
 +++ after
-@@ -1,6 +1,6 @@
+@@ -1,7 +1,7 @@
  {
 -    "group": 0,
+-    "mode": "0755",
 -    "owner": 0,
 +    "group": 34,
++    "mode": "0775",
 +    "owner": 34,
      "path": "/home/backup/mysql",
 -    "state": "absent"
@@ -758,17 +790,19 @@ changed: [keisuke-jpn-2]
 changed: [keisuke-jpn-1]
 
 TASK [mysql_backup : Copy .my.cnf file] ****************************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [mysql_backup : Create mysql-backup file] *********************************
 changed: [keisuke-jpn-1]
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpoc1w75ac/mysql-backup.j2
-@@ -0,0 +1,3 @@
-+0 1 * * 0-6  backup  mysqldump agama > /home/backup/mysql/agama.sql
-+30 1 * * 0  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/
-+30 1 * * 1-5  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp94twi9c9/mysql-backup.j2
+@@ -0,0 +1,5 @@
++0 23 * * * backup ssh keisuke-jpn@backup.noobmaster69.kk mkdir mysql
++0 23 * * 0-6  backup  mysqldump agama > /home/backup/mysql/agama.sql
++30 23 * * 0  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/mysql/
++30 23 * * 1-5  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/mysql/
++0 0 28 * * backup duplicity remove-older-than 1M rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/mysql/
 
 changed: [keisuke-jpn-2]
 
@@ -795,14 +829,10 @@ changed: [keisuke-jpn-2] => (item=None)
 changed: [keisuke-jpn-2]
 
 RUNNING HANDLER [mysql_exporter : Restart mysql exporter] **********************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 PLAY [Web server] **************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
 
 TASK [ssl : Install iptables] **************************************************
 The following additional packages will be installed:
@@ -810,19 +840,19 @@ The following additional packages will be installed:
 The following NEW packages will be installed:
   iptables-persistent netfilter-persistent
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
 The following additional packages will be installed:
   netfilter-persistent
 The following NEW packages will be installed:
   iptables-persistent netfilter-persistent
 0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [ssl : Install rule] ******************************************************
 --- before: /etc/iptables/rules.v4
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpnp5iyaor/iptables.mangle
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpijc9_1zv/iptables.mangle
 @@ -1,7 +1,8 @@
--# Generated by iptables-save v1.8.4 on Mon Jan 10 10:53:08 2022
+-# Generated by iptables-save v1.8.4 on Tue Jan 18 13:25:54 2022
 -*filter
 -:INPUT ACCEPT [0:0]
 -:FORWARD ACCEPT [0:0]
@@ -835,13 +865,13 @@ TASK [ssl : Install rule] ******************************************************
 +:POSTROUTING ACCEPT [11903:6517769]
 +-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
  COMMIT
--# Completed on Mon Jan 10 10:53:08 2022
+-# Completed on Tue Jan 18 13:25:54 2022
 
 changed: [keisuke-jpn-2]
 --- before: /etc/iptables/rules.v4
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp0c8by93x/iptables.mangle
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpy26jk3sr/iptables.mangle
 @@ -1,7 +1,8 @@
--# Generated by iptables-save v1.8.4 on Mon Jan 10 10:53:08 2022
+-# Generated by iptables-save v1.8.4 on Tue Jan 18 13:25:55 2022
 -*filter
 -:INPUT ACCEPT [0:0]
 -:FORWARD ACCEPT [0:0]
@@ -854,13 +884,17 @@ changed: [keisuke-jpn-2]
 +:POSTROUTING ACCEPT [11903:6517769]
 +-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
  COMMIT
--# Completed on Mon Jan 10 10:53:08 2022
+-# Completed on Tue Jan 18 13:25:55 2022
 
 changed: [keisuke-jpn-1]
 
 TASK [ssl : Load iptables] *****************************************************
 changed: [keisuke-jpn-2]
 changed: [keisuke-jpn-1]
+
+TASK [ssl : Enable netfilter-persistent] ***************************************
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [docker : Install docker] *************************************************
 The following additional packages will be installed:
@@ -873,7 +907,7 @@ The following NEW packages will be installed:
   bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
   python3-websocket runc ubuntu-fan
 0 upgraded, 10 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 The following additional packages will be installed:
   bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
   ubuntu-fan
@@ -884,11 +918,11 @@ The following NEW packages will be installed:
   bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
   python3-websocket runc ubuntu-fan
 0 upgraded, 10 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
 
 TASK [docker : Enable docker] **************************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [docker : Login to the docker hub] ****************************************
 changed: [keisuke-jpn-1]
@@ -917,369 +951,19 @@ changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
 
 TASK [agama : Install amaga docker] ********************************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 TASK [agama : Built agama docker image] ****************************************
 changed: [keisuke-jpn-2]
 changed: [keisuke-jpn-1]
 
 TASK [agama : Run docker container] ********************************************
+changed: [keisuke-jpn-1] => (item=None)
+changed: [keisuke-jpn-2] => (item=None)
+changed: [keisuke-jpn-1] => (item=None)
 changed: [keisuke-jpn-1]
-changed: [keisuke-jpn-2]
-
-TASK [agama : Run docker container part 2] *************************************
-changed: [keisuke-jpn-1]
-changed: [keisuke-jpn-2]
-
-TASK [prometheus : Install prometheus] *****************************************
-The following additional packages will be installed:
-  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
-  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
-  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
-  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
-  nodejs-doc
-Suggested packages:
-  apache2 | lighttpd | httpd npm
-The following NEW packages will be installed:
-  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
-  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
-  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
-  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
-  nodejs-doc prometheus
-0 upgraded, 19 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-2]
-The following additional packages will be installed:
-  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
-  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
-  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
-  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
-  nodejs-doc
-Suggested packages:
-  apache2 | lighttpd | httpd npm
-The following NEW packages will be installed:
-  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
-  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
-  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
-  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
-  nodejs-doc prometheus
-0 upgraded, 19 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-1]
-
-TASK [prometheus : Enable prometheus] ******************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
-TASK [prometheus : Copy prometheus config] *************************************
---- before: /etc/prometheus/prometheus.yml
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp7z23gbuu/prometheus.yml.j2
-@@ -3,42 +3,58 @@
- global:
-   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
--  # scrape_timeout is set to the global default (10s).
- 
--  # Attach these labels to any time series or alerts when communicating with
--  # external systems (federation, remote storage, Alertmanager).
--  external_labels:
--      monitor: 'example'
- 
--# Alertmanager configuration
--alerting:
--  alertmanagers:
--  - static_configs:
--    - targets: ['localhost:9093']
--
--# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
--rule_files:
--  # - "first_rules.yml"
--  # - "second_rules.yml"
--
--# A scrape configuration containing exactly one endpoint to scrape:
--# Here it's Prometheus itself.
- scrape_configs:
--  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-   - job_name: 'prometheus'
- 
--    # Override the global default and scrape targets from this job every 5 seconds.
-     scrape_interval: 5s
-     scrape_timeout: 5s
- 
--    # metrics_path defaults to '/metrics'
--    # scheme defaults to 'http'.
-+    metrics_path: /prometheus/metrics
- 
-     static_configs:
-       - targets: ['localhost:9090']
- 
--  - job_name: node
--    # If prometheus-node-exporter is installed, grab stats about the local
--    # machine by default.
-+  - job_name: linux
-     static_configs:
--      - targets: ['localhost:9100']
-+      - targets:
-+        - keisuke-jpn-1:9100
-+        - keisuke-jpn-2:9100
-+        - keisuke-jpn-3:9100
-+
-+  - job_name: bind9
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-3:9119
-+        - keisuke-jpn-1:9119
-+        - keisuke-jpn-2:9119
-+
-+  - job_name: mysql
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9104
-+        - keisuke-jpn-2:9104
-+
-+  - job_name: nginx
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9113
-+        - keisuke-jpn-2:9113
-+
-+  - job_name: influxdb
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-3:9424
-+
-+  - job_name: haproxy
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9101
-+        - keisuke-jpn-2:9101
-+
-+  - job_name: keepalived
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9165
-+        - keisuke-jpn-2:9165
-
-changed: [keisuke-jpn-1]
---- before: /etc/prometheus/prometheus.yml
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpcanaobuo/prometheus.yml.j2
-@@ -3,42 +3,58 @@
- global:
-   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
--  # scrape_timeout is set to the global default (10s).
- 
--  # Attach these labels to any time series or alerts when communicating with
--  # external systems (federation, remote storage, Alertmanager).
--  external_labels:
--      monitor: 'example'
- 
--# Alertmanager configuration
--alerting:
--  alertmanagers:
--  - static_configs:
--    - targets: ['localhost:9093']
--
--# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
--rule_files:
--  # - "first_rules.yml"
--  # - "second_rules.yml"
--
--# A scrape configuration containing exactly one endpoint to scrape:
--# Here it's Prometheus itself.
- scrape_configs:
--  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-   - job_name: 'prometheus'
- 
--    # Override the global default and scrape targets from this job every 5 seconds.
-     scrape_interval: 5s
-     scrape_timeout: 5s
- 
--    # metrics_path defaults to '/metrics'
--    # scheme defaults to 'http'.
-+    metrics_path: /prometheus/metrics
- 
-     static_configs:
-       - targets: ['localhost:9090']
- 
--  - job_name: node
--    # If prometheus-node-exporter is installed, grab stats about the local
--    # machine by default.
-+  - job_name: linux
-     static_configs:
--      - targets: ['localhost:9100']
-+      - targets:
-+        - keisuke-jpn-1:9100
-+        - keisuke-jpn-2:9100
-+        - keisuke-jpn-3:9100
-+
-+  - job_name: bind9
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-3:9119
-+        - keisuke-jpn-1:9119
-+        - keisuke-jpn-2:9119
-+
-+  - job_name: mysql
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9104
-+        - keisuke-jpn-2:9104
-+
-+  - job_name: nginx
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9113
-+        - keisuke-jpn-2:9113
-+
-+  - job_name: influxdb
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-3:9424
-+
-+  - job_name: haproxy
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9101
-+        - keisuke-jpn-2:9101
-+
-+  - job_name: keepalived
-+    static_configs:
-+      - targets:
-+        - keisuke-jpn-1:9165
-+        - keisuke-jpn-2:9165
-
-changed: [keisuke-jpn-2]
-
-TASK [prometheus : Copy prometheus default ARG] ********************************
---- before: /etc/default/prometheus
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpo2kz2_i7/prometheus.j2
-@@ -1,57 +1 @@
--# Set the command-line arguments to pass to the server.
--ARGS=""
--
--# Prometheus supports the following options:
--#  --config.file="/etc/prometheus/prometheus.yml"
--#                             Prometheus configuration file path.
--#  --web.listen-address="0.0.0.0:9090"
--#                             Address to listen on for UI, API, and telemetry.
--#  --web.read-timeout=5m      Maximum duration before timing out read of the
--#                             request, and closing idle connections.
--#  --web.max-connections=512  Maximum number of simultaneous connections.
--#  --web.external-url=<URL>   The URL under which Prometheus is externally
--#                             reachable (for example, if Prometheus is served
--#                             via a reverse proxy). Used for generating
--#                             relative and absolute links back to Prometheus
--#                             itself. If the URL has a path portion, it will
--#                             be used to prefix all HTTP endpoints served by
--#                             Prometheus. If omitted, relevant URL components
--#                             will be derived automatically.
--#  --web.route-prefix=<path>  Prefix for the internal routes of web endpoints.
--#                             Defaults to path of --web.external-url.
--#  --web.local-assets="/usr/share/prometheus/web/"
--#                             Path to static asset/templates directory.
--#  --web.user-assets=<path>   Path to static asset directory, available at
--#                             /user.
--#  --web.enable-lifecycle     Enable shutdown and reload via HTTP request.
--#  --web.enable-admin-api     Enables API endpoints for admin control actions.
--#  --web.console.templates="/etc/prometheus/consoles"
--#                             Path to the console template directory,
--#                             available at /consoles.
--#  --web.console.libraries="/etc/prometheus/console_libraries"
--#                             Path to the console library directory.
--#  --storage.tsdb.path="/var/lib/prometheus/metrics2/"
--#                             Base path for metrics storage.
--#  --storage.tsdb.min-block-duration=2h
--#                             Minimum duration of a data block before being
--#                             persisted.
--#  --storage.tsdb.max-block-duration=<duration>
--#                             Maximum duration compacted blocks may span.
--#                             (Defaults to 10% of the retention period)
--#  --storage.tsdb.retention=15d
--#                             How long to retain samples in the storage.
--#  --storage.tsdb.use-lockfile
--#                             Create a lockfile in data directory.
--#  --alertmanager.notification-queue-capacity=10000
--#                             The capacity of the queue for pending alert
--#                             manager notifications.
--#  --alertmanager.timeout=10s
--#                             Timeout for sending alerts to Alertmanager.
--#  --query.lookback-delta=5m  The delta difference allowed for retrieving
--#                             metrics during expression evaluations.
--#  --query.timeout=2m         Maximum time a query may take before being
--#                             aborted.
--#  --query.max-concurrency=20
--#                             Maximum number of queries executed concurrently.
--#  --log.level=info           Only log messages with the given severity or
--#                             above. One of: [debug, info, warn, error]
-+ARGS="--web.external-url=http://keisuke-jpn-1.noobmaster69.kk/prometheus"
-
-changed: [keisuke-jpn-1]
---- before: /etc/default/prometheus
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp02s7hzim/prometheus.j2
-@@ -1,57 +1 @@
--# Set the command-line arguments to pass to the server.
--ARGS=""
--
--# Prometheus supports the following options:
--#  --config.file="/etc/prometheus/prometheus.yml"
--#                             Prometheus configuration file path.
--#  --web.listen-address="0.0.0.0:9090"
--#                             Address to listen on for UI, API, and telemetry.
--#  --web.read-timeout=5m      Maximum duration before timing out read of the
--#                             request, and closing idle connections.
--#  --web.max-connections=512  Maximum number of simultaneous connections.
--#  --web.external-url=<URL>   The URL under which Prometheus is externally
--#                             reachable (for example, if Prometheus is served
--#                             via a reverse proxy). Used for generating
--#                             relative and absolute links back to Prometheus
--#                             itself. If the URL has a path portion, it will
--#                             be used to prefix all HTTP endpoints served by
--#                             Prometheus. If omitted, relevant URL components
--#                             will be derived automatically.
--#  --web.route-prefix=<path>  Prefix for the internal routes of web endpoints.
--#                             Defaults to path of --web.external-url.
--#  --web.local-assets="/usr/share/prometheus/web/"
--#                             Path to static asset/templates directory.
--#  --web.user-assets=<path>   Path to static asset directory, available at
--#                             /user.
--#  --web.enable-lifecycle     Enable shutdown and reload via HTTP request.
--#  --web.enable-admin-api     Enables API endpoints for admin control actions.
--#  --web.console.templates="/etc/prometheus/consoles"
--#                             Path to the console template directory,
--#                             available at /consoles.
--#  --web.console.libraries="/etc/prometheus/console_libraries"
--#                             Path to the console library directory.
--#  --storage.tsdb.path="/var/lib/prometheus/metrics2/"
--#                             Base path for metrics storage.
--#  --storage.tsdb.min-block-duration=2h
--#                             Minimum duration of a data block before being
--#                             persisted.
--#  --storage.tsdb.max-block-duration=<duration>
--#                             Maximum duration compacted blocks may span.
--#                             (Defaults to 10% of the retention period)
--#  --storage.tsdb.retention=15d
--#                             How long to retain samples in the storage.
--#  --storage.tsdb.use-lockfile
--#                             Create a lockfile in data directory.
--#  --alertmanager.notification-queue-capacity=10000
--#                             The capacity of the queue for pending alert
--#                             manager notifications.
--#  --alertmanager.timeout=10s
--#                             Timeout for sending alerts to Alertmanager.
--#  --query.lookback-delta=5m  The delta difference allowed for retrieving
--#                             metrics during expression evaluations.
--#  --query.timeout=2m         Maximum time a query may take before being
--#                             aborted.
--#  --query.max-concurrency=20
--#                             Maximum number of queries executed concurrently.
--#  --log.level=info           Only log messages with the given severity or
--#                             above. One of: [debug, info, warn, error]
-+ARGS="--web.external-url=http://keisuke-jpn-1.noobmaster69.kk/prometheus"
-
-changed: [keisuke-jpn-2]
-
-RUNNING HANDLER [prometheus : Restart prometheus] ******************************
-changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2] => (item=None)
 changed: [keisuke-jpn-2]
 
 PLAY [Prometheus] **************************************************************
@@ -1307,8 +991,8 @@ ok: [keisuke-jpn-3]
 
 TASK [prometheus : Copy prometheus config] *************************************
 --- before: /etc/prometheus/prometheus.yml
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpzsb365q_/prometheus.yml.j2
-@@ -3,42 +3,58 @@
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpejxr6cnb/prometheus.yml.j2
+@@ -3,42 +3,59 @@
  global:
    scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
    evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
@@ -1376,6 +1060,7 @@ TASK [prometheus : Copy prometheus config] *************************************
 +      - targets:
 +        - keisuke-jpn-1:9113
 +        - keisuke-jpn-2:9113
++        - keisuke-jpn-3:9113
 +
 +  - job_name: influxdb
 +    static_configs:
@@ -1398,7 +1083,7 @@ changed: [keisuke-jpn-3]
 
 TASK [prometheus : Copy prometheus default ARG] ********************************
 --- before: /etc/default/prometheus
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpi6q0txiu/prometheus.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpql35jc_y/prometheus.j2
 @@ -1,57 +1 @@
 -# Set the command-line arguments to pass to the server.
 -ARGS=""
@@ -1457,7 +1142,7 @@ TASK [prometheus : Copy prometheus default ARG] ********************************
 -#                             Maximum number of queries executed concurrently.
 -#  --log.level=info           Only log messages with the given severity or
 -#                             above. One of: [debug, info, warn, error]
-+ARGS="--web.external-url=http://keisuke-jpn-1.noobmaster69.kk/prometheus"
++ARGS="--web.external-url=http://193.40.156.67:14280/prometheus"
 
 changed: [keisuke-jpn-3]
 
@@ -1465,10 +1150,6 @@ RUNNING HANDLER [prometheus : Restart prometheus] ******************************
 changed: [keisuke-jpn-3]
 
 PLAY [HAproxy] *****************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
 
 TASK [haproxy : Install HAproxy] ***********************************************
 The following additional packages will be installed:
@@ -1490,7 +1171,7 @@ changed: [keisuke-jpn-1]
 
 TASK [haproxy : HAproxy config] ************************************************
 --- before: /etc/haproxy/haproxy.cfg
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpg_qdfp5s/haproxy.cfg.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpc4gvvui6/haproxy.cfg.j2
 @@ -7,15 +7,6 @@
  	user haproxy
  	group haproxy
@@ -1512,19 +1193,19 @@ TASK [haproxy : HAproxy config] ************************************************
  	errorfile 503 /etc/haproxy/errors/503.http
  	errorfile 504 /etc/haproxy/errors/504.http
 +
-+listen my_ha_frontend
++listen agama
 +    bind *:88
 +	stats enable
 +    stats uri /stats
-+		server keisuke-jpn-1-first keisuke-jpn-1:8001 check
-+	server keisuke-jpn-1-second keisuke-jpn-1:8002 check
-+		server keisuke-jpn-2-first keisuke-jpn-2:8001 check
-+	server keisuke-jpn-2-second keisuke-jpn-2:8002 check
++		server keisuke-jpn-1-1 keisuke-jpn-1:8001 check
++		server keisuke-jpn-2-1 keisuke-jpn-2:8001 check
++		server keisuke-jpn-1-2 keisuke-jpn-1:8002 check
++		server keisuke-jpn-2-2 keisuke-jpn-2:8002 check
 +	
 
 changed: [keisuke-jpn-1]
 --- before: /etc/haproxy/haproxy.cfg
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp2h18b6e5/haproxy.cfg.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp65o1hryo/haproxy.cfg.j2
 @@ -7,15 +7,6 @@
  	user haproxy
  	group haproxy
@@ -1546,31 +1227,15 @@ changed: [keisuke-jpn-1]
  	errorfile 503 /etc/haproxy/errors/503.http
  	errorfile 504 /etc/haproxy/errors/504.http
 +
-+listen my_ha_frontend
++listen agama
 +    bind *:88
 +	stats enable
 +    stats uri /stats
-+		server keisuke-jpn-1-first keisuke-jpn-1:8001 check
-+	server keisuke-jpn-1-second keisuke-jpn-1:8002 check
-+		server keisuke-jpn-2-first keisuke-jpn-2:8001 check
-+	server keisuke-jpn-2-second keisuke-jpn-2:8002 check
++		server keisuke-jpn-1-1 keisuke-jpn-1:8001 check
++		server keisuke-jpn-2-1 keisuke-jpn-2:8001 check
++		server keisuke-jpn-1-2 keisuke-jpn-1:8002 check
++		server keisuke-jpn-2-2 keisuke-jpn-2:8002 check
 +	
-
-changed: [keisuke-jpn-2]
-
-TASK [haproxy : vrrp script] ***************************************************
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmph19grj0e/ha88.j2
-@@ -0,0 +1,2 @@
-+#! /bin/bash
-+ss -ntl | grep -q ':88 '
-
-changed: [keisuke-jpn-1]
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpeovm0o43/ha88.j2
-@@ -0,0 +1,2 @@
-+#! /bin/bash
-+ss -ntl | grep -q ':88 '
 
 changed: [keisuke-jpn-2]
 
@@ -1586,7 +1251,7 @@ changed: [keisuke-jpn-2]
 
 TASK [haproxy : Copy HAproxy.scrape-uri] ***************************************
 --- before: /etc/default/prometheus-haproxy-exporter
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp9xv_6ni3/haproxy.scrape-uri
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpr5rjbg1p/haproxy.scrape-uri
 @@ -1,35 +1 @@
 -# Set the command-line arguments to pass to the server.
 -# Due to shell scaping, to pass backslashes for regexes, you need to double
@@ -1627,7 +1292,7 @@ TASK [haproxy : Copy HAproxy.scrape-uri] ***************************************
 
 changed: [keisuke-jpn-1]
 --- before: /etc/default/prometheus-haproxy-exporter
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp9_7or7kj/haproxy.scrape-uri
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp1wq9yo3o/haproxy.scrape-uri
 @@ -1,35 +1 @@
 -# Set the command-line arguments to pass to the server.
 -# Due to shell scaping, to pass backslashes for regexes, you need to double
@@ -1669,10 +1334,10 @@ changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
 
 TASK [haproxy : Enable HAproxy and HAproxy-exporter] ***************************
-ok: [keisuke-jpn-2] => (item=haproxy)
 ok: [keisuke-jpn-1] => (item=haproxy)
-ok: [keisuke-jpn-2] => (item=prometheus-haproxy-exporter)
+ok: [keisuke-jpn-2] => (item=haproxy)
 ok: [keisuke-jpn-1] => (item=prometheus-haproxy-exporter)
+ok: [keisuke-jpn-2] => (item=prometheus-haproxy-exporter)
 
 TASK [keepalived : Install keepalived] *****************************************
 The following additional packages will be installed:
@@ -1696,67 +1361,89 @@ The following NEW packages will be installed:
 0 upgraded, 9 newly installed, 0 to remove and 140 not upgraded.
 changed: [keisuke-jpn-1]
 
-TASK [keepalived : Copy Keepalived config] *************************************
+TASK [keepalived : Create user "keepalived_script"] ****************************
+changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
+
+TASK [keepalived : vrrp script] ************************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpoeh6ukg_/keepalived.conf.j2
-@@ -0,0 +1,25 @@
-+vrrp_script check_haproxy {                 
-+    script "/usr/local/bin/ha88" 
-+    weight 20                              
-+    interval 1               
-+}
-+
-+vrrp_instance my_ha_frontend {
-+    interface ens3
-+    virtual_router_id 31    
-+        priority 99
-+        advert_int 1
-+    virtual_ipaddress {
-+          192.168.100.55/24
-+    }
-+    unicast_peer {
-+                  192.168.42.55 
-+                            }
-+    track_script {
-+      check_haproxy
-+    }
-+    global_defs {
-+    enable_script_security
-+    script_user keepalived_script
-+    }
-+}
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpnfpmosx1/vrrp_script.j2
+@@ -0,0 +1,2 @@
++#! /bin/bash
++ss -ntl | grep -q ':88 '
+
+changed: [keisuke-jpn-1]
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpqx5qwah8/vrrp_script.j2
+@@ -0,0 +1,2 @@
++#! /bin/bash
++ss -ntl | grep -q ':88 '
 
 changed: [keisuke-jpn-2]
+
+TASK [keepalived : Copy Keepalived config] *************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp052kh0yo/keepalived.conf.j2
-@@ -0,0 +1,25 @@
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpexy1h85c/keepalived.conf.j2
+@@ -0,0 +1,26 @@
++global_defs {
++      enable_script_security
++      script_user keepalived_script
++}
++
 +vrrp_script check_haproxy {                 
-+    script "/usr/local/bin/ha88" 
++    script "/usr/local/bin/vrrp_script" 
 +    weight 20                              
 +    interval 1               
 +}
 +
-+vrrp_instance my_ha_frontend {
++vrrp_instance agama {
 +    interface ens3
 +    virtual_router_id 31    
 +        priority 100
 +        advert_int 1
 +    virtual_ipaddress {
-+          192.168.100.55/24
++          192.168.100.85/24
 +    }
 +    unicast_peer {
-+                              192.168.42.109 
++                              192.168.42.141 
 +                }
 +    track_script {
 +      check_haproxy
 +    }
-+    global_defs {
-+    enable_script_security
-+    script_user keepalived_script
-+    }
 +}
 
 changed: [keisuke-jpn-1]
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp7v3jgx5k/keepalived.conf.j2
+@@ -0,0 +1,26 @@
++global_defs {
++      enable_script_security
++      script_user keepalived_script
++}
++
++vrrp_script check_haproxy {                 
++    script "/usr/local/bin/vrrp_script" 
++    weight 20                              
++    interval 1               
++}
++
++vrrp_instance agama {
++    interface ens3
++    virtual_router_id 31    
++        priority 99
++        advert_int 1
++    virtual_ipaddress {
++          192.168.100.85/24
++    }
++    unicast_peer {
++                  192.168.42.85 
++                            }
++    track_script {
++      check_haproxy
++    }
++}
+
+changed: [keisuke-jpn-2]
 
 TASK [keepalived : Install keepalived_exporter] ********************************
 changed: [keisuke-jpn-1]
@@ -1764,23 +1451,7 @@ changed: [keisuke-jpn-2]
 
 TASK [keepalived : keepalived exporter service] ********************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmphll1b52i/keepalived_exporter.service
-@@ -0,0 +1,11 @@
-+[Unit]
-+Description=Keepalived Exporter
-+Documentation="https://github.com/cafebazaar/keepalived-exporter"
-+After=network-online.target
-+
-+[Service]
-+User=root
-+ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter $ARGS
-+
-+[Install]
-+WantedBy=multi-user.target
-
-changed: [keisuke-jpn-1]
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpl6i1uh6i/keepalived_exporter.service
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpr34_8nj7/keepalived_exporter.service
 @@ -0,0 +1,11 @@
 +[Unit]
 +Description=Keepalived Exporter
@@ -1795,28 +1466,44 @@ changed: [keisuke-jpn-1]
 +WantedBy=multi-user.target
 
 changed: [keisuke-jpn-2]
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp8nany1is/keepalived_exporter.service
+@@ -0,0 +1,11 @@
++[Unit]
++Description=Keepalived Exporter
++Documentation="https://github.com/cafebazaar/keepalived-exporter"
++After=network-online.target
++
++[Service]
++User=root
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter $ARGS
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [keisuke-jpn-1]
 
 TASK [keepalived : Enable keepalived and keepalived_exporter] ******************
-changed: [keisuke-jpn-2] => (item=keepalived)
 changed: [keisuke-jpn-1] => (item=keepalived)
-changed: [keisuke-jpn-2] => (item=keepalived_exporter)
+changed: [keisuke-jpn-2] => (item=keepalived)
 changed: [keisuke-jpn-1] => (item=keepalived_exporter)
+changed: [keisuke-jpn-2] => (item=keepalived_exporter)
 
 RUNNING HANDLER [haproxy : Restart HAproxy] ************************************
 changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
 
 RUNNING HANDLER [haproxy : Restart HAproxy exporter] ***************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 RUNNING HANDLER [keepalived : Reload daemon] ***********************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 RUNNING HANDLER [keepalived : Restart keepalived] ******************************
-changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-1]
 
 PLAY [Nginx] *******************************************************************
 
@@ -1837,7 +1524,7 @@ The following NEW packages will be installed:
 
 Selecting previously unselected package nginx.
 (Reading database ... 65893 files and directories currently installed.)
-Preparing to unpack .../nginx_1.18.0-0ubuntu1.2_all_oozyu1i.deb ...
+Preparing to unpack .../nginx_1.18.0-0ubuntu1.2_all07atcqyo.deb ...
 Unpacking nginx (1.18.0-0ubuntu1.2) ...
 Setting up nginx (1.18.0-0ubuntu1.2) ...
 changed: [keisuke-jpn-3]
@@ -1856,35 +1543,35 @@ The following NEW packages will be installed:
 0 upgraded, 16 newly installed, 0 to remove and 140 not upgraded.
 
 Selecting previously unselected package nginx.
-(Reading database ... 67369 files and directories currently installed.)
-Preparing to unpack .../nginx_1.18.0-0ubuntu1.2_alldx8t37t4.deb ...
+(Reading database ... 66145 files and directories currently installed.)
+Preparing to unpack .../nginx_1.18.0-0ubuntu1.2_all1e4jaeb4.deb ...
+Unpacking nginx (1.18.0-0ubuntu1.2) ...
+Setting up nginx (1.18.0-0ubuntu1.2) ...
+changed: [keisuke-jpn-1]
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+0 upgraded, 16 newly installed, 0 to remove and 140 not upgraded.
+
+Selecting previously unselected package nginx.
+(Reading database ... 66145 files and directories currently installed.)
+Preparing to unpack .../nginx_1.18.0-0ubuntu1.2_all59ikvfz0.deb ...
 Unpacking nginx (1.18.0-0ubuntu1.2) ...
 Setting up nginx (1.18.0-0ubuntu1.2) ...
 changed: [keisuke-jpn-2]
-The following additional packages will be installed:
-  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
-  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
-  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
-  libwebp6 libxpm4 nginx-common
-Suggested packages:
-  libgd-tools fcgiwrap nginx-doc ssl-cert
-The following NEW packages will be installed:
-  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
-  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
-  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
-  libwebp6 libxpm4 nginx-common nginx-core
-0 upgraded, 16 newly installed, 0 to remove and 140 not upgraded.
-
-Selecting previously unselected package nginx.
-(Reading database ... 67369 files and directories currently installed.)
-Preparing to unpack .../nginx_1.18.0-0ubuntu1.2_allf5mf06ic.deb ...
-Unpacking nginx (1.18.0-0ubuntu1.2) ...
-Setting up nginx (1.18.0-0ubuntu1.2) ...
-changed: [keisuke-jpn-1]
 
 TASK [nginx : copy index html] *************************************************
 --- before
-+++ after: /Users/keisuke_konno/taltech/infrastructure/ica0002/roles/nginx/files/index.html
++++ after: /home/keisuke/code/ica0002/roles/nginx/files/index.html
 @@ -0,0 +1,8 @@
 +<html>
 +    <head>
@@ -1897,7 +1584,7 @@ TASK [nginx : copy index html] *************************************************
 
 changed: [keisuke-jpn-1]
 --- before
-+++ after: /Users/keisuke_konno/taltech/infrastructure/ica0002/roles/nginx/files/index.html
++++ after: /home/keisuke/code/ica0002/roles/nginx/files/index.html
 @@ -0,0 +1,8 @@
 +<html>
 +    <head>
@@ -1910,7 +1597,7 @@ changed: [keisuke-jpn-1]
 
 changed: [keisuke-jpn-3]
 --- before
-+++ after: /Users/keisuke_konno/taltech/infrastructure/ica0002/roles/nginx/files/index.html
++++ after: /home/keisuke/code/ica0002/roles/nginx/files/index.html
 @@ -0,0 +1,8 @@
 +<html>
 +    <head>
@@ -1925,131 +1612,7 @@ changed: [keisuke-jpn-2]
 
 TASK [nginx : copy default to nginx] *******************************************
 --- before: /etc/nginx/sites-enabled/default
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp95udugyj/default.j2
-@@ -1,91 +1,37 @@
--##
--# You should look at the following URL's in order to grasp a solid understanding
--# of Nginx configuration files in order to fully unleash the power of Nginx.
--# https://www.nginx.com/resources/wiki/start/
--# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
--# https://wiki.debian.org/Nginx/DirectoryStructure
--#
--# In most cases, administrators will remove this file from sites-enabled/ and
--# leave it as reference inside of sites-available where it will continue to be
--# updated by the nginx packaging team.
--#
--# This file will automatically load configuration files provided by other
--# applications, such as Drupal or Wordpress. These applications will be made
--# available underneath a path with that package name, such as /drupal8.
--#
--# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
--##
--
--# Default server configuration
--#
- server {
- 	listen 80 default_server;
--	listen [::]:80 default_server;
--
--	# SSL configuration
--	#
--	# listen 443 ssl default_server;
--	# listen [::]:443 ssl default_server;
--	#
--	# Note: You should disable gzip for SSL traffic.
--	# See: https://bugs.debian.org/773332
--	#
--	# Read up on ssl_ciphers to ensure a secure configuration.
--	# See: https://bugs.debian.org/765782
--	#
--	# Self signed certs generated by the ssl-cert package
--	# Don't use them in a production server!
--	#
--	# include snippets/snakeoil.conf;
--
--	root /var/www/html;
--
--	# Add index.php to the list if you are using PHP
--	index index.html index.htm index.nginx-debian.html;
--
- 	server_name _;
- 
- 	location / {
--		# First attempt to serve request as file, then
--		# as directory, then fall back to displaying a 404.
--		try_files $uri $uri/ =404;
-+		uwsgi_pass localhost:8001;
-+		proxy_set_header Host $http_host;
- 	}
- 
--	# pass PHP scripts to FastCGI server
--	#
--	#location ~ \.php$ {
--	#	include snippets/fastcgi-php.conf;
--	#
--	#	# With php-fpm (or other unix sockets):
--	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
--	#	# With php-cgi (or other tcp sockets):
--	#	fastcgi_pass 127.0.0.1:9000;
--	#}
--
--	# deny access to .htaccess files, if Apache's document root
--	# concurs with nginx's one
--	#
--	#location ~ /\.ht {
--	#	deny all;
--	#}
--}
-+	location /node-metrics {
-+		proxy_pass http://localhost:9100/metrics;
-+	}
- 
- 
--# Virtual Host configuration for example.com
--#
--# You can move that to a different file under sites-available/ and symlink that
--# to sites-enabled/ to enable it.
--#
--#server {
--#	listen 80;
--#	listen [::]:80;
--#
--#	server_name example.com;
--#
--#	root /var/www/example.com;
--#	index index.html;
--#
--#	location / {
--#		try_files $uri $uri/ =404;
--#	}
--#}
-+	location /bind-metrics {
-+       proxy_pass http://localhost:9119/metrics;
-+	}
-+
-+	location /mysql-metrics {
-+       proxy_pass http://localhost:9104/metrics;
-+	}
-+
-+	location /nginx-metrics {
-+       proxy_pass http://localhost:9113/metrics;
-+	}
-+
-+
-+
-+	location /haproxy-metrics {
-+       proxy_pass http://localhost:9101/metrics;
-+	}
-+
-+	location /keepalived-metrics {
-+       proxy_pass http://localhost:9165/metrics;
-+	}
-+
-+}
-
-changed: [keisuke-jpn-1]
---- before: /etc/nginx/sites-enabled/default
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpkcrzoqlm/default.j2
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpsovy2abu/default.j2
 @@ -1,91 +1,33 @@
 -##
 -# You should look at the following URL's in order to grasp a solid understanding
@@ -2074,7 +1637,9 @@ changed: [keisuke-jpn-1]
  server {
  	listen 80 default_server;
 -	listen [::]:80 default_server;
--
++	server_name _;
++	large_client_header_buffers 4 16k;
+ 
 -	# SSL configuration
 -	#
 -	# listen 443 ssl default_server;
@@ -2096,15 +1661,14 @@ changed: [keisuke-jpn-1]
 -	# Add index.php to the list if you are using PHP
 -	index index.html index.htm index.nginx-debian.html;
 -
- 	server_name _;
- 
+-	server_name _;
+-
 -	location / {
 -		# First attempt to serve request as file, then
 -		# as directory, then fall back to displaying a 404.
 -		try_files $uri $uri/ =404;
-+
 +	location /node-metrics {
-+		proxy_pass http://localhost:9100/metrics;
++		proxy_pass http://localhost:9104/metrics;
  	}
  
 -	# pass PHP scripts to FastCGI server
@@ -2169,8 +1733,8 @@ changed: [keisuke-jpn-1]
 
 changed: [keisuke-jpn-3]
 --- before: /etc/nginx/sites-enabled/default
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpa_9mcxjm/default.j2
-@@ -1,91 +1,37 @@
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp46qvbrfp/default.j2
+@@ -1,91 +1,42 @@
 -##
 -# You should look at the following URL's in order to grasp a solid understanding
 -# of Nginx configuration files in order to fully unleash the power of Nginx.
@@ -2217,12 +1781,14 @@ changed: [keisuke-jpn-3]
 -	index index.html index.htm index.nginx-debian.html;
 -
  	server_name _;
- 
+-
++	large_client_header_buffers 4 16k;
  	location / {
 -		# First attempt to serve request as file, then
 -		# as directory, then fall back to displaying a 404.
 -		try_files $uri $uri/ =404;
-+		uwsgi_pass localhost:8001;
++		#uwsgi_pass localhost:8001;
++		proxy_pass http://localhost:8001;
 +		proxy_set_header Host $http_host;
  	}
  
@@ -2245,7 +1811,7 @@ changed: [keisuke-jpn-3]
 -	#}
 -}
 +	location /node-metrics {
-+		proxy_pass http://localhost:9100/metrics;
++		proxy_pass http://localhost:9104/metrics;
 +	}
  
  
@@ -2289,6 +1855,140 @@ changed: [keisuke-jpn-3]
 +       proxy_pass http://localhost:9165/metrics;
 +	}
 +
++	location /haproxy {
++			proxy_pass http://localhost:88/haproxy?stats;
++	}
++
++}
+
+changed: [keisuke-jpn-1]
+--- before: /etc/nginx/sites-enabled/default
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpalx989pp/default.j2
+@@ -1,91 +1,42 @@
+-##
+-# You should look at the following URL's in order to grasp a solid understanding
+-# of Nginx configuration files in order to fully unleash the power of Nginx.
+-# https://www.nginx.com/resources/wiki/start/
+-# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+-# https://wiki.debian.org/Nginx/DirectoryStructure
+-#
+-# In most cases, administrators will remove this file from sites-enabled/ and
+-# leave it as reference inside of sites-available where it will continue to be
+-# updated by the nginx packaging team.
+-#
+-# This file will automatically load configuration files provided by other
+-# applications, such as Drupal or Wordpress. These applications will be made
+-# available underneath a path with that package name, such as /drupal8.
+-#
+-# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+-##
+-
+-# Default server configuration
+-#
+ server {
+ 	listen 80 default_server;
+-	listen [::]:80 default_server;
+-
+-	# SSL configuration
+-	#
+-	# listen 443 ssl default_server;
+-	# listen [::]:443 ssl default_server;
+-	#
+-	# Note: You should disable gzip for SSL traffic.
+-	# See: https://bugs.debian.org/773332
+-	#
+-	# Read up on ssl_ciphers to ensure a secure configuration.
+-	# See: https://bugs.debian.org/765782
+-	#
+-	# Self signed certs generated by the ssl-cert package
+-	# Don't use them in a production server!
+-	#
+-	# include snippets/snakeoil.conf;
+-
+-	root /var/www/html;
+-
+-	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
+-
+ 	server_name _;
+-
++	large_client_header_buffers 4 16k;
+ 	location / {
+-		# First attempt to serve request as file, then
+-		# as directory, then fall back to displaying a 404.
+-		try_files $uri $uri/ =404;
++		#uwsgi_pass localhost:8001;
++		proxy_pass http://localhost:8001;
++		proxy_set_header Host $http_host;
+ 	}
+ 
+-	# pass PHP scripts to FastCGI server
+-	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
+-	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
+-
+-	# deny access to .htaccess files, if Apache's document root
+-	# concurs with nginx's one
+-	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
+-}
++	location /node-metrics {
++		proxy_pass http://localhost:9104/metrics;
++	}
+ 
+ 
+-# Virtual Host configuration for example.com
+-#
+-# You can move that to a different file under sites-available/ and symlink that
+-# to sites-enabled/ to enable it.
+-#
+-#server {
+-#	listen 80;
+-#	listen [::]:80;
+-#
+-#	server_name example.com;
+-#
+-#	root /var/www/example.com;
+-#	index index.html;
+-#
+-#	location / {
+-#		try_files $uri $uri/ =404;
+-#	}
+-#}
++	location /bind-metrics {
++       proxy_pass http://localhost:9119/metrics;
++	}
++
++	location /mysql-metrics {
++       proxy_pass http://localhost:9104/metrics;
++	}
++
++	location /nginx-metrics {
++       proxy_pass http://localhost:9113/metrics;
++	}
++
++
++
++	location /haproxy-metrics {
++       proxy_pass http://localhost:9101/metrics;
++	}
++
++	location /keepalived-metrics {
++       proxy_pass http://localhost:9165/metrics;
++	}
++
++	location /haproxy {
++			proxy_pass http://localhost:88/haproxy?stats;
++	}
++
 +}
 
 changed: [keisuke-jpn-2]
@@ -2298,64 +1998,77 @@ ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
 
-TASK [nginx : put exporter] ****************************************************
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpw22do4gm/exporter.j2
-@@ -0,0 +1,6 @@
-+server {
-+    listen 8080 default_server;
-+    location = /stub_status {
-+        stub_status;
-+    }
-+}
-
-changed: [keisuke-jpn-1]
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpsamignxe/exporter.j2
-@@ -0,0 +1,6 @@
-+server {
-+    listen 8080 default_server;
-+    location = /stub_status {
-+        stub_status;
-+    }
-+}
-
-changed: [keisuke-jpn-2]
---- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp1nkd7g5j/exporter.j2
-@@ -0,0 +1,6 @@
-+server {
-+    listen 8080 default_server;
-+    location = /stub_status {
-+        stub_status;
-+    }
-+}
-
-changed: [keisuke-jpn-3]
-
 TASK [nginx_exporter : Install Nginx exporter] *********************************
 The following NEW packages will be installed:
   prometheus-nginx-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [keisuke-jpn-1]
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
 changed: [keisuke-jpn-3]
 The following NEW packages will be installed:
   prometheus-nginx-exporter
 0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
 changed: [keisuke-jpn-2]
-The following NEW packages will be installed:
-  prometheus-nginx-exporter
-0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
-changed: [keisuke-jpn-1]
 
-RUNNING HANDLER [nginx : Restart nginx] ****************************************
+TASK [nginx_exporter : Copy exporter to sites-enabled] *************************
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp16jxfcl4/exporter.j2
+@@ -0,0 +1,7 @@
++server {
++        listen 8080 default_server;
++        location = /stub_status {
++                stub_status;
++        }
++}
++
+
+changed: [keisuke-jpn-2]
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmplq_b5gpg/exporter.j2
+@@ -0,0 +1,7 @@
++server {
++        listen 8080 default_server;
++        location = /stub_status {
++                stub_status;
++        }
++}
++
+
+changed: [keisuke-jpn-1]
+--- before
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpzbdawicy/exporter.j2
+@@ -0,0 +1,7 @@
++server {
++        listen 8080 default_server;
++        location = /stub_status {
++                stub_status;
++        }
++}
++
+
+changed: [keisuke-jpn-3]
+
+TASK [nginx_exporter : Enable nginx exporter] **********************************
+changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-3]
+changed: [keisuke-jpn-2]
+
+RUNNING HANDLER [nginx_exporter : Restart nginx] *******************************
 changed: [keisuke-jpn-3]
 changed: [keisuke-jpn-1]
 changed: [keisuke-jpn-2]
 
-RUNNING HANDLER [nginx_exporter : Start and enable nginx exporter] *************
-changed: [keisuke-jpn-3]
-changed: [keisuke-jpn-2]
+RUNNING HANDLER [nginx_exporter : Restart nginx exporter] **********************
 changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
+changed: [keisuke-jpn-3]
+
+RUNNING HANDLER [nginx_exporter : Reload daemons] ******************************
+changed: [keisuke-jpn-3]
+changed: [keisuke-jpn-1]
+changed: [keisuke-jpn-2]
 
 PLAY [influxdb] ****************************************************************
 
@@ -2378,7 +2091,7 @@ changed: [keisuke-jpn-3]
 
 TASK [influxdb : Copy influxdb.conf] *******************************************
 --- before: /etc/influxdb/influxdb.conf
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpztqlh1_6/influxdb.conf
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmptjzlv0fz/influxdb.conf
 @@ -1,596 +1,22 @@
 -### Welcome to the InfluxDB configuration file.
 -
@@ -3010,7 +2723,7 @@ changed: [keisuke-jpn-3]
 
 TASK [pinger : Copy pinger.sh] *************************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp_8ub5s8k/pinger.sh
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpcqd_wg12/pinger.sh
 @@ -0,0 +1,26 @@
 +#!/bin/bash
 +
@@ -3056,9 +2769,9 @@ changed: [keisuke-jpn-3]
 
 TASK [pinger : Copy pinger.conf to the dir] ************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp0x5t973b/pinger.conf
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpmoyhtseq/pinger.conf
 @@ -0,0 +1,3 @@
-+database_url=http://keisuke-jpn-1:8086
++database_url=http://keisuke-jpn-3:8086
 +database_name=latency
 +targets=google.com,fb.com,yahoo.com
 \ No newline at end of file
@@ -3067,7 +2780,7 @@ changed: [keisuke-jpn-3]
 
 TASK [pinger : Create pinger service] ******************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpw0_2foja/pinger.service
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpvl42pyk7/pinger.service
 @@ -0,0 +1,11 @@
 +[Unit]
 +Description=Pinger service configuration file
@@ -3089,7 +2802,7 @@ changed: [keisuke-jpn-3]
 
 TASK [influxdb_exporter : Copy service template] *******************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpp3gbuzrn/prometheus-influxdb-stats-exporter.service
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp3q0w1ndf/prometheus-influxdb-stats-exporter.service
 @@ -0,0 +1,11 @@
 +[Unit]
 +Description=Pinger service configuration file
@@ -3127,11 +2840,13 @@ changed: [keisuke-jpn-3]
 
 TASK [influxdb_backup : Create influxdb-backup file] ***************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmp4hg6locy/influxdb-backup
-@@ -0,0 +1,3 @@
-+0 2 * * 0-6 backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
-+30 1 * * 0  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/
-+30 1 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/influxdb/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmpruyghtru/influxdb-backup
+@@ -0,0 +1,5 @@
++0 23 * * * backup ssh keisuke-jpn@backup.noobmaster69.kk mkdir influxdb
++0 23 * * 0-6 backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
++30 23 * * 0  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/influxdb/
++30 23 * * 1-5  backup  duplicity --no-encryption incremental /home/backup/influxdb/ rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/influxdb/
++0 0 28 * * backup duplicity remove-older-than 1M rsync://keisuke-jpn@backup.noobmaster69.kk//home/keisuke-jpn/influxdb/
 \ No newline at end of file
 
 changed: [keisuke-jpn-3]
@@ -3202,7 +2917,7 @@ changed: [keisuke-jpn-3]
 
 TASK [grafana : default grafana datasource] ************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpo_i7dx94/datasource.yaml
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp1e2idoq_/datasource.yaml
 @@ -0,0 +1,32 @@
 +---
 +apiVersion: 1
@@ -3211,7 +2926,7 @@ TASK [grafana : default grafana datasource] ************************************
 +    type: prometheus
 +    access: proxy
 +    orgId: 1
-+    url: http://keisuke-jpn-3:9090/prometheus
++    url: http://prometheus:9090/prometheus
 +    password:
 +    user:
 +    database:
@@ -3223,7 +2938,7 @@ TASK [grafana : default grafana datasource] ************************************
 +    type: influxdb
 +    access: proxy
 +    orgId: 1
-+    url: http://keisuke-jpn-3:8086
++    url: http://influxdb:8086
 +    database: latency
 +    version: 1
 +    editable: false
@@ -3232,7 +2947,7 @@ TASK [grafana : default grafana datasource] ************************************
 +    type: influxdb
 +    access: proxy
 +    orgId: 1
-+    url: http://keisuke-jpn-3:8086
++    url: http://influxdb:8086
 +    database: telegraf
 +    version: 1
 +    editable: false
@@ -3242,7 +2957,7 @@ changed: [keisuke-jpn-3]
 
 TASK [grafana : default grafana dashboard] *************************************
 --- before
-+++ after: /Users/keisuke_konno/.ansible/tmp/ansible-local-51665nlmnjc4b/tmpaqxbgg1p/dashboard.yaml
++++ after: /home/keisuke/.ansible/tmp/ansible-local-9279503iwvo4j/tmp8kecq9rv/dashboard.yaml
 @@ -0,0 +1,10 @@
 +---
 +apiVersion: 1
@@ -3258,2548 +2973,10 @@ TASK [grafana : default grafana dashboard] *************************************
 changed: [keisuke-jpn-3]
 
 TASK [grafana : dashboard jsons] ***********************************************
---- before
-+++ after: /Users/keisuke_konno/taltech/infrastructure/ica0002/roles/grafana/files/main.json
-@@ -0,0 +1,1029 @@
-+{
-+  "annotations": {
-+    "list": [
-+      {
-+        "builtIn": 1,
-+        "datasource": "-- Grafana --",
-+        "enable": true,
-+        "hide": true,
-+        "iconColor": "rgba(0, 211, 255, 1)",
-+        "name": "Annotations & Alerts",
-+        "target": {
-+          "limit": 100,
-+          "matchAny": false,
-+          "tags": [],
-+          "type": "dashboard"
-+        },
-+        "type": "dashboard"
-+      }
-+    ]
-+  },
-+  "editable": true,
-+  "fiscalYearStartMonth": 0,
-+  "graphTooltip": 0,
-+  "id": 1,
-+  "links": [],
-+  "liveNow": false,
-+  "panels": [
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "index": 1,
-+                  "text": "DOWN"
-+                },
-+                "1": {
-+                  "index": 0,
-+                  "text": "RUNNING"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 0.5
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 4,
-+        "w": 8,
-+        "x": 0,
-+        "y": 0
-+      },
-+      "id": 4,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "lastNotNull"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "auto"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "bind_up",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "Bind9",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "index": 1,
-+                  "text": "DOWN"
-+                },
-+                "1": {
-+                  "index": 0,
-+                  "text": "RUNNING"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 0.5
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 4,
-+        "w": 8,
-+        "x": 8,
-+        "y": 0
-+      },
-+      "id": 5,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "lastNotNull"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "auto"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "mysql_up",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "MySQL",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "index": 1,
-+                  "text": "DOWN"
-+                },
-+                "1": {
-+                  "index": 0,
-+                  "text": "RUNNING"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 0.5
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 4,
-+        "w": 8,
-+        "x": 16,
-+        "y": 0
-+      },
-+      "id": 15,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "lastNotNull"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "auto"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "nginx_up",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "Nginx",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "palette-classic"
-+          },
-+          "custom": {
-+            "axisLabel": "",
-+            "axisPlacement": "auto",
-+            "barAlignment": 0,
-+            "drawStyle": "line",
-+            "fillOpacity": 0,
-+            "gradientMode": "none",
-+            "hideFrom": {
-+              "legend": false,
-+              "tooltip": false,
-+              "viz": false
-+            },
-+            "lineInterpolation": "linear",
-+            "lineWidth": 1,
-+            "pointSize": 5,
-+            "scaleDistribution": {
-+              "type": "linear"
-+            },
-+            "showPoints": "auto",
-+            "spanNulls": false,
-+            "stacking": {
-+              "group": "A",
-+              "mode": "none"
-+            },
-+            "thresholdsStyle": {
-+              "mode": "off"
-+            }
-+          },
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 80
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 9,
-+        "w": 8,
-+        "x": 0,
-+        "y": 4
-+      },
-+      "id": 10,
-+      "options": {
-+        "legend": {
-+          "calcs": [],
-+          "displayMode": "list",
-+          "placement": "bottom"
-+        },
-+        "tooltip": {
-+          "mode": "single"
-+        }
-+      },
-+      "pluginVersion": "8.2.1",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "rate(bind_resolver_queries_total[1m])",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "Amount of DNS queries per minute",
-+      "type": "timeseries"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "palette-classic"
-+          },
-+          "custom": {
-+            "axisLabel": "",
-+            "axisPlacement": "auto",
-+            "barAlignment": 0,
-+            "drawStyle": "line",
-+            "fillOpacity": 0,
-+            "gradientMode": "none",
-+            "hideFrom": {
-+              "legend": false,
-+              "tooltip": false,
-+              "viz": false
-+            },
-+            "lineInterpolation": "linear",
-+            "lineWidth": 1,
-+            "pointSize": 5,
-+            "scaleDistribution": {
-+              "type": "linear"
-+            },
-+            "showPoints": "auto",
-+            "spanNulls": false,
-+            "stacking": {
-+              "group": "A",
-+              "mode": "none"
-+            },
-+            "thresholdsStyle": {
-+              "mode": "off"
-+            }
-+          },
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 80
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 9,
-+        "w": 8,
-+        "x": 8,
-+        "y": 4
-+      },
-+      "id": 12,
-+      "options": {
-+        "legend": {
-+          "calcs": [],
-+          "displayMode": "list",
-+          "placement": "bottom"
-+        },
-+        "tooltip": {
-+          "mode": "single"
-+        }
-+      },
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "rate(mysql_global_status_commands_total[1m])",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "Amount of mysql selects per minute",
-+      "type": "timeseries"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "palette-classic"
-+          },
-+          "custom": {
-+            "axisLabel": "",
-+            "axisPlacement": "auto",
-+            "barAlignment": 0,
-+            "drawStyle": "line",
-+            "fillOpacity": 0,
-+            "gradientMode": "none",
-+            "hideFrom": {
-+              "legend": false,
-+              "tooltip": false,
-+              "viz": false
-+            },
-+            "lineInterpolation": "linear",
-+            "lineWidth": 1,
-+            "pointSize": 5,
-+            "scaleDistribution": {
-+              "type": "linear"
-+            },
-+            "showPoints": "auto",
-+            "spanNulls": false,
-+            "stacking": {
-+              "group": "A",
-+              "mode": "none"
-+            },
-+            "thresholdsStyle": {
-+              "mode": "off"
-+            }
-+          },
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 80
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 9,
-+        "w": 8,
-+        "x": 16,
-+        "y": 4
-+      },
-+      "id": 14,
-+      "options": {
-+        "legend": {
-+          "calcs": [],
-+          "displayMode": "list",
-+          "placement": "bottom"
-+        },
-+        "tooltip": {
-+          "mode": "single"
-+        }
-+      },
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "rate(nginx_http_requests_total[1m])",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "Amount of requests per minute",
-+      "type": "timeseries"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "index": 1,
-+                  "text": "DOWN"
-+                },
-+                "1": {
-+                  "index": 0,
-+                  "text": "RUNNING"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 0.5
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 6,
-+        "w": 5,
-+        "x": 0,
-+        "y": 13
-+      },
-+      "id": 16,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "lastNotNull"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "auto"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "influxdb_exporter_stats_query_success",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "InfluxDB",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "index": 1,
-+                  "text": "DOWN"
-+                },
-+                "1": {
-+                  "index": 0,
-+                  "text": "RUNNING"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "thresholds": {
-+            "mode": "percentage",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 50
-+              }
-+            ]
-+          },
-+          "unit": "short"
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 6,
-+        "w": 11,
-+        "x": 5,
-+        "y": 13
-+      },
-+      "id": 20,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "lastNotNull"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {
-+          "titleSize": 1
-+        },
-+        "textMode": "auto"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "datasource": {
-+            "type": "prometheus",
-+            "uid": "P1809F7CD0C75ACF3"
-+          },
-+          "exemplar": true,
-+          "expr": "haproxy_up",
-+          "instant": false,
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "HAproxy",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "percentage",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "orange",
-+                "value": 70
-+              },
-+              {
-+                "color": "red",
-+                "value": 85
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 6,
-+        "w": 7,
-+        "x": 16,
-+        "y": 13
-+      },
-+      "id": 24,
-+      "options": {
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "lastNotNull"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "showThresholdLabels": false,
-+        "showThresholdMarkers": false
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "datasource": {
-+            "type": "prometheus",
-+            "uid": "P1809F7CD0C75ACF3"
-+          },
-+          "exemplar": true,
-+          "expr": "keepalived_vrrp_state",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "keepalived_vrrp_state",
-+      "type": "gauge"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "palette-classic"
-+          },
-+          "custom": {
-+            "axisLabel": "",
-+            "axisPlacement": "auto",
-+            "barAlignment": 0,
-+            "drawStyle": "line",
-+            "fillOpacity": 0,
-+            "gradientMode": "none",
-+            "hideFrom": {
-+              "legend": false,
-+              "tooltip": false,
-+              "viz": false
-+            },
-+            "lineInterpolation": "linear",
-+            "lineWidth": 1,
-+            "pointSize": 5,
-+            "scaleDistribution": {
-+              "type": "linear"
-+            },
-+            "showPoints": "auto",
-+            "spanNulls": false,
-+            "stacking": {
-+              "group": "A",
-+              "mode": "none"
-+            },
-+            "thresholdsStyle": {
-+              "mode": "off"
-+            }
-+          },
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 80
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 6,
-+        "w": 5,
-+        "x": 0,
-+        "y": 19
-+      },
-+      "id": 18,
-+      "options": {
-+        "legend": {
-+          "calcs": [],
-+          "displayMode": "list",
-+          "placement": "bottom"
-+        },
-+        "tooltip": {
-+          "mode": "single"
-+        }
-+      },
-+      "pluginVersion": "8.2.2",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "influxdb_write_write_ok",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "Panel Title",
-+      "type": "timeseries"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "color": "red",
-+                  "index": 1,
-+                  "text": "DOWN"
-+                },
-+                "1": {
-+                  "color": "green",
-+                  "index": 0,
-+                  "text": "RUNNING"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "thresholds": {
-+            "mode": "percentage",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 50
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 6,
-+        "w": 18,
-+        "x": 5,
-+        "y": 19
-+      },
-+      "id": 22,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "lastNotNull"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "textMode": "auto"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "datasource": {
-+            "type": "prometheus",
-+            "uid": "P1809F7CD0C75ACF3"
-+          },
-+          "exemplar": true,
-+          "expr": "haproxy_server_up",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "haproxy_server_up",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "palette-classic"
-+          },
-+          "custom": {
-+            "axisLabel": "",
-+            "axisPlacement": "auto",
-+            "barAlignment": 0,
-+            "drawStyle": "line",
-+            "fillOpacity": 0,
-+            "gradientMode": "none",
-+            "hideFrom": {
-+              "legend": false,
-+              "tooltip": false,
-+              "viz": false
-+            },
-+            "lineInterpolation": "linear",
-+            "lineWidth": 1,
-+            "pointSize": 5,
-+            "scaleDistribution": {
-+              "type": "linear"
-+            },
-+            "showPoints": "auto",
-+            "spanNulls": false,
-+            "stacking": {
-+              "group": "A",
-+              "mode": "none"
-+            },
-+            "thresholdsStyle": {
-+              "mode": "off"
-+            }
-+          },
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 80
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 9,
-+        "w": 11,
-+        "x": 0,
-+        "y": 25
-+      },
-+      "id": 2,
-+      "options": {
-+        "legend": {
-+          "calcs": [],
-+          "displayMode": "list",
-+          "placement": "bottom"
-+        },
-+        "tooltip": {
-+          "mode": "single"
-+        }
-+      },
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "rate(node_cpu_seconds_total[30m])",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "CPU load",
-+      "type": "timeseries"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "palette-classic"
-+          },
-+          "custom": {
-+            "axisLabel": "",
-+            "axisPlacement": "auto",
-+            "barAlignment": 0,
-+            "drawStyle": "line",
-+            "fillOpacity": 0,
-+            "gradientMode": "none",
-+            "hideFrom": {
-+              "legend": false,
-+              "tooltip": false,
-+              "viz": false
-+            },
-+            "lineInterpolation": "linear",
-+            "lineWidth": 1,
-+            "pointSize": 5,
-+            "scaleDistribution": {
-+              "type": "linear"
-+            },
-+            "showPoints": "auto",
-+            "spanNulls": false,
-+            "stacking": {
-+              "group": "A",
-+              "mode": "none"
-+            },
-+            "thresholdsStyle": {
-+              "mode": "off"
-+            }
-+          },
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 80
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 9,
-+        "w": 13,
-+        "x": 11,
-+        "y": 25
-+      },
-+      "id": 8,
-+      "options": {
-+        "legend": {
-+          "calcs": [],
-+          "displayMode": "list",
-+          "placement": "bottom"
-+        },
-+        "tooltip": {
-+          "mode": "single"
-+        }
-+      },
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "rate(node_memory_Active_bytes[30m])",
-+          "interval": "",
-+          "legendFormat": "",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "Memory consumption",
-+      "type": "timeseries"
-+    }
-+  ],
-+  "schemaVersion": 34,
-+  "style": "dark",
-+  "tags": [],
-+  "templating": {
-+    "list": []
-+  },
-+  "time": {
-+    "from": "now-6h",
-+    "to": "now"
-+  },
-+  "timepicker": {},
-+  "timezone": "",
-+  "title": "main_dashboard",
-+  "uid": "g0RP0cO7k",
-+  "version": 1,
-+  "weekStart": ""
-+}
-\ No newline at end of file
-
-changed: [keisuke-jpn-3] => (item=main.json)
---- before
-+++ after: /Users/keisuke_konno/taltech/infrastructure/ica0002/roles/grafana/files/mysql.json
-@@ -0,0 +1,503 @@
-+{
-+  "annotations": {
-+    "list": [
-+      {
-+        "builtIn": 1,
-+        "datasource": "-- Grafana --",
-+        "enable": true,
-+        "hide": true,
-+        "iconColor": "rgba(0, 211, 255, 1)",
-+        "name": "Annotations & Alerts",
-+        "target": {
-+          "limit": 100,
-+          "matchAny": false,
-+          "tags": [],
-+          "type": "dashboard"
-+        },
-+        "type": "dashboard"
-+      }
-+    ]
-+  },
-+  "editable": true,
-+  "fiscalYearStartMonth": 0,
-+  "graphTooltip": 0,
-+  "links": [
-+    {
-+      "asDropdown": false,
-+      "icon": "external link",
-+      "includeVars": false,
-+      "keepTime": false,
-+      "tags": [],
-+      "targetBlank": false,
-+      "title": "Syslog",
-+      "tooltip": "",
-+      "type": "dashboards",
-+      "url": ""
-+    }
-+  ],
-+  "liveNow": false,
-+  "panels": [
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [],
-+          "max": 1,
-+          "min": 0,
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 1
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 3,
-+        "w": 24,
-+        "x": 0,
-+        "y": 0
-+      },
-+      "id": 12,
-+      "options": {
-+        "colorMode": "none",
-+        "graphMode": "none",
-+        "justifyMode": "center",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "last"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "value"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "mysql_global_variables_server_id",
-+          "interval": "",
-+          "legendFormat": "{{instance}}",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "MySQL server id",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "color": "red",
-+                  "index": 1,
-+                  "text": "👎"
-+                },
-+                "1": {
-+                  "color": "green",
-+                  "index": 0,
-+                  "text": "🙆"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "max": 1,
-+          "min": 0,
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 1
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 3,
-+        "w": 24,
-+        "x": 0,
-+        "y": 3
-+      },
-+      "id": 14,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "vertical",
-+        "reduceOptions": {
-+          "calcs": [
-+            "last"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "value"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "mysql_up",
-+          "interval": "",
-+          "legendFormat": "{{instance}}",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "MySQL server status",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "color": "orange",
-+                  "index": 1,
-+                  "text": "Read/Write"
-+                },
-+                "1": {
-+                  "color": "blue",
-+                  "index": 0,
-+                  "text": "Read"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "max": 1,
-+          "min": 0,
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 1
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 3,
-+        "w": 24,
-+        "x": 0,
-+        "y": 6
-+      },
-+      "id": 13,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "last"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "value"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "mysql_global_variables_read_only",
-+          "interval": "",
-+          "legendFormat": "{{instance}}",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "MySQL server mode",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "palette-classic"
-+          },
-+          "custom": {
-+            "axisLabel": "",
-+            "axisPlacement": "auto",
-+            "barAlignment": 0,
-+            "drawStyle": "line",
-+            "fillOpacity": 0,
-+            "gradientMode": "none",
-+            "hideFrom": {
-+              "legend": false,
-+              "tooltip": false,
-+              "viz": false
-+            },
-+            "lineInterpolation": "linear",
-+            "lineWidth": 1,
-+            "pointSize": 5,
-+            "scaleDistribution": {
-+              "type": "linear"
-+            },
-+            "showPoints": "auto",
-+            "spanNulls": false,
-+            "stacking": {
-+              "group": "A",
-+              "mode": "none"
-+            },
-+            "thresholdsStyle": {
-+              "mode": "off"
-+            }
-+          },
-+          "mappings": [],
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "green",
-+                "value": null
-+              },
-+              {
-+                "color": "red",
-+                "value": 80
-+              }
-+            ]
-+          },
-+          "unit": "ops"
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 8,
-+        "w": 12,
-+        "x": 0,
-+        "y": 9
-+      },
-+      "id": 15,
-+      "options": {
-+        "legend": {
-+          "calcs": [],
-+          "displayMode": "list",
-+          "placement": "bottom"
-+        },
-+        "tooltip": {
-+          "mode": "single"
-+        }
-+      },
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "rate(mysql_global_status_commands_total{command=~\"select|show_status|update\"}[5m])",
-+          "interval": "",
-+          "legendFormat": "{{instance}}: {{command}}",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "MySQL query rate",
-+      "type": "timeseries"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "color": "orange",
-+                  "index": 1,
-+                  "text": "Stopped"
-+                },
-+                "1": {
-+                  "color": "blue",
-+                  "index": 0,
-+                  "text": "Running"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "max": 1,
-+          "min": 0,
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 1
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 4,
-+        "w": 12,
-+        "x": 12,
-+        "y": 9
-+      },
-+      "id": 16,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "last"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "value"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "mysql_slave_status_slave_io_running",
-+          "interval": "",
-+          "legendFormat": "{{instance}}",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "MySQL replica IO thread",
-+      "type": "stat"
-+    },
-+    {
-+      "fieldConfig": {
-+        "defaults": {
-+          "color": {
-+            "mode": "thresholds"
-+          },
-+          "mappings": [
-+            {
-+              "options": {
-+                "0": {
-+                  "color": "#FF9830",
-+                  "index": 1,
-+                  "text": "Stopped"
-+                },
-+                "1": {
-+                  "color": "blue",
-+                  "index": 0,
-+                  "text": "Running"
-+                }
-+              },
-+              "type": "value"
-+            }
-+          ],
-+          "max": 1,
-+          "min": 0,
-+          "thresholds": {
-+            "mode": "absolute",
-+            "steps": [
-+              {
-+                "color": "red",
-+                "value": null
-+              },
-+              {
-+                "color": "green",
-+                "value": 1
-+              }
-+            ]
-+          }
-+        },
-+        "overrides": []
-+      },
-+      "gridPos": {
-+        "h": 4,
-+        "w": 12,
-+        "x": 12,
-+        "y": 13
-+      },
-+      "id": 17,
-+      "options": {
-+        "colorMode": "value",
-+        "graphMode": "area",
-+        "justifyMode": "auto",
-+        "orientation": "auto",
-+        "reduceOptions": {
-+          "calcs": [
-+            "last"
-+          ],
-+          "fields": "",
-+          "values": false
-+        },
-+        "text": {},
-+        "textMode": "value"
-+      },
-+      "pluginVersion": "8.3.3",
-+      "targets": [
-+        {
-+          "exemplar": true,
-+          "expr": "mysql_slave_status_slave_sql_running",
-+          "interval": "",
-+          "legendFormat": "{{instance}}",
-+          "refId": "A"
-+        }
-+      ],
-+      "title": "MySQL replica SQL thread",
-+      "type": "stat"
-+    }
-+  ],
-+  "refresh": "30s",
-+  "schemaVersion": 34,
-+  "style": "dark",
-+  "tags": [],
-+  "templating": {
-+    "list": []
-+  },
-+  "time": {
-+    "from": "now-1h",
-+    "to": "now"
-+  },
-+  "timepicker": {},
-+  "timezone": "",
-+  "title": "MySQL",
-+  "uid": "mysql",
-+  "version": 1,
-+  "weekStart": ""
-+}
-\ No newline at end of file
-
-changed: [keisuke-jpn-3] => (item=mysql.json)
---- before
-+++ after: /Users/keisuke_konno/taltech/infrastructure/ica0002/roles/grafana/files/syslog.json
-@@ -0,0 +1,992 @@
-+{
-+    "annotations": {
-+      "list": [
-+        {
-+          "builtIn": 1,
-+          "datasource": "-- Grafana --",
-+          "enable": true,
-+          "hide": true,
-+          "iconColor": "rgba(0, 211, 255, 1)",
-+          "name": "Annotations & Alerts",
-+          "target": {
-+            "limit": 100,
-+            "matchAny": false,
-+            "tags": [],
-+            "type": "dashboard"
-+          },
-+          "type": "dashboard"
-+        }
-+      ]
-+    },
-+    "description": "Telegraf / InfluxDB / Grafana as syslog receiver",
-+    "editable": true,
-+    "fiscalYearStartMonth": 0,
-+    "gnetId": 12433,
-+    "graphTooltip": 0,
-+    "id": 2,
-+    "iteration": 1634913100122,
-+    "links": [],
-+    "liveNow": false,
-+    "panels": [
-+      {
-+        "aliasColors": {},
-+        "bars": true,
-+        "dashLength": 10,
-+        "dashes": false,
-+        "datasource": "InfluxDB-telegraf",
-+        "decimals": 0,
-+        "fill": 1,
-+        "fillGradient": 0,
-+        "gridPos": {
-+          "h": 7,
-+          "w": 24,
-+          "x": 0,
-+          "y": 0
-+        },
-+        "hiddenSeries": false,
-+        "id": 10,
-+        "interval": "",
-+        "legend": {
-+          "alignAsTable": true,
-+          "avg": true,
-+          "current": false,
-+          "max": true,
-+          "min": false,
-+          "rightSide": true,
-+          "show": true,
-+          "sort": null,
-+          "sortDesc": null,
-+          "total": true,
-+          "values": true
-+        },
-+        "lines": false,
-+        "linewidth": 1,
-+        "links": [],
-+        "nullPointMode": "connected",
-+        "options": {
-+          "alertThreshold": true
-+        },
-+        "percentage": false,
-+        "pluginVersion": "8.2.2",
-+        "pointradius": 2,
-+        "points": false,
-+        "renderer": "flot",
-+        "seriesOverrides": [
-+          {
-+            "alias": "Info",
-+            "color": "rgb(80, 80, 80)",
-+            "stack": "A"
-+          },
-+          {
-+            "alias": "Notice",
-+            "color": "rgb(182, 182, 182)",
-+            "stack": "A"
-+          },
-+          {
-+            "alias": "Warning",
-+            "color": "#E0B400",
-+            "stack": "A"
-+          },
-+          {
-+            "alias": "Error",
-+            "color": "#FF780A",
-+            "stack": "A"
-+          },
-+          {
-+            "alias": "Critical",
-+            "color": "#E02F44",
-+            "stack": "A"
-+          },
-+          {
-+            "alias": "Alert",
-+            "color": "#8F3BB8",
-+            "stack": "A"
-+          },
-+          {
-+            "alias": "Emergency",
-+            "color": "#8F3BB8",
-+            "stack": "A"
-+          }
-+        ],
-+        "spaceLength": 10,
-+        "stack": false,
-+        "steppedLine": false,
-+        "targets": [
-+          {
-+            "alias": "Info",
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "1m"
-+                ],
-+                "type": "time"
-+              },
-+              {
-+                "params": [
-+                  "null"
-+                ],
-+                "type": "fill"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "A",
-+            "resultFormat": "time_series",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                },
-+                {
-+                  "params": [],
-+                  "type": "count"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "severity",
-+                "operator": "=",
-+                "value": "info"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          },
-+          {
-+            "alias": "Notice",
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "1m"
-+                ],
-+                "type": "time"
-+              },
-+              {
-+                "params": [
-+                  "null"
-+                ],
-+                "type": "fill"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "B",
-+            "resultFormat": "time_series",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                },
-+                {
-+                  "params": [],
-+                  "type": "count"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "severity",
-+                "operator": "=",
-+                "value": "notice"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          },
-+          {
-+            "alias": "Warning",
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "1m"
-+                ],
-+                "type": "time"
-+              },
-+              {
-+                "params": [
-+                  "null"
-+                ],
-+                "type": "fill"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "D",
-+            "resultFormat": "time_series",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                },
-+                {
-+                  "params": [],
-+                  "type": "count"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "severity",
-+                "operator": "=",
-+                "value": "warning"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          },
-+          {
-+            "alias": "Error",
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "1m"
-+                ],
-+                "type": "time"
-+              },
-+              {
-+                "params": [
-+                  "null"
-+                ],
-+                "type": "fill"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "C",
-+            "resultFormat": "time_series",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                },
-+                {
-+                  "params": [],
-+                  "type": "count"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "severity",
-+                "operator": "=",
-+                "value": "err"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          },
-+          {
-+            "alias": "Critical",
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "1m"
-+                ],
-+                "type": "time"
-+              },
-+              {
-+                "params": [
-+                  "null"
-+                ],
-+                "type": "fill"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "E",
-+            "resultFormat": "time_series",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                },
-+                {
-+                  "params": [],
-+                  "type": "count"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "severity",
-+                "operator": "=",
-+                "value": "crit"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          },
-+          {
-+            "alias": "Alert",
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "1m"
-+                ],
-+                "type": "time"
-+              },
-+              {
-+                "params": [
-+                  "null"
-+                ],
-+                "type": "fill"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "F",
-+            "resultFormat": "time_series",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                },
-+                {
-+                  "params": [],
-+                  "type": "count"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "severity",
-+                "operator": "=",
-+                "value": "alert"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          },
-+          {
-+            "alias": "Emergency",
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "1m"
-+                ],
-+                "type": "time"
-+              },
-+              {
-+                "params": [
-+                  "null"
-+                ],
-+                "type": "fill"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "G",
-+            "resultFormat": "time_series",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                },
-+                {
-+                  "params": [],
-+                  "type": "count"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "severity",
-+                "operator": "=",
-+                "value": "emerg"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          }
-+        ],
-+        "thresholds": [],
-+        "timeFrom": null,
-+        "timeRegions": [],
-+        "timeShift": null,
-+        "title": "syslog count",
-+        "tooltip": {
-+          "shared": true,
-+          "sort": 0,
-+          "value_type": "individual"
-+        },
-+        "type": "graph",
-+        "xaxis": {
-+          "buckets": null,
-+          "mode": "time",
-+          "name": null,
-+          "show": true,
-+          "values": []
-+        },
-+        "yaxes": [
-+          {
-+            "decimals": 0,
-+            "format": "none",
-+            "label": "Messages / min",
-+            "logBase": 1,
-+            "max": null,
-+            "min": null,
-+            "show": true
-+          },
-+          {
-+            "format": "short",
-+            "label": null,
-+            "logBase": 1,
-+            "max": null,
-+            "min": null,
-+            "show": false
-+          }
-+        ],
-+        "yaxis": {
-+          "align": false,
-+          "alignLevel": null
-+        }
-+      },
-+      {
-+        "datasource": "InfluxDB-telegraf",
-+        "description": "",
-+        "fieldConfig": {
-+          "defaults": {
-+            "color": {
-+              "mode": "thresholds"
-+            },
-+            "custom": {
-+              "align": "left",
-+              "displayMode": "auto",
-+              "filterable": false
-+            },
-+            "mappings": [],
-+            "thresholds": {
-+              "mode": "absolute",
-+              "steps": [
-+                {
-+                  "color": "dark-purple",
-+                  "value": null
-+                },
-+                {
-+                  "color": "dark-red",
-+                  "value": 2
-+                },
-+                {
-+                  "color": "dark-orange",
-+                  "value": 3
-+                },
-+                {
-+                  "color": "dark-yellow",
-+                  "value": 4
-+                },
-+                {
-+                  "color": "rgb(150, 150, 150)",
-+                  "value": 5
-+                },
-+                {
-+                  "color": "rgb(51, 51, 51)",
-+                  "value": 6
-+                },
-+                {
-+                  "color": "rgb(5, 5, 5)",
-+                  "value": 7
-+                }
-+              ]
-+            }
-+          },
-+          "overrides": [
-+            {
-+              "matcher": {
-+                "id": "byName",
-+                "options": "severity_code"
-+              },
-+              "properties": [
-+                {
-+                  "id": "mappings",
-+                  "value": [
-+                    {
-+                      "options": {
-+                        "0": {
-+                          "text": "Emergency"
-+                        },
-+                        "1": {
-+                          "text": "Alert"
-+                        },
-+                        "2": {
-+                          "text": "Critical"
-+                        },
-+                        "3": {
-+                          "text": "Error"
-+                        },
-+                        "4": {
-+                          "text": "Warning"
-+                        },
-+                        "5": {
-+                          "text": "Notice"
-+                        },
-+                        "6": {
-+                          "text": "Info"
-+                        },
-+                        "7": {
-+                          "text": "Debug"
-+                        }
-+                      },
-+                      "type": "value"
-+                    }
-+                  ]
-+                },
-+                {
-+                  "id": "custom.displayMode",
-+                  "value": "color-background"
-+                },
-+                {
-+                  "id": "custom.width",
-+                  "value": 119
-+                }
-+              ]
-+            },
-+            {
-+              "matcher": {
-+                "id": "byName",
-+                "options": "Time"
-+              },
-+              "properties": [
-+                {
-+                  "id": "custom.width",
-+                  "value": 163
-+                }
-+              ]
-+            },
-+            {
-+              "matcher": {
-+                "id": "byName",
-+                "options": "hostname"
-+              },
-+              "properties": [
-+                {
-+                  "id": "custom.width",
-+                  "value": 194
-+                }
-+              ]
-+            },
-+            {
-+              "matcher": {
-+                "id": "byName",
-+                "options": "appname"
-+              },
-+              "properties": [
-+                {
-+                  "id": "custom.width",
-+                  "value": 264
-+                }
-+              ]
-+            }
-+          ]
-+        },
-+        "gridPos": {
-+          "h": 24,
-+          "w": 24,
-+          "x": 0,
-+          "y": 7
-+        },
-+        "id": 12,
-+        "options": {
-+          "showHeader": true,
-+          "sortBy": [
-+            {
-+              "desc": true,
-+              "displayName": "Time"
-+            }
-+          ]
-+        },
-+        "pluginVersion": "8.2.2",
-+        "targets": [
-+          {
-+            "groupBy": [
-+              {
-+                "params": [
-+                  "hostname"
-+                ],
-+                "type": "tag"
-+              },
-+              {
-+                "params": [
-+                  "appname"
-+                ],
-+                "type": "tag"
-+              }
-+            ],
-+            "measurement": "syslog",
-+            "orderByTime": "ASC",
-+            "policy": "default",
-+            "refId": "A",
-+            "resultFormat": "table",
-+            "select": [
-+              [
-+                {
-+                  "params": [
-+                    "severity_code"
-+                  ],
-+                  "type": "field"
-+                }
-+              ],
-+              [
-+                {
-+                  "params": [
-+                    "message"
-+                  ],
-+                  "type": "field"
-+                }
-+              ]
-+            ],
-+            "tags": [
-+              {
-+                "key": "hostname",
-+                "operator": "=~",
-+                "value": "/^$hostname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "appname",
-+                "operator": "=~",
-+                "value": "/^$appname$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "severity",
-+                "operator": "=~",
-+                "value": "/^$severity$/"
-+              },
-+              {
-+                "condition": "AND",
-+                "key": "message",
-+                "operator": "=~",
-+                "value": "/$Query/"
-+              }
-+            ]
-+          }
-+        ],
-+        "timeFrom": null,
-+        "timeShift": null,
-+        "title": "Syslog Messages",
-+        "type": "table"
-+      }
-+    ],
-+    "refresh": "5s",
-+    "schemaVersion": 31,
-+    "style": "dark",
-+    "tags": [],
-+    "templating": {
-+      "list": [
-+        {
-+          "allValue": "",
-+          "current": {
-+            "selected": false,
-+            "text": "All",
-+            "value": "$__all"
-+          },
-+          "datasource": "InfluxDB-telegraf",
-+          "definition": "SHOW TAG VALUES FROM syslog WITH KEY=appname",
-+          "description": null,
-+          "error": null,
-+          "hide": 0,
-+          "includeAll": true,
-+          "label": "Appname",
-+          "multi": true,
-+          "name": "appname",
-+          "options": [],
-+          "query": "SHOW TAG VALUES FROM syslog WITH KEY=appname",
-+          "refresh": 2,
-+          "regex": "",
-+          "skipUrlSync": false,
-+          "sort": 1,
-+          "tagValuesQuery": "",
-+          "tagsQuery": "",
-+          "type": "query",
-+          "useTags": false
-+        },
-+        {
-+          "allValue": "",
-+          "current": {
-+            "selected": false,
-+            "text": "All",
-+            "value": "$__all"
-+          },
-+          "datasource": "InfluxDB-telegraf",
-+          "definition": "SHOW TAG VALUES FROM syslog WITH KEY=hostname",
-+          "description": null,
-+          "error": null,
-+          "hide": 0,
-+          "includeAll": true,
-+          "label": "Hostname",
-+          "multi": true,
-+          "name": "hostname",
-+          "options": [],
-+          "query": "SHOW TAG VALUES FROM syslog WITH KEY=hostname",
-+          "refresh": 2,
-+          "regex": "",
-+          "skipUrlSync": false,
-+          "sort": 1,
-+          "tagValuesQuery": "",
-+          "tagsQuery": "",
-+          "type": "query",
-+          "useTags": false
-+        },
-+        {
-+          "allValue": "",
-+          "current": {
-+            "selected": false,
-+            "text": "All",
-+            "value": "$__all"
-+          },
-+          "datasource": "InfluxDB-telegraf",
-+          "definition": "SHOW TAG VALUES FROM syslog WITH KEY=severity",
-+          "description": null,
-+          "error": null,
-+          "hide": 0,
-+          "includeAll": true,
-+          "label": "Severity",
-+          "multi": true,
-+          "name": "severity",
-+          "options": [],
-+          "query": "SHOW TAG VALUES FROM syslog WITH KEY=severity",
-+          "refresh": 2,
-+          "regex": "",
-+          "skipUrlSync": false,
-+          "sort": 0,
-+          "tagValuesQuery": "",
-+          "tagsQuery": "",
-+          "type": "query",
-+          "useTags": false
-+        },
-+        {
-+          "current": {
-+            "selected": false,
-+            "text": "",
-+            "value": ""
-+          },
-+          "description": "Querystring",
-+          "error": null,
-+          "hide": 0,
-+          "label": "MessageQuery",
-+          "name": "Query",
-+          "options": [
-+            {
-+              "selected": true,
-+              "text": "",
-+              "value": ""
-+            }
-+          ],
-+          "query": "",
-+          "skipUrlSync": false,
-+          "type": "textbox"
-+        }
-+      ]
-+    },
-+    "time": {
-+      "from": "now-1h",
-+      "to": "now"
-+    },
-+    "timepicker": {
-+      "refresh_intervals": [
-+        "5s",
-+        " 10s",
-+        " 30s",
-+        " 1m",
-+        " 5m"
-+      ],
-+      "time_options": [
-+        "5m",
-+        "15m",
-+        "1h",
-+        "6h",
-+        "12h",
-+        "24h",
-+        "2d",
-+        "7d",
-+        "30d"
-+      ]
-+    },
-+    "timezone": "",
-+    "title": "syslog",
-+    "uid": "TIYeHqRgZ",
-+    "version": 1
-+  }
-\ No newline at end of file
-
-changed: [keisuke-jpn-3] => (item=syslog.json)
+changed: [keisuke-jpn-3] => (item=None)
+changed: [keisuke-jpn-3] => (item=None)
+changed: [keisuke-jpn-3] => (item=None)
+changed: [keisuke-jpn-3]
 
 TASK [grafana : Docker Container] **********************************************
 --- before
@@ -5815,42 +2992,42 @@ TASK [grafana : Docker Container] **********************************************
 changed: [keisuke-jpn-3]
 
 PLAY RECAP *********************************************************************
-keisuke-jpn-1              : ok=87   changed=69   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
-keisuke-jpn-2              : ok=86   changed=69   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
-keisuke-jpn-3              : ok=76   changed=60   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+keisuke-jpn-1              : ok=83   changed=67   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+keisuke-jpn-2              : ok=82   changed=67   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+keisuke-jpn-3              : ok=77   changed=63   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + ansible-playbook infra.yaml --diff
 
 PLAY [Ansible connection test] *************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [test_connection : Ansible ping module] ***********************************
 ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-1]
 
 PLAY [Collect info about all VMs] **********************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
 
 TASK [setup] *******************************************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
 
 PLAY [Init] ********************************************************************
 
 TASK [init : Update APT cache] *************************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
 
 TASK [init : sudo name resolve] ************************************************
 ok: [keisuke-jpn-1]
@@ -5858,61 +3035,69 @@ ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
 
 TASK [backup : Create user "backup"] *******************************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
-TASK [backup : Create restore directory] ***************************************
+TASK [backup : Add group "backup"] *********************************************
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+
+TASK [backup : Create restore/.ssh directory] **********************************
+ok: [keisuke-jpn-1] => (item=restore)
+ok: [keisuke-jpn-2] => (item=restore)
+ok: [keisuke-jpn-3] => (item=restore)
+ok: [keisuke-jpn-1] => (item=.ssh)
+ok: [keisuke-jpn-2] => (item=.ssh)
+ok: [keisuke-jpn-3] => (item=.ssh)
 
 TASK [backup : Install Duplicity] **********************************************
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
 TASK [backup : Copy known_hosts] ***********************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+
+TASK [backup : Enable cron] ****************************************************
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
 TASK [node_exporter : Install Node Exporter] ***********************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [node_exporter : Start and enable Node exporter] **************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-2]
 
 TASK [rsyslog : Install 10-telegraf.conf] **************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-2]
 
 PLAY [DNS server] **************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
 TASK [bind : Install bind9 and dnspython] **************************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [bind : local DNS config] *************************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [bind : Option config] ****************************************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [bind : DNS zone config] **************************************************
 skipping: [keisuke-jpn-1]
@@ -5928,25 +3113,17 @@ TASK [bind : execute handlers] *************************************************
 
 PLAY [DNS resolve] *************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
-
 TASK [dns : Stop systemd-resolved] *********************************************
+ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-3]
 
 TASK [dns : Update DNS setting] ************************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-2]
 
 PLAY [DNS records] *************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-3]
 
 TASK [dns_records : Create A records] ******************************************
 ok: [keisuke-jpn-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
@@ -5964,18 +3141,19 @@ ok: [keisuke-jpn-3] => (item={'key': 'ns3', 'value': 'keisuke-jpn-2'})
 ok: [keisuke-jpn-3] => (item={'key': 'prometheus', 'value': 'keisuke-jpn-3'})
 ok: [keisuke-jpn-3] => (item={'key': 'web1', 'value': 'keisuke-jpn-1'})
 ok: [keisuke-jpn-3] => (item={'key': 'web2', 'value': 'keisuke-jpn-2'})
+ok: [keisuke-jpn-3] => (item={'key': 'web3', 'value': 'keisuke-jpn-3'})
 
 PLAY [Bind exporter] ***********************************************************
 
 TASK [bind_exporter : Install Bind9 exporter] **********************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
 TASK [bind_exporter : start and enable bind9 exporter] *************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
 PLAY [Database server] *********************************************************
 
@@ -5996,36 +3174,36 @@ ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [mysql : MySQL database] **************************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql : MySQL user] ******************************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql : Add mysql exporter user] *****************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [mysql : Add mysel replication user] **************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql : Make replit read-only] *******************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [mysql_exporter : Install config] *****************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql_exporter : mysqld-arg tempalte] ************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [mysql_exporter : Install mysql exporter] *********************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [mysql_exporter : 15 seconds] *********************************************
 skipping: [keisuke-jpn-1]
@@ -6039,32 +3217,32 @@ ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [mysql_backup : Create SQL user "backup" on SQL] **************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql_backup : Copy .my.cnf file] ****************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [mysql_backup : Create mysql-backup file] *********************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 PLAY [Web server] **************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
 
 TASK [ssl : Install iptables] **************************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [ssl : Install rule] ******************************************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+
+TASK [ssl : Load iptables] *****************************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
-TASK [ssl : Load iptables] *****************************************************
+TASK [ssl : Enable netfilter-persistent] ***************************************
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
@@ -6073,12 +3251,12 @@ ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [docker : Enable docker] **************************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [docker : Login to the docker hub] ****************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [agama : Create directory agama] ******************************************
 ok: [keisuke-jpn-1]
@@ -6093,28 +3271,12 @@ ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
 TASK [agama : Run docker container] ********************************************
+ok: [keisuke-jpn-2] => (item=None)
+ok: [keisuke-jpn-1] => (item=None)
+ok: [keisuke-jpn-1] => (item=None)
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2] => (item=None)
 ok: [keisuke-jpn-2]
-
-TASK [agama : Run docker container part 2] *************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
-TASK [prometheus : Install prometheus] *****************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
-TASK [prometheus : Enable prometheus] ******************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
-TASK [prometheus : Copy prometheus config] *************************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
-
-TASK [prometheus : Copy prometheus default ARG] ********************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
 
 PLAY [Prometheus] **************************************************************
 
@@ -6132,25 +3294,17 @@ ok: [keisuke-jpn-3]
 
 PLAY [HAproxy] *****************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
-
 TASK [haproxy : Install HAproxy] ***********************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [haproxy : HAproxy config] ************************************************
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
-TASK [haproxy : vrrp script] ***************************************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
-
 TASK [haproxy : Install HAproxy exporter] **************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [haproxy : Copy HAproxy.scrape-uri] ***************************************
 ok: [keisuke-jpn-2]
@@ -6159,16 +3313,24 @@ ok: [keisuke-jpn-1]
 TASK [haproxy : Enable HAproxy and HAproxy-exporter] ***************************
 ok: [keisuke-jpn-1] => (item=haproxy)
 ok: [keisuke-jpn-2] => (item=haproxy)
-ok: [keisuke-jpn-1] => (item=prometheus-haproxy-exporter)
 ok: [keisuke-jpn-2] => (item=prometheus-haproxy-exporter)
+ok: [keisuke-jpn-1] => (item=prometheus-haproxy-exporter)
 
 TASK [keepalived : Install keepalived] *****************************************
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
+
+TASK [keepalived : Create user "keepalived_script"] ****************************
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
+
+TASK [keepalived : vrrp script] ************************************************
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
 TASK [keepalived : Copy Keepalived config] *************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [keepalived : Install keepalived_exporter] ********************************
 ok: [keisuke-jpn-2]
@@ -6181,40 +3343,45 @@ ok: [keisuke-jpn-1]
 TASK [keepalived : Enable keepalived and keepalived_exporter] ******************
 ok: [keisuke-jpn-1] => (item=keepalived)
 ok: [keisuke-jpn-2] => (item=keepalived)
-ok: [keisuke-jpn-2] => (item=keepalived_exporter)
 ok: [keisuke-jpn-1] => (item=keepalived_exporter)
+ok: [keisuke-jpn-2] => (item=keepalived_exporter)
 
 PLAY [Nginx] *******************************************************************
 
 TASK [nginx : Install nginx] ***************************************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
 TASK [nginx : copy index html] *************************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 
 TASK [nginx : copy default to nginx] *******************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
 
 TASK [nginx : start nginx unconditionally] *************************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
-TASK [nginx : put exporter] ****************************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-2]
 
 TASK [nginx_exporter : Install Nginx exporter] *********************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
+
+TASK [nginx_exporter : Copy exporter to sites-enabled] *************************
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
+
+TASK [nginx_exporter : Enable nginx exporter] **********************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 PLAY [influxdb] ****************************************************************
 
@@ -6297,32 +3464,33 @@ TASK [grafana : default grafana dashboard] *************************************
 ok: [keisuke-jpn-3]
 
 TASK [grafana : dashboard jsons] ***********************************************
-ok: [keisuke-jpn-3] => (item=main.json)
-ok: [keisuke-jpn-3] => (item=mysql.json)
-ok: [keisuke-jpn-3] => (item=syslog.json)
+ok: [keisuke-jpn-3] => (item=None)
+ok: [keisuke-jpn-3] => (item=None)
+ok: [keisuke-jpn-3] => (item=None)
+ok: [keisuke-jpn-3]
 
 TASK [grafana : Docker Container] **********************************************
 ok: [keisuke-jpn-3]
 
 PLAY RECAP *********************************************************************
-keisuke-jpn-1              : ok=73   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
-keisuke-jpn-2              : ok=73   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+keisuke-jpn-1              : ok=69   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+keisuke-jpn-2              : ok=69   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 keisuke-jpn-3              : ok=64   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + ansible all -b -m reboot -a test_command=uptime
 keisuke-jpn-3 | CHANGED => {
     "changed": true,
-    "elapsed": 32,
+    "elapsed": 42,
     "rebooted": true
 }
 keisuke-jpn-1 | CHANGED => {
     "changed": true,
-    "elapsed": 43,
+    "elapsed": 59,
     "rebooted": true
 }
 keisuke-jpn-2 | CHANGED => {
     "changed": true,
-    "elapsed": 45,
+    "elapsed": 60,
     "rebooted": true
 }
 + ansible-playbook infra.yaml --diff
@@ -6335,85 +3503,93 @@ ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [test_connection : Ansible ping module] ***********************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 
 PLAY [Collect info about all VMs] **********************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
 
 TASK [setup] *******************************************************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 
 PLAY [Init] ********************************************************************
 
 TASK [init : Update APT cache] *************************************************
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [init : sudo name resolve] ************************************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 TASK [backup : Create user "backup"] *******************************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
-TASK [backup : Create restore directory] ***************************************
+TASK [backup : Add group "backup"] *********************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
+
+TASK [backup : Create restore/.ssh directory] **********************************
+ok: [keisuke-jpn-2] => (item=restore)
+ok: [keisuke-jpn-3] => (item=restore)
+ok: [keisuke-jpn-1] => (item=restore)
+ok: [keisuke-jpn-2] => (item=.ssh)
+ok: [keisuke-jpn-3] => (item=.ssh)
+ok: [keisuke-jpn-1] => (item=.ssh)
 
 TASK [backup : Install Duplicity] **********************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
 
 TASK [backup : Copy known_hosts] ***********************************************
-ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-2]
+
+TASK [backup : Enable cron] ****************************************************
+ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
 TASK [node_exporter : Install Node Exporter] ***********************************
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
 
 TASK [node_exporter : Start and enable Node exporter] **************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 
 TASK [rsyslog : Install 10-telegraf.conf] **************************************
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 PLAY [DNS server] **************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
 TASK [bind : Install bind9 and dnspython] **************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
 
 TASK [bind : local DNS config] *************************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [bind : Option config] ****************************************************
 ok: [keisuke-jpn-3]
@@ -6434,25 +3610,17 @@ TASK [bind : execute handlers] *************************************************
 
 PLAY [DNS resolve] *************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
-
 TASK [dns : Stop systemd-resolved] *********************************************
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [dns : Update DNS setting] ************************************************
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
 
 PLAY [DNS records] *************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-3]
 
 TASK [dns_records : Create A records] ******************************************
 ok: [keisuke-jpn-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
@@ -6470,36 +3638,37 @@ ok: [keisuke-jpn-3] => (item={'key': 'ns3', 'value': 'keisuke-jpn-2'})
 ok: [keisuke-jpn-3] => (item={'key': 'prometheus', 'value': 'keisuke-jpn-3'})
 ok: [keisuke-jpn-3] => (item={'key': 'web1', 'value': 'keisuke-jpn-1'})
 ok: [keisuke-jpn-3] => (item={'key': 'web2', 'value': 'keisuke-jpn-2'})
+ok: [keisuke-jpn-3] => (item={'key': 'web3', 'value': 'keisuke-jpn-3'})
 
 PLAY [Bind exporter] ***********************************************************
 
 TASK [bind_exporter : Install Bind9 exporter] **********************************
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
 
 TASK [bind_exporter : start and enable bind9 exporter] *************************
-ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
 
 PLAY [Database server] *********************************************************
 
 TASK [mysql : Install mysql-server] ********************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [mysql : Start and enabled mysql] *****************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [mysql : Add mysql override.cnf] ******************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql : Install PyMySQL] *************************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [mysql : MySQL database] **************************************************
 ok: [keisuke-jpn-1]
@@ -6514,16 +3683,16 @@ ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [mysql : Add mysel replication user] **************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql : Make replit read-only] *******************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql_exporter : Install config] *****************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [mysql_exporter : mysqld-arg tempalte] ************************************
 ok: [keisuke-jpn-2]
@@ -6558,10 +3727,6 @@ ok: [keisuke-jpn-2]
 
 PLAY [Web server] **************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
-
 TASK [ssl : Install iptables] **************************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
@@ -6571,6 +3736,10 @@ ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
 TASK [ssl : Load iptables] *****************************************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+
+TASK [ssl : Enable netfilter-persistent] ***************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
@@ -6587,8 +3756,8 @@ ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
 TASK [agama : Create directory agama] ******************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [agama : Install amaga docker] ********************************************
 ok: [keisuke-jpn-1]
@@ -6599,28 +3768,12 @@ ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
 TASK [agama : Run docker container] ********************************************
+ok: [keisuke-jpn-2] => (item=None)
+ok: [keisuke-jpn-1] => (item=None)
+ok: [keisuke-jpn-2] => (item=None)
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1] => (item=None)
 ok: [keisuke-jpn-1]
-
-TASK [agama : Run docker container part 2] *************************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
-
-TASK [prometheus : Install prometheus] *****************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
-TASK [prometheus : Enable prometheus] ******************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
-TASK [prometheus : Copy prometheus config] *************************************
-ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
-
-TASK [prometheus : Copy prometheus default ARG] ********************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
 
 PLAY [Prometheus] **************************************************************
 
@@ -6638,10 +3791,6 @@ ok: [keisuke-jpn-3]
 
 PLAY [HAproxy] *****************************************************************
 
-TASK [Gathering Facts] *********************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
 TASK [haproxy : Install HAproxy] ***********************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
@@ -6650,13 +3799,9 @@ TASK [haproxy : HAproxy config] ************************************************
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
-TASK [haproxy : vrrp script] ***************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-2]
-
 TASK [haproxy : Install HAproxy exporter] **************************************
-ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-2]
 
 TASK [haproxy : Copy HAproxy.scrape-uri] ***************************************
 ok: [keisuke-jpn-1]
@@ -6669,57 +3814,70 @@ ok: [keisuke-jpn-2] => (item=prometheus-haproxy-exporter)
 ok: [keisuke-jpn-1] => (item=prometheus-haproxy-exporter)
 
 TASK [keepalived : Install keepalived] *****************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+
+TASK [keepalived : Create user "keepalived_script"] ****************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+
+TASK [keepalived : vrrp script] ************************************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [keepalived : Copy Keepalived config] *************************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [keepalived : Install keepalived_exporter] ********************************
 ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 
 TASK [keepalived : keepalived exporter service] ********************************
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 
 TASK [keepalived : Enable keepalived and keepalived_exporter] ******************
-ok: [keisuke-jpn-1] => (item=keepalived)
 ok: [keisuke-jpn-2] => (item=keepalived)
-ok: [keisuke-jpn-1] => (item=keepalived_exporter)
+ok: [keisuke-jpn-1] => (item=keepalived)
 ok: [keisuke-jpn-2] => (item=keepalived_exporter)
+ok: [keisuke-jpn-1] => (item=keepalived_exporter)
 
 PLAY [Nginx] *******************************************************************
 
 TASK [nginx : Install nginx] ***************************************************
-ok: [keisuke-jpn-1]
-ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-1]
 
 TASK [nginx : copy index html] *************************************************
 ok: [keisuke-jpn-2]
-ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
+ok: [keisuke-jpn-1]
 
 TASK [nginx : copy default to nginx] *******************************************
+ok: [keisuke-jpn-2]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
-ok: [keisuke-jpn-2]
 
 TASK [nginx : start nginx unconditionally] *************************************
 ok: [keisuke-jpn-3]
 ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-2]
 
-TASK [nginx : put exporter] ****************************************************
-ok: [keisuke-jpn-1]
+TASK [nginx_exporter : Install Nginx exporter] *********************************
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
 
-TASK [nginx_exporter : Install Nginx exporter] *********************************
-ok: [keisuke-jpn-1]
+TASK [nginx_exporter : Copy exporter to sites-enabled] *************************
 ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
+ok: [keisuke-jpn-3]
+
+TASK [nginx_exporter : Enable nginx exporter] **********************************
+ok: [keisuke-jpn-2]
+ok: [keisuke-jpn-1]
 ok: [keisuke-jpn-3]
 
 PLAY [influxdb] ****************************************************************
@@ -6803,17 +3961,18 @@ TASK [grafana : default grafana dashboard] *************************************
 ok: [keisuke-jpn-3]
 
 TASK [grafana : dashboard jsons] ***********************************************
-ok: [keisuke-jpn-3] => (item=main.json)
-ok: [keisuke-jpn-3] => (item=mysql.json)
-ok: [keisuke-jpn-3] => (item=syslog.json)
+ok: [keisuke-jpn-3] => (item=None)
+ok: [keisuke-jpn-3] => (item=None)
+ok: [keisuke-jpn-3] => (item=None)
+ok: [keisuke-jpn-3]
 
 TASK [grafana : Docker Container] **********************************************
 ok: [keisuke-jpn-3]
 
 PLAY RECAP *********************************************************************
-keisuke-jpn-1              : ok=73   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
-keisuke-jpn-2              : ok=73   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+keisuke-jpn-1              : ok=69   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+keisuke-jpn-2              : ok=69   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 keisuke-jpn-3              : ok=64   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + date
-Mon 10 Jan 2022 13:05:41 EET
+Tue Jan 18 15:37:07 EET 2022
