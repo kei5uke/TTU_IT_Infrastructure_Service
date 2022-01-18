@@ -17,6 +17,3 @@
       name: prometheus-nginx-exporter
       state: started
       enabled: yes
-
-  - name: flush_handlers
-    meta: flush_handlers
