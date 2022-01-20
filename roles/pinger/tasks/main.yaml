@@ -35,7 +35,7 @@
       - Daemon_relaod
       - Restart pinger
     
-  - name: Ensure pinger
+  - name: Enable pinger
     ansible.builtin.service:
       name: pinger
       state: started

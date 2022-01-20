@@ -32,3 +32,9 @@
       owner: root 
       group: root 
       mode: 0775
+
+  - name: Enable Cron
+    service:
+      name: cron
+      state: started
+      enabled: yes

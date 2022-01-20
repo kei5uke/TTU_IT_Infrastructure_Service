@@ -3,12 +3,6 @@
     ansible.builtin.apt:
       name: prometheus
 
-  - name: Enable prometheus
-    ansible.builtin.service:
-      name: prometheus
-      enabled: yes
-      state: started
-
   - name: Copy prometheus config
     ansible.builtin.template:
       src: ../templates/prometheus.yml.j2
@@ -22,3 +16,9 @@
       dest: /etc/default/prometheus
     notify:
       - Restart prometheus
+
+  - name: Enable prometheus
+    ansible.builtin.service:
+      name: prometheus
+      enabled: yes
+      state: started

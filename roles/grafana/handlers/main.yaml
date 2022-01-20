@@ -1,11 +1,6 @@
 ---
-  - name: Restart grafana
-    ansible.builtin.service:
-      name: grafana-server
-      state: restarted
-
-  - name: install admin key
-    shell: |
-      sleep 30
-      grafana-cli admin reset-admin-password {{grafana_password}}
-    no_log: True 
+  - name: Restart grafana docker
+    docker_container:
+      name: grafana
+      state: started
+      restart: yes

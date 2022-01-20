@@ -13,16 +13,19 @@
       src: grafana.ini.j2
       dest: /opt/grafana/grafana.ini
     no_log: True
+    notify: Restart grafana docker
 
   - name: default grafana datasource
     ansible.builtin.template:
       src: datasource.yaml
       dest: /opt/grafana/provisioning/datasources/default.yaml
+    notify: Restart grafana docker
 
   - name: default grafana dashboard
     ansible.builtin.template:
       src: dashboard.yaml
       dest: /opt/grafana/provisioning/dashboards/default.yaml
+    notify: Restart grafana docker
 
   - name: dashboard jsons
     ansible.builtin.copy:
@@ -34,6 +37,7 @@
       - mysql.json
       - syslog.json
       - pinger.json
+    notify: Restart grafana docker
 
   - name: Docker Container
     community.docker.docker_container:

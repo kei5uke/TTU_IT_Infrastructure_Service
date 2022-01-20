@@ -42,5 +42,11 @@
       - Restart Bind9
       - rndc reload
 
+  - name: Enable bind9
+    service:
+      name: bind9
+      state: started
+      enabled: yes
+
   - name: execute handlers
     meta: flush_handlers

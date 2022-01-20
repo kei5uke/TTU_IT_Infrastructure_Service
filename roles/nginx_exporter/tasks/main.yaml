@@ -2,15 +2,15 @@
   - name: Install Nginx exporter
     ansible.builtin.apt:
       name: prometheus-nginx-exporter
-    notify: 
-      - Restart nginx
-      - Restart nginx exporter
-      - Reload daemons
 
   - name: Copy exporter to sites-enabled
     ansible.builtin.template:
       src: exporter.j2
       dest: /etc/nginx/sites-enabled/exporter
+    notify: 
+      - Restart nginx
+      - Restart nginx exporter
+      - Reload daemons
 
   - name: Enable nginx exporter
     service:
