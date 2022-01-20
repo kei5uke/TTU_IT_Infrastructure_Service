@@ -4,12 +4,6 @@
       name: mysql-server
       state: present
 
-  - name: Start and enabled mysql
-    ansible.builtin.service:
-      name: mysql
-      state: started
-      enabled: yes
-
   - name: Add mysql override.cnf
     ansible.builtin.template:
       src: ../templates/override.cnf
@@ -19,6 +13,12 @@
   - name: Install PyMySQL
     ansible.builtin.apt:
       name: python3-pymysql
+
+  - name: Start and enabled mysql
+    ansible.builtin.service:
+      name: mysql
+      state: started
+      enabled: yes
 
   - name: MySQL database
     community.mysql.mysql_db:
