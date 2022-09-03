@@ -1,0 +1,4 @@
+- name: Connection Test
+  hosts: all
+  roles:
+    - test_connection
