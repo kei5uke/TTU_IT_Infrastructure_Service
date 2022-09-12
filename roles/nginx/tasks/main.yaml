@@ -1,0 +1,14 @@
+- name: Install nginx
+  apt:
+    name: nginx
+
+- name: Enable nginx
+  service:
+    name: nginx 
+    state: started
+    enabled: yes
+
+- name: Install index.html
+  template:
+    src: index.j2
+    dest: /var/www/html/index.html

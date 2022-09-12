@@ -1,0 +1,21 @@
+- name: Add user 'juri'
+  user:
+    name: juri
+    shell: /bin/bash
+
+- name: Add user 'roman'
+  user:
+    name: roman
+    shell: /bin/bash
+
+- name: Add SSH key for 'juri'
+  ansible.builtin.authorized_key:
+    user: juri
+    key: https://github.com/hudolejev.keys
+
+- name: Add SSH key for 'roman'
+  ansible.builtin.authorized_key:
+    user: roman 
+    key: https://github.com/romankuchin.keys
+
+    
