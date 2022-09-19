@@ -1,0 +1,17 @@
+- name: Create user 'agama'
+  user:
+    name: agama
+    home: /opt/agama
+  
+- name: Install dependancies
+  apt:
+    name: 
+      - python3-flask-sqlalchemy
+      - python3-flask 
+      - sqlite3
+    
+- name: Install agama.py
+  get_url:
+    url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
+    dest: /opt/agama
+  

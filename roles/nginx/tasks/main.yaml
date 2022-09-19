@@ -12,3 +12,10 @@
   template:
     src: index.j2
     dest: /var/www/html/index.html
+
+- name: Copy default.j2 
+  template:
+    src: default.j2 
+    dest: /etc/nginx/sites-enabled/default
+  notify:
+    - Restart nginx

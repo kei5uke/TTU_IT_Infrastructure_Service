@@ -1,6 +1,14 @@
+- name: Default
+  hosts: all
+  roles: 
+    - users
+  become: yes
+
 - name: Web Server
   hosts: web_servers
   roles: 
-    - users
+    - agama
+    - uwsgi
     - nginx
+
   become: yes
