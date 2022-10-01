@@ -1,8 +1,14 @@
 - name: Default
   hosts: all
   roles: 
+    - init
     - users
   become: yes
+
+- name: Database server 
+  hosts: db_servers
+  roles: 
+    - mysql
 
 - name: Web Server
   hosts: web_servers
