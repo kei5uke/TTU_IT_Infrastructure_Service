@@ -6,3 +6,6 @@ vm1
 
 [db_servers]
 vm2
+
+[dns_servers]
+vm2

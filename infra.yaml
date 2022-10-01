@@ -5,6 +5,20 @@
     - users
   become: yes
 
+- name: Bind9
+  hosts: dns_servers
+  roles:
+    - bind
+  become: yes
+  tags: dns
+
+- name: dns
+  hosts: all
+  roles:
+    - dns 
+  become: yes 
+  tags: dns
+
 - name: Database server 
   hosts: db_servers
   roles: 

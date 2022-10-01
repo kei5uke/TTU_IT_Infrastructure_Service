@@ -1,4 +1,5 @@
-mysql_host: 192.168.43.79
+# Agama Mysql
+mysql_host: vm2.noobmaster69.net
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -8,3 +9,11 @@ mysql_password: !vault |
           38663734333366386264363834333331623231616233343535626666663734356366373630346139
           6537666236373339650a376432343932393732383831643335383032346139646236666438373631
           3530
+
+# DNS
+domain_name: noobmaster69.net
+dns_forwarders:
+  - 1.1.1.1
+  - 8.8.8.8
+localhost: 127.0.0.0/8
+localnetwork: 192.168.42.0/24

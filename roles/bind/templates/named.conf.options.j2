@@ -1,0 +1,12 @@
+acl trusted { {{ localnetwork }}; {{ localhost }}; }; 
+
+options {
+        directory "/var/cache/bind";
+        forwarders {
+           {% for n in dns_forwarders %}
+           {{ n -}};
+           {% endfor %}
+        };
+        allow-query { localhost; trusted; };
+        dnssec-validation no;
+};

@@ -1,0 +1,33 @@
+- name: Install bind9
+  apt:
+    name: bind9
+
+- name: Enable bind9
+  service:
+    name: bind9
+    state: started
+    enabled: yes
+  
+- name: Option
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+  notify: 
+    - Restart Bind9
+    - RNDC Reload
+
+- name: Local  
+  template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify: 
+    - Restart Bind9
+    - RNDC Reload
+  
+- name: DNS Master Zone
+  template: 
+    src: db.domain.j2
+    dest: /var/cache/bind/db.domain
+  notify: 
+    - Restart Bind9
+    - RNDC Reload
