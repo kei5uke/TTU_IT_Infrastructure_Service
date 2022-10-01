@@ -4,18 +4,18 @@
       - mysql-server
       - python3-pymysql
 
-- name: Enable mysql 
-  service:
-    name: mysql
-    status: started
-    enabled: yes
-
 - name: Copy mysql.conf
-  templates:
+  template:
     src: mysql.conf.j2
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify:
     - Restart mysql
+
+- name: Enable mysql 
+  service:
+    name: mysql
+    state: started
+    enabled: yes
 
 - name: Agama MySQL database
   community.mysql.mysql_db:
@@ -28,3 +28,4 @@
     password: "{{ mysql_password }}"
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
+    login_unix_socket: /var/run/mysqld/mysqld.sock

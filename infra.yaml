@@ -9,6 +9,7 @@
   hosts: db_servers
   roles: 
     - mysql
+  become: yes
 
 - name: Web Server
   hosts: web_servers
@@ -16,5 +17,4 @@
     - agama
     - uwsgi
     - nginx
-
   become: yes
