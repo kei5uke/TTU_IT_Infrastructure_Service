@@ -12,7 +12,7 @@
   become: yes
   tags: dns
 
-- name: dns
+- name: DNS
   hosts: all
   roles:
     - dns 
