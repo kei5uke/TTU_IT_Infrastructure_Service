@@ -29,3 +29,10 @@
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: MySQL Exporter User
+  community.mysql.mysql_user:
+    name: "{{ mysql_exporter_user }}"
+    password: "{{ mysql_exporter_pass }}"
+    priv: "*.*:PROCESS, REPLICATION CLIENT, SELECT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock

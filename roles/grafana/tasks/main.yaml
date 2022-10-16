@@ -1,0 +1,30 @@
+- name: Grafana APT key
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+
+- name: Gradana Repository
+  apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+
+- name: Install Grafana
+  apt: 
+    name: grafana 
+
+- name: Grafana Init Config
+  template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+  notify: Restart Grafana
+
+- name: Grafana Datasource
+  template:
+    src: datasource.yaml.j2
+    dest: /etc/grafana/provisioning/datasources/datasource.yaml
+  notify: Restart Grafana
+
+- name: Enable Grafana
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes
+  

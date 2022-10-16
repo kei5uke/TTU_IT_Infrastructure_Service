@@ -1,0 +1,18 @@
+- name: Install Nginx Exporter
+  apt:
+    name: prometheus-nginx-exporter
+  
+- name: Expose stub_status on Port 8080
+  template:
+    src: stub_status.j2
+    dest: /etc/nginx/sites-enabled/stub_status
+  notify: 
+    - Restart Nginx Exporter
+    - Restart Nginx
+    - Reload Daemons
+
+- name: Enable Nginx Exporter
+  service:
+    name: prometheus-nginx-exporter
+    state: started
+    enabled: yes

@@ -3,6 +3,7 @@
   roles: 
     - init
     - users
+  gather_facts: yes
   become: yes
 
 - name: Node-Exporter
@@ -10,13 +11,16 @@
   roles:
     - exporter_node
   become: yes
+  gather_facts: no
   tags: prometheus
 
 - name: Bind9
   hosts: dns_servers
   roles:
     - bind
+    - exporter_bind
   become: yes
+  gather_facts: no
   tags: dns
 
 - name: DNS
@@ -24,13 +28,16 @@
   roles:
     - dns 
   become: yes 
+  gather_facts: no
   tags: dns
 
-- name: Database server 
+- name: Database Server 
   hosts: db_servers
   roles: 
     - mysql
+    - exporter_mysql
   become: yes
+  gather_facts: no
 
 - name: Web Server
   hosts: web_servers
@@ -38,17 +45,26 @@
     - agama
     - uwsgi
   become: yes
+  gather_facts: no
 
 - name: Nginx
   hosts: all
   roles:
     - nginx
+    - exporter_nginx
   become: yes
-  tags: prometheus
+  gather_facts: no
+  tags: 
+    - prometheus
+    - grafana
 
-- name: Prometheus
+- name: Prometheus & Grafana
   hosts: prometheus
   roles:
     - prometheus
+    - grafana
   become: yes
-  tags: prometheus
+  gather_facts: no
+  tags: 
+    - prometheus
+    - grafana
