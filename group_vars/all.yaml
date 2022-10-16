@@ -1,3 +1,6 @@
+# Common
+public_url: http://{{ ansible_host }}:{{ ansible_port//100}}80 
+
 # Agama Mysql
 mysql_host: vm2.noobmaster69.net
 mysql_database: agama
@@ -17,3 +20,9 @@ dns_forwarders:
   - 8.8.8.8
 localhost: 127.0.0.0/8
 localnetwork: 192.168.42.0/24
+
+# Prometheus
+prometheus_port: 9090
+prometheus_exporters:
+  node:
+    port: 9100

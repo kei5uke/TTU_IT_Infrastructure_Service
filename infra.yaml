@@ -5,6 +5,13 @@
     - users
   become: yes
 
+- name: Node-Exporter
+  hosts: all 
+  roles:
+    - exporter_node
+  become: yes
+  tags: prometheus
+
 - name: Bind9
   hosts: dns_servers
   roles:
@@ -30,5 +37,18 @@
   roles: 
     - agama
     - uwsgi
+  become: yes
+
+- name: Nginx
+  hosts: all
+  roles:
     - nginx
   become: yes
+  tags: prometheus
+
+- name: Prometheus
+  hosts: prometheus
+  roles:
+    - prometheus
+  become: yes
+  tags: prometheus
