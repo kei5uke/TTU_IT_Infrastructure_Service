@@ -3,12 +3,6 @@
     name:
       - uwsgi
       - uwsgi-plugin-python3
-  
-- name: Enable uwsgi
-  service:
-    name: uwsgi 
-    state: started
-    enabled: yes
 
 - name: agama.ini
   template: 
@@ -16,3 +10,9 @@
     dest: /etc/uwsgi/apps-enabled/agama.ini
   notify:
     - Restart uwsgi
+
+- name: Enable uwsgi
+  service:
+    name: uwsgi 
+    state: started
+    enabled: yes

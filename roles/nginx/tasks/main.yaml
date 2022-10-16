@@ -2,12 +2,6 @@
   apt:
     name: nginx
 
-- name: Enable nginx
-  service:
-    name: nginx 
-    state: started
-    enabled: yes
-
 - name: Install index.html
   template:
     src: index.j2
@@ -19,3 +13,9 @@
     dest: /etc/nginx/sites-enabled/default
   notify:
     - Restart nginx
+
+- name: Enable nginx
+  service:
+    name: nginx 
+    state: started
+    enabled: yes
