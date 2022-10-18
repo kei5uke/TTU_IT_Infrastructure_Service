@@ -10,3 +10,8 @@ options {
         allow-query { localhost; trusted; };
         dnssec-validation no;
 };
+
+# Open for bind9 exporter
+statistics-channels {
+          inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+};

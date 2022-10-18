@@ -3,22 +3,15 @@
   roles: 
     - init
     - users
+    - node_exporter
   gather_facts: yes
   become: yes
-
-- name: Node-Exporter
-  hosts: all 
-  roles:
-    - exporter_node
-  become: yes
-  gather_facts: no
-  tags: prometheus
 
 - name: Bind9
   hosts: dns_servers
   roles:
     - bind
-    - exporter_bind
+    - bind_exporter
   become: yes
   gather_facts: no
   tags: dns
@@ -35,7 +28,7 @@
   hosts: db_servers
   roles: 
     - mysql
-    - exporter_mysql
+    - mysql_exporter
   become: yes
   gather_facts: no
 
@@ -51,7 +44,7 @@
   hosts: all
   roles:
     - nginx
-    - exporter_nginx
+    - nginx_exporter
   become: yes
   gather_facts: no
   tags: 
