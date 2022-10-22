@@ -4,8 +4,10 @@
     - init
     - users
     - node_exporter
+    - rsyslog
   gather_facts: yes
   become: yes
+  tags: influx
 
 - name: Bind9
   hosts: dns_servers
@@ -31,6 +33,7 @@
     - mysql_exporter
   become: yes
   gather_facts: no
+  tags: mysql
 
 - name: Web Server
   hosts: web_servers
@@ -50,6 +53,16 @@
   tags: 
     - prometheus
     - grafana
+
+- name: Influxdb
+  hosts: influxdb  
+  become: yes 
+  gather_facts: no 
+  roles:
+    - influxdb 
+    - pinger
+    - influxdb_exporter
+  tags: influx
 
 - name: Prometheus & Grafana
   hosts: prometheus

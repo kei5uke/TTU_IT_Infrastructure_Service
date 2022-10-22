@@ -12,6 +12,9 @@
   notify: Restart MySQL Exporter
   no_log: True
 
+- name: Flush handlers once
+  meta: flush_handlers
+
 - name: Enable MySQL Exporter
   service:
     name: prometheus-mysqld-exporter

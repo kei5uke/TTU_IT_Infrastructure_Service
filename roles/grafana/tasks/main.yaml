@@ -16,7 +16,13 @@
     dest: /etc/grafana/grafana.ini
   notify: Restart Grafana
 
-- name: Grafana Datasource
+- name: Grafana Dashboard Setting
+  template:
+    src: dashboard.yaml.j2
+    dest: /etc/grafana/provisioning/dashboards/default.yaml
+  notify: Restart Grafana
+
+- name: Grafana Datasource Setting
   template:
     src: datasource.yaml.j2
     dest: /etc/grafana/provisioning/datasources/datasource.yaml
@@ -25,7 +31,7 @@
 - name: Main Dashboard
   copy:
     src: ../files/main.json
-    dest: /var/lib/grafana/dashboards/main.json
+    dest: /etc/grafana/provisioning/main.json
 
 - name: Enable Grafana
   service:

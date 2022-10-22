@@ -1,7 +1,13 @@
 - name: Create user 'agama'
   user:
     name: agama
-    home: /opt/agama
+
+- name: Create directory agama
+  file:
+    path: /opt/agama
+    state: directory
+    owner: agama
+    mode: u+wr,g=rw,o=r
   
 - name: Install dependancies
   apt:

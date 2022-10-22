@@ -1,0 +1,11 @@
+[Unit]
+Description=Influxdb Exporter
+Documentation=https://github.com/carlpett/influxdb_stats_exporter
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/influxdb-exporter
+
+[Install]
+WantedBy=multi-user.target
