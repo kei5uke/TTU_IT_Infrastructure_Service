@@ -13,6 +13,10 @@ mysql_password: !vault |
           3763303764363038350a623231353538323131643864616561623961353066386138333339353739
           6562
 
+# Backup
+backup_user: backup
+backup_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
 # DNS
 domain_name: noobmaster69.net
 dns_forwarders:
@@ -20,6 +24,7 @@ dns_forwarders:
   - 8.8.8.8
 localhost: 127.0.0.0/8
 localnetwork: 192.168.42.0/24
+backup_server_ip: 192.168.42.132
 
 # Prometheus
 prometheus_port: 9090

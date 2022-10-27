@@ -7,7 +7,17 @@
     - rsyslog
   gather_facts: yes
   become: yes
-  tags: influx
+  tags: 
+    - influx
+
+- name: Backup
+  hosts: all
+  roles:
+    - backup
+  gather_facts: no 
+  become: yes 
+  tags:
+   - backup
 
 - name: DNS Bind9
   hosts: dns_servers
