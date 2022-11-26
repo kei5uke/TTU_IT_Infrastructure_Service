@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -269,7 +268,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.6",
       "targets": [
         {
           "datasource": {
@@ -554,10 +553,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "3Pf0bmN4k"
-      },
+      "datasource": {},
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -613,7 +609,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.2.1",
+      "pluginVersion": "9.2.6",
       "targets": [
         {
           "datasource": {
@@ -631,10 +627,7 @@
       "type": "stat"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "3Pf0bmN4k"
-      },
+      "datasource": {},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -725,7 +718,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "nNWd-iN4k"
+        "uid": "P951FEA4DE68E13C5"
       },
       "fieldConfig": {
         "defaults": {
@@ -802,12 +795,12 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "nNWd-iN4k"
+            "uid": "P951FEA4DE68E13C5"
           },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "10s"
               ],
               "type": "time"
             },
@@ -818,7 +811,7 @@
               "type": "fill"
             }
           ],
-          "key": "Q-2fd0e8f9-beb6-4314-84a7-c1035d1867d2-0",
+          "hide": false,
           "measurement": "rtt",
           "orderByTime": "ASC",
           "policy": "default",
@@ -847,7 +840,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "mcA4PmH4k"
+        "uid": "PC61D9CAFA4D33E15"
       },
       "fieldConfig": {
         "defaults": {
@@ -924,12 +917,12 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "mcA4PmH4k"
+            "uid": "PC61D9CAFA4D33E15"
           },
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "10s"
               ],
               "type": "time"
             },
@@ -940,7 +933,6 @@
               "type": "fill"
             }
           ],
-          "key": "Q-7fd42bdd-80e5-42dc-ae9f-452fa5f0034a-0",
           "measurement": "syslog",
           "orderByTime": "ASC",
           "policy": "default",
@@ -959,10 +951,17 @@
                 "type": "count"
               }
             ]
+          ],
+          "tags": [
+            {
+              "key": "severity",
+              "operator": "=",
+              "value": "err"
+            }
           ]
         }
       ],
-      "title": "rsyslog",
+      "title": "rsyslog (severity=err)",
       "type": "timeseries"
     }
   ],
@@ -978,8 +977,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "main",
-  "uid": "xCmIIwIVk",
-  "version": 4,
+  "title": "Main",
+  "uid": "JWKxu9OVk",
+  "version": 1,
   "weekStart": ""
 }

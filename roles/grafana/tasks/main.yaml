@@ -19,19 +19,26 @@
 - name: Grafana Dashboard Setting
   template:
     src: dashboard.yaml.j2
-    dest: /etc/grafana/provisioning/dashboards/default.yaml
+    dest: /etc/grafana/provisioning/dashboards/dashboard.yaml
   notify: Restart Grafana
 
 - name: Grafana Datasource Setting
   template:
     src: datasource.yaml.j2
-    dest: /etc/grafana/provisioning/datasources/datasource.yaml
+    dest: /etc/grafana/provisioning/datasources/default.yaml
   notify: Restart Grafana
 
-- name: Main Dashboard
+- name: Create Grafana Dashboards Json Folder
+  file:
+    path: /etc/grafana/provisioning/dashboard-jsons
+    state: directory
+    group: grafana
+
+- name: Main Dashboard Json
   copy:
     src: ../files/main.json
-    dest: /etc/grafana/provisioning/main.json
+    dest: /etc/grafana/provisioning/dashboard-jsons/main.json
+    group: grafana
 
 - name: Enable Grafana
   service:
