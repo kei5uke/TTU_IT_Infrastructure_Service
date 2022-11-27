@@ -13,3 +13,14 @@
     dest: /home/backup/.ssh/known_hosts
     group: "{{ backup_user }}"
     owner: "{{ backup_user }}"
+
+- name: Restore directory
+  file:
+    path: /home/backup/restore
+    state: directory 
+    owner: "{{ backup_user }}"
+
+- name: Install Duplicity
+  apt:
+    name: duplicity 
+

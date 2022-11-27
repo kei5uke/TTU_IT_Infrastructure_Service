@@ -11,8 +11,8 @@ Folloing services will be backed up using ansible playbook
 ## RPO  
 The backup will be updated to the point where the database is no more than 1 day in the past.  
 
-## Versioning and retention 
-Local backup is made once a day at 1:00 AM(EET), includeing Influnxdb, MySQL   
+## Versioning and Retention 
+Local backup is made once a day at 1:00 AM(EET), includeing Influxdb, MySQL   
 Old back up will be deleted after the new one is made.  
 
 Full backup is made every Sunday at 1:30 AM(EET), including Influxdb, MySQL.  
