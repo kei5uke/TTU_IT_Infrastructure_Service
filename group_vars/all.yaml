@@ -3,7 +3,7 @@ public_url: http://{{ ansible_host }}:{{ ansible_port//100}}80
 github_username: kei5uke
 
 # Agama Mysql
-mysql_host: vm2
+mysql_host: vm1
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -13,7 +13,16 @@ mysql_password: !vault |
           62316230636638373339303261313633363632313162323264333562656365643434366431353765
           3763303764363038350a623231353538323131643864616561623961353066386138333339353739
           6562
-mysql_backup_host: vm2
+mysql_backup_host: "{{ groups['db_servers'] | reject('eq', mysql_host) | first | default(mysql_host) }}"
+mysql_replicate_user: replication
+mysql_replicate_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35363464313039323632333230633261306230613134336135626362313433356663336633643062
+          6165336130666163376562613135383432376461373235620a353961623665393262643638663264
+          39663533303864663263653263386264653935326136633034383034633963383761323537346564
+          6539613262363661380a643635653763316664363062666336366339356437613434613230366133
+          3038
+node_id: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'].split('.')[-1] }}"
 
 # Backup
 backup_user: backup
@@ -32,7 +41,7 @@ dns_forwarders:
   - 1.1.1.1
   - 8.8.8.8
 localhost: 127.0.0.0/8
-localnetwork: 192.168.42.0/24
+localnetwork: 192.168.43.0/24
 backup_server_ip: 192.168.42.132
 
 # Prometheus

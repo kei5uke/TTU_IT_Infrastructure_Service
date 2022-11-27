@@ -8,3 +8,7 @@
     name: systemd-resolved
     enabled: no 
     state: stopped
+
+- name: debug
+  debug:
+    msg: "{{ tmp }}"

@@ -4,9 +4,9 @@
       - mysql-server
       - python3-pymysql
 
-- name: Copy override.conf
+- name: Copy mysql.conf
   template:
-    src: override.j2
+    src: mysql.conf.j2
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify:
     - Restart MySQL
@@ -37,24 +37,3 @@
     password: "{{ mysql_exporter_pass }}"
     priv: "*.*:PROCESS, REPLICATION CLIENT, SELECT"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-  no_log: True
-
-- name: MySQL Replicate User
-  community.mysql.mysql_user:
-    name: "{{ mysql_replicate_user }}"
-    password: "{{ mysql_replicate_pass }}"
-    host: "%"
-    priv: "*.*:REPLICATION SLAVE"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-  no_log: True
-
-- name: Make replica read-only
-  community.mysql.mysql_variables:
-    variable: read_only
-    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
-    mode: persist
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-  notify:
-    - Reset MySQL source
-    - Reset MySQL replica
-  

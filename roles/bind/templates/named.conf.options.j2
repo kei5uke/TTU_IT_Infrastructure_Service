@@ -1,4 +1,4 @@
-acl trusted { {{ localnetwork }}; {{ localhost }}; }; 
+acl trusted { {{ ansible_default_ipv4.network }}; {{ localhost }}; }; 
 
 options {
         directory "/var/cache/bind";

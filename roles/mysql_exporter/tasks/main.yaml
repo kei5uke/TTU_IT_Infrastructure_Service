@@ -12,6 +12,12 @@
   notify: Restart MySQL Exporter
   no_log: True
 
+- name: MySQL Exporter arg file
+  template:
+    src: mysql_exporter_arg.j2
+    dest: /etc/default/prometheus-mysqld-exporter
+  notify: Restart MySQL Exporter
+
 - name: Flush handlers once
   meta: flush_handlers
 

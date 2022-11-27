@@ -10,3 +10,6 @@
   hostname:
     name: "{{ inventory_hostname }}"
     use: debian
+
+- name: setup
+  setup:
