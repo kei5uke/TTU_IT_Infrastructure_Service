@@ -36,9 +36,12 @@
 
 - name: Main Dashboard Json
   copy:
-    src: ../files/main.json
-    dest: /etc/grafana/provisioning/dashboard-jsons/main.json
+    src: "../files/{{item}}"
+    dest: /etc/grafana/provisioning/dashboard-jsons/{{item}}
     group: grafana
+  loop:
+    - main.json 
+    - mysql.json
 
 - name: Enable Grafana
   service:
