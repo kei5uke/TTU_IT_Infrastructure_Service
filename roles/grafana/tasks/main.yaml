@@ -1,51 +1,49 @@
-- name: Grafana APT key
-  apt_key:
-    url: https://packages.grafana.com/gpg.key
-
-- name: Grafana Repository
-  apt_repository:
-    repo: deb https://packages.grafana.com/oss/deb stable main
-
-- name: Install Grafana
-  apt: 
-    name: grafana 
+- name: Create Grafana directory
+  file: 
+    path: "{{ item }}"
+    state: directory
+  loop:
+      - /opt/grafana/provisioning/dashboards
+      - /opt/grafana/provisioning/datasources
 
 - name: Grafana Init Config
   template:
     src: grafana.ini.j2
-    dest: /etc/grafana/grafana.ini
-  notify: Restart Grafana
+    dest: /opt/grafana/grafana.ini
+  notify: Restart grafana docker
 
 - name: Grafana Dashboard Setting
   template:
     src: dashboard.yaml.j2
-    dest: /etc/grafana/provisioning/dashboards/dashboard.yaml
-  notify: Restart Grafana
+    dest: /opt/grafana/provisioning/dashboards/default.yaml
+  notify: Restart grafana docker
 
 - name: Grafana Datasource Setting
   template:
     src: datasource.yaml.j2
-    dest: /etc/grafana/provisioning/datasources/default.yaml
-  notify: Restart Grafana
+    dest: /opt/grafana/provisioning/datasources/default.yaml
+  notify: Restart grafana docker
 
 - name: Create Grafana Dashboards Json Folder
   file:
-    path: /etc/grafana/provisioning/dashboard-jsons
+    path: /opt/grafana/provisioning/dashboard-jsons
     state: directory
     group: grafana
 
 - name: Main Dashboard Json
   copy:
     src: "../files/{{item}}"
-    dest: /etc/grafana/provisioning/dashboard-jsons/{{item}}
+    dest: /opt/grafana/provisioning/dashboard-jsons/{{item}}
     group: grafana
   loop:
     - main.json 
     - mysql.json
-
-- name: Enable Grafana
-  service:
-    name: grafana-server
-    state: started
-    enabled: yes
+  notify: Restart grafana docker
   
+- name: Grafana Docker 
+  community.docker.docker_container:
+   name: grafana
+   image: grafana/grafana:9.2.6
+   published_ports: "{{ grafana_port }}:3000"
+   volumes: /opt/grafana:/etc/grafana
+   restart_policy: always

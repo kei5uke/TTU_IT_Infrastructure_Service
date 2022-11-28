@@ -5,6 +5,7 @@
     - users
     - node_exporter
     - rsyslog
+    - docker
   gather_facts: yes
   become: yes
   tags: 
@@ -26,7 +27,7 @@
     - bind
     - bind_exporter
   become: yes
-  gather_facts: no
+  gather_facts: yes
   tags: dns
 
 - name: DNS Resolved
@@ -34,7 +35,7 @@
   roles:
     - dns 
   become: yes 
-  gather_facts: no
+  gather_facts: yes
   tags: dns
 
 - name: Database Server 
@@ -53,11 +54,11 @@
   hosts: web_servers
   roles: 
     - agama
-    - uwsgi
   become: yes
   gather_facts: yes
   tags:
     - webapp
+    - agama
 
 - name: Nginx
   hosts: all
@@ -67,6 +68,7 @@
   become: yes
   gather_facts: no
   tags: 
+    - nginx
     - prometheus
     - grafana
 
@@ -81,15 +83,16 @@
     - influxdb_backup
   tags: influx
 
-- name: Prometheus & Grafana
+- name: Prometheus
   hosts: prometheus
   roles:
     - prometheus
-    - grafana
   become: yes
   gather_facts: no
   tags:
     - prometheus
+
+
 
 - name: Grafana 
   hosts: grafana

@@ -1,4 +1,4 @@
-acl trusted { {{ localnetwork }}; {{ localhost }}; }; 
+acl trusted { {{ localnetwork }}; {{ localhost_network }}; {{ docker_network }}; }; 
 
 options {
         directory "/var/lib/bind";

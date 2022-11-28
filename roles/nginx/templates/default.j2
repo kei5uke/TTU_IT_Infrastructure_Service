@@ -8,8 +8,10 @@ server {
 
 {% if inventory_hostname in groups['web_servers'] %}
   location / {
-    uwsgi_pass localhost:5000;
-    include uwsgi_params;
+    #uwsgi_pass localhost:5000;
+    #include uwsgi_params;
+    proxy_pass http://localhost:{{ agama_docker_port + 1}};
+    proxy_set_header Host $http_host;
   }
 {% endif %}
 
