@@ -92,12 +92,10 @@
   tags:
     - prometheus
 
-
-
 - name: Grafana 
   hosts: grafana
   roles:
     - grafana
   become: yes
-  gather_facts: no
+  gather_facts: yes
   tags: grafana

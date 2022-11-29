@@ -2,6 +2,7 @@
   file: 
     path: "{{ item }}"
     state: directory
+    recurse: yes
   loop:
       - /opt/grafana/provisioning/dashboards
       - /opt/grafana/provisioning/datasources
@@ -28,13 +29,11 @@
   file:
     path: /opt/grafana/provisioning/dashboard-jsons
     state: directory
-    group: grafana
 
 - name: Main Dashboard Json
   copy:
     src: "../files/{{item}}"
     dest: /opt/grafana/provisioning/dashboard-jsons/{{item}}
-    group: grafana
   loop:
     - main.json 
     - mysql.json
@@ -47,3 +46,5 @@
    published_ports: "{{ grafana_port }}:3000"
    volumes: /opt/grafana:/etc/grafana
    restart_policy: always
+   dns_search_domains: "{{ domain_name }}"
+   dns_servers: "{{ dns_master_ip }}"

@@ -21,10 +21,15 @@
 - name: Run agama docker container 
   community.docker.docker_container:
     container_default_behavior: no_defaults
-    name: agama
+    name: "agama{{ item }}"
     image: agama 
-    published_ports: "{{agama_docker_port + 1 }}:{{ agama_docker_port }}"
+    published_ports: "{{agama_docker_port + item }}:{{ agama_docker_port }}"
     env:
       AGAMA_DATABASE_URI: mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{mysql_host}}/{{mysql_database}}
     restart_policy: always
+    dns_search_domains: "{{ domain_name }}"
+    dns_servers: "{{ dns_master_ip }}"
+  loop:
+    - 1
+    - 2
   no_log: True
