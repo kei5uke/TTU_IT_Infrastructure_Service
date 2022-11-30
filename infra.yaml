@@ -1,3 +1,12 @@
+- name: Init
+  hosts: all
+  roles: 
+    - init
+  gather_facts: yes
+  become: yes
+  tags: 
+    - init
+
 - name: Default
   hosts: all
   roles: 
@@ -9,7 +18,7 @@
   gather_facts: yes
   become: yes
   tags: 
-    - init
+    - default
     - influx
 
 - name: Backup
@@ -99,3 +108,14 @@
   become: yes
   gather_facts: yes
   tags: grafana
+
+- name: Keepalived & HAproxy
+  hosts: haproxy
+  roles: 
+    - keepalived
+    - haproxy
+  become: yes
+  gather_facts: yes 
+  tags: 
+    - keepalived
+    - haproxy

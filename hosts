@@ -1,8 +1,9 @@
-vm1 ansible_host=193.40.156.67 ansible_port=28022 ansible_ssh_user=ubuntu
-vm2 ansible_host=193.40.156.67 ansible_port=28822 ansible_ssh_user=ubuntu
+vm1 ansible_host=193.40.156.67 ansible_port=17222 ansible_ssh_user=ubuntu
+vm2 ansible_host=193.40.156.67 ansible_port=11522 ansible_ssh_user=ubuntu
 
 [web_servers]
 vm1
+vm2
 
 [db_servers]
 vm1
@@ -18,4 +19,11 @@ vm2
 vm2
 
 [grafana]
+vm2
+
+[keepalived_master]
+vm1
+
+[haproxy]
+vm1
 vm2

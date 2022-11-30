@@ -3,7 +3,8 @@ public_url: http://{{ ansible_host }}:{{ ansible_port//100}}80
 github_username: kei5uke
 
 # Agama Mysql
-agama_docker_port: 8000
+agama_port: 8000
+agama_container_num: 2
 mysql_host: vm1
 mysql_database: agama
 mysql_user: agama
@@ -84,3 +85,7 @@ grafana_password: !vault |
 
 # InfluxDB
 influxdb_port: 8086
+
+# HAproxy
+haproxy_port: 88
+haproxy_stats_port: 9188
