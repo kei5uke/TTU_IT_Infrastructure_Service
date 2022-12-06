@@ -30,7 +30,24 @@ server {
 
 {% if inventory_hostname in groups['influxdb'] %}
 	location /influxdb-metrics {
-       proxy_pass http://localhost:{{ prometheus_exporters['influxdb']['port'] }}/metrics;
+    proxy_pass http://localhost:{{ prometheus_exporters['influxdb']['port'] }}/metrics;
+	}
+{% endif %}
+
+
+{% if inventory_hostname in groups['haproxy'] %}
+	location /haproxy-metrics {
+    proxy_pass http://localhost:{{ prometheus_exporters['haproxy']['port'] }}/metrics;
+	}
+{% endif %}
+
+{% if inventory_hostname in groups['haproxy'] %}
+	location /keepalived-metrics {
+    proxy_pass http://localhost:{{ prometheus_exporters['keepalived']['port'] }}/metrics;
+	}
+
+	location /haproxy {
+		proxy_pass http://localhost:{{ haproxy_port }}/haproxy?stats;
 	}
 {% endif %}
 

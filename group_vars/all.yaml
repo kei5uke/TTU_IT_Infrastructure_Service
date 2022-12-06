@@ -62,6 +62,10 @@ prometheus_exporters:
     port: 9119
   influxdb:
     port: 9424
+  haproxy:
+    port: 9101
+  keepalived:
+    port: 9165
 
 mysql_exporter_user: exporter
 mysql_exporter_pass: !vault |

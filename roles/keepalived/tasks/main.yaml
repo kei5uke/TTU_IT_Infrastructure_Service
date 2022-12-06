@@ -13,6 +13,9 @@
   template:
     src: keepalived.conf.j2
     dest: /etc/keepalived/keepalived.conf
+  notify: 
+  - Reload daemon
+  - Restart keepalived
 
 - name: vrrp_script
   template:
@@ -21,6 +24,9 @@
     mode: '0755'
     owner: keepalived_script 
     group: keepalived_script 
+  notify: 
+  - Reload daemon
+  - Restart keepalived
 
 - name: Install keepalived_exporter 
   unarchive:
@@ -35,6 +41,7 @@
   notify: 
     - Reload daemon
     - Restart keepalived
+    - Restart keepalived exporter
 
 - name: Enable keepalived and keepalived_exporter 
   service:

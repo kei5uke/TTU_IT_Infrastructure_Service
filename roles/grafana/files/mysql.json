@@ -79,7 +79,8 @@
           },
           "editorMode": "builder",
           "expr": "mysql_global_variables_server_id",
-          "legendFormat": "__auto",
+          "interval": "",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
@@ -99,13 +100,18 @@
               "options": {
                 "0": {
                   "color": "blue",
-                  "index": 1,
-                  "text": "Read & Write (Primary)"
+                  "index": 0,
+                  "text": "Read&Write (Primary)"
                 },
                 "1": {
                   "color": "green",
-                  "index": 0,
+                  "index": 1,
                   "text": "Read-Only"
+                },
+                "null": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "Down"
                 }
               },
               "type": "value"
@@ -136,8 +142,8 @@
       },
       "id": 4,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
+        "colorMode": "background",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -147,7 +153,7 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "value_and_name"
       },
       "pluginVersion": "9.2.6",
       "targets": [
@@ -158,7 +164,7 @@
           },
           "editorMode": "builder",
           "expr": "mysql_global_variables_read_only",
-          "legendFormat": "__auto",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
@@ -173,40 +179,17 @@
       },
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
-          },
-          "mappings": [],
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -219,7 +202,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -231,17 +215,20 @@
       },
       "id": 6,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "value_and_name"
       },
+      "pluginVersion": "9.2.6",
       "targets": [
         {
           "datasource": {
@@ -250,13 +237,13 @@
           },
           "editorMode": "builder",
           "expr": "mysql_slave_status_slave_io_running",
-          "legendFormat": "__auto",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "mysql_slave_status_slave_io_running",
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -265,7 +252,17 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -291,9 +288,9 @@
       },
       "id": 8,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -302,7 +299,7 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "value_and_name"
       },
       "pluginVersion": "9.2.6",
       "targets": [
@@ -313,7 +310,7 @@
           },
           "editorMode": "builder",
           "expr": "mysql_slave_status_slave_sql_running",
-          "legendFormat": "__auto",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
@@ -336,6 +333,6 @@
   "timezone": "",
   "title": "mysql",
   "uid": "E3ziDgKVk",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
