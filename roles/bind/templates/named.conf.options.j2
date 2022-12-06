@@ -1,7 +1,7 @@
 acl trusted { {{ localnetwork }}; {{ localhost_network }}; {{ docker_network }}; }; 
 
 options {
-        directory "/var/lib/bind";
+        directory "/var/cache/bind";
         forwarders {
            {% for n in dns_forwarders %}
            {{ n -}};
@@ -14,4 +14,14 @@ options {
 # Open for bind9 exporter
 statistics-channels {
           inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+};
+
+key "transfer.key" {
+	algorithm hmac-sha256;
+	secret "{{ transfer_key_secret }}";
+};
+
+key "nsupdate.key" {
+	algorithm hmac-sha256;
+	secret "{{ nsupdate_key_secret }}";
 };

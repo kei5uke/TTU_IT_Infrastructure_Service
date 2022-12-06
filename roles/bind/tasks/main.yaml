@@ -1,11 +1,14 @@
 - name: Install bind9
   apt:
-    name: bind9
+    name: 
+      - bind9
+      - python3-dnspython
   
 - name: Option
   template:
     src: named.conf.options.j2
     dest: /etc/bind/named.conf.options
+  #no_log: True
   notify: 
     - Restart Bind9
     - RNDC Reload
@@ -21,13 +24,56 @@
 - name: DNS Master Zone
   template: 
     src: db.domain.j2
-    dest: /var/lib/bind/db.domain
+    dest: /var/cache/bind/db.domain
+    force: no
   notify: 
     - Restart Bind9
     - RNDC Reload
+  when: inventory_hostname in groups ['dns_masters']
+
+- name: Reverse DNS Master Zone
+  template: 
+    src: db.domain.reverse.j2
+    dest: /var/cache/bind/db.domain.reverse
+    force: no
+  notify: 
+    - Restart Bind9
+    - RNDC Reload
+  when: inventory_hostname in groups ['dns_masters']
 
 - name: Enable bind9
   service:
     name: bind9
     state: started
     enabled: yes
+
+- name: execute handlers
+  meta: flush_handlers
+
+- name: Create A records
+  community.general.nsupdate:
+    key_name: "nsupdate.key"
+    key_algorithm: "hmac-sha256"
+    key_secret: "{{ nsupdate_key_secret }}"
+    server: "localhost"
+    zone: "{{ domain_name }}"
+    record: "{{ item.key }}"
+    type: "A"
+    value: "{{ item.value }}"
+  loop: "{{ dns_a_records | dict2items }}"
+  run_once: True
+  when: inventory_hostname in groups ['dns_masters']
+
+- name: Create CNAME records
+  community.general.nsupdate:
+    key_name: "nsupdate.key"
+    key_algorithm: "hmac-sha256"
+    key_secret: "{{ nsupdate_key_secret }}"
+    server: "localhost"
+    zone: "{{ domain_name }}"
+    record: "{{ item.key }}"
+    type: "CNAME"
+    value: "{{ item.value }}"
+  loop: "{{ dns_cname_records | dict2items }}"
+  run_once: True
+  when: inventory_hostname in groups ['dns_masters']

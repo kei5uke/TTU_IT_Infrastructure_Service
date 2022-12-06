@@ -13,6 +13,7 @@
     dest: /home/backup/.ssh/known_hosts
     group: "{{ backup_user }}"
     owner: "{{ backup_user }}"
+  no_log: true
 
 - name: Restore directory
   file:

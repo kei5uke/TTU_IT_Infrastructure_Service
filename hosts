@@ -10,7 +10,14 @@ vm1
 vm2
 
 [dns_servers]
+vm1
 vm2
+
+[dns_masters]
+vm2
+
+[dns_slaves]
+vm1
 
 [prometheus]
 vm2
