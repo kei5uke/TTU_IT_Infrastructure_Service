@@ -8,10 +8,11 @@
   template:
     src: named.conf.options.j2
     dest: /etc/bind/named.conf.options
-  #no_log: True
+  no_log: True
   notify: 
     - Restart Bind9
     - RNDC Reload
+  register: dns_config
 
 - name: Local  
   template:
@@ -20,6 +21,7 @@
   notify: 
     - Restart Bind9
     - RNDC Reload
+  register: dns_config
   
 - name: DNS Master Zone
   template: 
@@ -30,6 +32,7 @@
     - Restart Bind9
     - RNDC Reload
   when: inventory_hostname in groups ['dns_masters']
+  register: dns_config
 
 - name: Reverse DNS Master Zone
   template: 
@@ -40,6 +43,7 @@
     - Restart Bind9
     - RNDC Reload
   when: inventory_hostname in groups ['dns_masters']
+  register: dns_config
 
 - name: Enable bind9
   service:
@@ -49,6 +53,11 @@
 
 - name: execute handlers
   meta: flush_handlers
+
+- name: Wait for 15 sec
+  pause:
+    seconds: 15
+  when: dns_config.changed
 
 - name: Create A records
   community.general.nsupdate:

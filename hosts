@@ -1,5 +1,6 @@
-vm1 ansible_host=193.40.156.67 ansible_port=33922 ansible_ssh_user=ubuntu
-vm2 ansible_host=193.40.156.67 ansible_port=29122 ansible_ssh_user=ubuntu
+vm1 ansible_host=193.40.156.67 ansible_port=45022 ansible_ssh_user=ubuntu
+vm2 ansible_host=193.40.156.67 ansible_port=40722 ansible_ssh_user=ubuntu
+vm3 ansible_host=193.40.156.67 ansible_port=43122 ansible_ssh_user=ubuntu
 
 [web_servers]
 vm1
@@ -9,24 +10,25 @@ vm2
 vm1
 vm2
 
-[dns_servers]
-vm1
-vm2
+[dns_servers:children]
+dns_masters
+dns_slaves
 
 [dns_masters]
-vm2
+vm3
 
 [dns_slaves]
 vm1
+vm2
 
 [prometheus]
-vm2
+vm3
 
 [influxdb]
-vm2
+vm3
 
 [grafana]
-vm2
+vm3
 
 [keepalived_master]
 vm1

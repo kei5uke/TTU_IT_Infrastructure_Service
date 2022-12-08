@@ -8,6 +8,9 @@
   copy:
     src: ../files/pinger.sh
     dest: /usr/local/bin/pinger.sh
+  notify: 
+    - daemon-reload
+    - Restart pinger
   
 - name: Create User 'pinger'
   user:
@@ -23,12 +26,18 @@
   template:
     src: pinger.conf.j2
     dest: /etc/pinger/pinger.conf
+  notify: 
+    - daemon-reload
+    - Restart pinger
   
 - name: pinger Script
   copy:
     src: ../files/pinger.sh
     dest: /usr/local/bin/pinger
     mode: '0755'
+  notify: 
+    - daemon-reload
+    - Restart pinger
 
 - name: Service 'pinger'
   template:

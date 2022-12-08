@@ -1,11 +1,10 @@
 - name: Init
   hosts: all
-  roles: 
-    - init
-  gather_facts: yes
   become: yes
-  tags: 
-    - init
+  gather_facts: yes
+  tasks:
+    - setup:
+  tags: always
 
 - name: Default
   hosts: all
@@ -15,7 +14,7 @@
     - node_exporter
     - rsyslog
     - docker
-  gather_facts: yes
+  gather_facts: no
   become: yes
   tags: 
     - default
@@ -36,7 +35,7 @@
     - bind
     - bind_exporter
   become: yes
-  gather_facts: yes
+  gather_facts: no
   tags: dns
 
 - name: DNS Resolved
@@ -44,7 +43,7 @@
   roles:
     - dns 
   become: yes 
-  gather_facts: yes
+  gather_facts: no
   tags: dns
 
 - name: Database Server 
@@ -54,7 +53,7 @@
     - mysql_exporter
     - mysql_backup
   become: yes
-  gather_facts: yes
+  gather_facts: no
   tags: 
     - mysql
     - webapp
@@ -64,7 +63,7 @@
   roles: 
     - agama
   become: yes
-  gather_facts: yes
+  gather_facts: no
   tags:
     - webapp
     - agama
@@ -106,7 +105,7 @@
   roles:
     - grafana
   become: yes
-  gather_facts: yes
+  gather_facts: no
   tags: grafana
 
 - name: Keepalived & HAproxy
@@ -115,7 +114,7 @@
     - keepalived
     - haproxy
   become: yes
-  gather_facts: yes 
+  gather_facts: no 
   tags: 
     - keepalived
     - haproxy
