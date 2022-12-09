@@ -38,7 +38,6 @@ backup_password: !vault |
 backup_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
 # DNS
-dns_master_ip: "{{ hostvars['vm2']['ansible_default_ipv4']['address'] }}"
 domain_name: noobmaster69.net
 dns_forwarders:
   - 1.1.1.1

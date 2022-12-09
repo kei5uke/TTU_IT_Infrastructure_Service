@@ -1,4 +1,4 @@
-- name: Init
+- name: Set up
   hosts: all
   become: yes
   gather_facts: yes
@@ -26,8 +26,7 @@
     - backup
   gather_facts: no 
   become: yes 
-  tags:
-   - backup
+  tags: backup
 
 - name: DNS Bind9
   hosts: dns_servers
@@ -41,7 +40,7 @@
 - name: DNS Resolved
   hosts: all
   roles:
-    - dns 
+    - dns_resolve 
   become: yes 
   gather_facts: no
   tags: dns
@@ -67,6 +66,17 @@
   tags:
     - webapp
     - agama
+
+- name: Keepalived & HAproxy
+  hosts: haproxy
+  roles: 
+    - keepalived
+    - haproxy
+  become: yes
+  gather_facts: no 
+  tags: 
+    - keepalived
+    - haproxy
 
 - name: Nginx
   hosts: all
@@ -97,8 +107,7 @@
     - prometheus
   become: yes
   gather_facts: no
-  tags:
-    - prometheus
+  tags: prometheus
 
 - name: Grafana 
   hosts: grafana
@@ -107,14 +116,3 @@
   become: yes
   gather_facts: no
   tags: grafana
-
-- name: Keepalived & HAproxy
-  hosts: haproxy
-  roles: 
-    - keepalived
-    - haproxy
-  become: yes
-  gather_facts: no 
-  tags: 
-    - keepalived
-    - haproxy

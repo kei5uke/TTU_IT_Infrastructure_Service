@@ -47,4 +47,6 @@
    volumes: /opt/grafana:/etc/grafana
    restart_policy: always
    dns_search_domains: "{{ domain_name }}"
-   dns_servers: "{{ dns_master_ip }}"
+   dns_servers: 
+    - "{{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }}"
+    - "{{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }}"
