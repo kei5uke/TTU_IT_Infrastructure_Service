@@ -9,13 +9,14 @@
     shell: /bin/bash
 
 - name: Add SSH key for 'juri'
-  ansible.builtin.authorized_key:
+  authorized_key:
     user: juri
     key: https://github.com/hudolejev.keys
+  no_log: true
 
 - name: Add SSH key for 'roman'
-  ansible.builtin.authorized_key:
+  authorized_key:
     user: roman 
     key: https://github.com/romankuchin.keys
-
+  no_log: true
     
