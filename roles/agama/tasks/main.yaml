@@ -33,5 +33,6 @@
       - "{{ hostvars[groups['dns_slaves'][1]]['ansible_default_ipv4']['address'] }}"
   with_items:
     - "{{ range(1, 3) | list }}"
+  no_log: true
     
   
