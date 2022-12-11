@@ -17,12 +17,11 @@ db_url=$(grep "^database_url=" /etc/pinger/pinger.conf | sed 's/^.*=//')
 db_name=$(grep "^database_name=" /etc/pinger/pinger.conf | sed 's/^.*=//')
 targets=$(grep "^targets=" /etc/pinger/pinger.conf | sed 's/^.*=//' | sed 's/\(,\|;\)/ /g')
 
-# Sanitize the db name
-# if [[ $db_name == *["!@#$%^&*()-_+={}|[]\\;\':",.<>?/ "] ]] 
-# then
-#   echo "pinger.sh: It contains special characters"
-#   exit 1
-# fi
+# Sanitize DB name
+if ! grep -vq "[]^\!@#$%()[{}|=+\`\"\'~?<>,\ -]" <<< "$db_name"; then
+    logger "Error: database_name contains illegal special characters."
+    exit 1
+fi
 
 curl -i -XPOST "${db_url}/query" --data-urlencode "q=CREATE DATABASE $db_name" 1>/dev/null 2>/dev/null
 
