@@ -37,6 +37,7 @@
   loop:
     - main.json 
     - mysql.json
+    - syslog.json
   notify: Restart grafana docker
   
 - name: Grafana Docker 
@@ -49,4 +50,4 @@
    dns_search_domains: "{{ domain_name }}"
    dns_servers: 
     - "{{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }}"
-    - "{{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }}"
+    - "{{ hostvars[groups['dns_slaves'][1]]['ansible_default_ipv4']['address'] }}"
