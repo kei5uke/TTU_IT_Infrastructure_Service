@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1066,7 +1066,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "haproxy_server_up{instance=\"vm1:9101\"}",
+          "expr": "haproxy_server_up{instance=\"vm2:9101\"}",
           "legendFormat": "{{server}}",
           "range": true,
           "refId": "A"

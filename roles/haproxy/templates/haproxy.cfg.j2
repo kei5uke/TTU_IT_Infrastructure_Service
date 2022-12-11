@@ -39,7 +39,6 @@ listen my_ha_frontend
 {% endfor %}
 {%- endfor -%}
 
-
 listen stats
   bind :{{haproxy_stats_port}}
   stats enable
