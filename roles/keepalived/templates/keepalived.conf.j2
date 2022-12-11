@@ -19,12 +19,12 @@ vrrp_instance agama {
     {% endif%}
     advert_int 1                            
     virtual_ipaddress {    
-      {% if (hostvars['vm1']['ansible_default_ipv4']['address'] | split('.'))[2] == "43" %}
+      {% if (hostvars[groups['keepalived_master'][0]]['ansible_default_ipv4']['address'] | split('.'))[2] == "43" %}
       {% set oct = 101 %}
       {% else %}
       {% set oct = 100 %}
       {% endif %}                 
-      192.168.{{oct}}.{{ (hostvars['vm1']['ansible_default_ipv4']['address'] | split('.'))[3]}}/24                  
+      192.168.{{oct}}.{{ (hostvars[groups['keepalived_master'][0]]['ansible_default_ipv4']['address'] | split('.'))[3]}}/24                  
     }
     unicast_peer {                          
       {% for vm in groups['haproxy'] %}
