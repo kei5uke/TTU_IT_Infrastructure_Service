@@ -6,6 +6,12 @@
   ansible.builtin.apt:
     name: ca-certificates>=20211000*
 
+- name: Add /etc/hosts
+  lineinfile:
+    path: "/etc/hosts"
+    line: 127.0.0.1 localhost {{ inventory_hostname }}
+    insertbefore: BOF
+
 - name: Set hostname
   hostname:
     name: "{{ inventory_hostname }}"
