@@ -11,7 +11,14 @@ Folloing services will be backed up using ansible playbook
 ## RPO  
 The backup will be updated to the point where the database is no more than 1 day in the past.  
 
-## Versioning and Retention 
+## Versioning and Retention
+### Database Backup Schedule  
+| Day              | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday |
+|------------------|--------|---------|-----------|----------|--------|----------|--------|
+| Local Backup     | 1:00   | 1:00    | 1:00      | 1:00     | 1:00   | 1:00     | 1:00   |
+| Full Backup      |        |         |           |          |        |          | 1:30   |
+| Increment Backup | 1:30   | 1:30    | 1:30      | 1:30     | 1:30   | 1:30     |        |
+
 Local backup is made once a day at 1:00 AM(EET), includeing Influxdb, MySQL   
 Old back up will be deleted after the new one is made.  
 
