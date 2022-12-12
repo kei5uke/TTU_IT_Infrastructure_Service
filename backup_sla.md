@@ -12,7 +12,7 @@ Folloing services will be backed up using ansible playbook
 The backup will be updated to the point where the database is no more than 1 day in the past.  
 
 ## Versioning and Retention
-### Database Backup Schedule  
+### Database Backup Schedule (Time in EET) 
 | Day              | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday |
 |------------------|--------|---------|-----------|----------|--------|----------|--------|
 | Local Backup     | 1:00   | 1:00    | 1:00      | 1:00     | 1:00   | 1:00     | 1:00   |
