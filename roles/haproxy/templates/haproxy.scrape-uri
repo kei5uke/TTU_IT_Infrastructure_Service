@@ -1,1 +1,0 @@
-ARGS='--haproxy.scrape-uri="http://{{ inventory_hostname }}.{{ domain_name }}:{{ haproxy_stats_port }}/stats;csv"'

@@ -11,5 +11,6 @@
   hostname = ""
   omit_hostname = false
 [[outputs.influxdb]]
+  urls = ["http://localhost:{{influxdb_port}}"]
 [[inputs.syslog]]
-  server = "udp://:6514"
+  server = "udp://:{{rsyslog_log_port}}"

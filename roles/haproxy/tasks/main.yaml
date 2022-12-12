@@ -10,9 +10,9 @@
     dest: /etc/haproxy/haproxy.cfg
   notify: Restart HAproxy
 
-- name: Copy HAproxy.scrape-uri
+- name: HAproxy args
   template:
-    src: haproxy.scrape-uri
+    src: prometheus-haproxy-exporter.j2
     dest: /etc/default/prometheus-haproxy-exporter
   notify: 
     - Restart HAproxy

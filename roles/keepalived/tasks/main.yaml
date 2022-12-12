@@ -42,6 +42,23 @@
     - Reload daemon
     - Restart keepalived
     - Restart keepalived exporter
+  register: service
+
+- name: keepalived exporter args 
+  template:
+    src: keepalived_exporter.j2
+    dest: /etc/default/keepalived_exporter
+  notify: 
+    - Restart keepalived exporter
+  register: service
+
+# - name: Wait for 10 sec
+#   pause:
+#     seconds: 10
+#   when: service.changed
+
+# - name: execute handlers
+#   meta: flush_handlers
 
 - name: Enable keepalived and keepalived_exporter 
   service:

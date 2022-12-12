@@ -4,6 +4,14 @@
     dest: /usr/local/bin/influxdb-exporter
     mode: 0555
 
+- name: Influxdb exporter args 
+  template:
+    src: prometheus-influxdb-exporter.j2
+    dest: /etc/default/prometheus-influxdb-exporter
+  notify:
+    - Daemon reload
+    - Restart influxdb exporter
+
 - name: Copy service template
   template:
     src: prometheus-influxdb-stats-exporter.service.j2

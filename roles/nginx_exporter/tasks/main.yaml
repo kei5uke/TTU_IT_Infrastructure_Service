@@ -11,6 +11,13 @@
     - Restart Nginx
     - Reload Daemons
 
+- name: Nginx-exporter args
+  template:
+    src: prometheus-nginx-exporter.j2
+    dest: /etc/default/prometheus-nginx-exporter
+  notify: 
+    - Restart Nginx Exporter
+
 - name: Enable Nginx Exporter
   service:
     name: prometheus-nginx-exporter

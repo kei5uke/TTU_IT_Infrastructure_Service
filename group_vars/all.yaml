@@ -78,6 +78,9 @@ dns_cname_records:
   web1: "{{ groups['web_servers'][0] }}"
   web2: "{{ groups['web_servers'][1] }}"
 
+# Bind
+bind_stats_port: 8053
+
 # Prometheus
 prometheus_port: 9090
 stub_status_port: 8080
@@ -119,6 +122,7 @@ grafana_password: !vault |
 
 # InfluxDB
 influxdb_port: 8086
+rsyslog_log_port: 6514
 
 # HAproxy
 haproxy_port: 88

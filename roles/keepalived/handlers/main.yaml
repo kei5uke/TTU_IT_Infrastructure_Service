@@ -9,5 +9,5 @@
 
 - name: Restart keepalived exporter
   service:
-    name: keepalived
+    name: keepalived_exporter
     state: restarted
