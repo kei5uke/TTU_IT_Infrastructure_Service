@@ -3,7 +3,7 @@
 Run Ansible playbook to install all the necessary configurations, run this command from the ica0002 on your machine.  
 ```ansible-playbook```
 
-To restore **MySQL** database you will have to run commands on the second virtual machine where our MySQL configuration is made. 
+To restore **MySQL** database you will have to run commands on the first virtual machine where our MySQL configuration is made. 
 
 Firstly, In order to restore the backup from the server, run this command as **backup** user:  
 ```sudo su - backup```    
